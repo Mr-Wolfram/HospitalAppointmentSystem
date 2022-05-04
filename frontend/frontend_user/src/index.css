@@ -1,0 +1,57 @@
+body {
+  background: url("./images/background.jpg") no-repeat fixed;
+  background-size: 100% 100%;
+  min-width: 40rem;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+
+}
+.ant-descriptions-item-content {
+  /*color: white;*/
+  background: #f5e18d !important;
+}
+.ant-descriptions-item-label {
+  /*color: white;*/
+  background: #fd9e01 !important;
+}
+  .ant-table-thead > tr >th{
+    /*color: white;*/
+    background: #fd9e01 !important;
+  }
+
+  .ant-table-tbody > tr >th{
+    /*color: white;*/
+    background: #fd9e01 !important;
+  }
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+#file-upload-button{
+   color: #00B7FF;
+   background-color: #00B7FF;
+ }
+
+@media screen and (max-width:50rem){
+  #Cards {
+    display: flex;
+    flex-direction: column;
+    height: 450px;
+    justify-content: space-between;
+  }
+  .myCard{
+    width: 100%;
+  }
+  #dataContainer{
+    flex-direction: column;
+  }
+  .indexChart{
+    width: 100%;
+  }
+}
+

@@ -49,24 +49,24 @@ export default class Index extends Component {
     }
 
     getMytask = () => {
-        axios.post("/getPersonalInfo", {
-            username:this.state.username
-        }).then(response => {
-            const data =  response.data;
-            if(data.code === "success"){
-                let array = data.taskArray.map((item, index) => {
-                    return {
-                        taskName: item.taskName,
-                        taskID: item.taskID
-                    }
-                });
+        // axios.post("/getPersonalInfo", {
+        //     username:this.state.username
+        // }).then(response => {
+        //     const data =  response.data;
+        //     if(data.code === "success"){
+        //         let array = data.taskArray.map((item, index) => {
+        //             return {
+        //                 taskName: item.taskName,
+        //                 taskID: item.taskID
+        //             }
+        //         });
 
-                cookie.save('taskArray', array, {path:'/'});
-            }
-            else{
-                message.warning ("获取个人信息出错3").then (r  => console.log(r));
-            }
-        })
+        //         cookie.save('taskArray', array, {path:'/'});
+        //     }
+        //     else{
+        //         message.warning ("获取个人信息出错3").then (r  => console.log(r));
+        //     }
+        // })
     }
 
     componentDidMount () {
@@ -151,6 +151,7 @@ export default class Index extends Component {
                                 <Route exact path={"/index/department"} component={Department}/>
                                 <Route exact path={"/index/ordermanage"} component={OrderManage}/>
                                 <Route exact path={"/index/notice"} component={Notice}/>
+                                <Route exact path={"/index/registration"} component={Registration}/>
                             </Switch>
                             {/*<Footer/>*/}
                         </Content>

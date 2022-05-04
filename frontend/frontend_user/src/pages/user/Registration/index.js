@@ -5,6 +5,7 @@ class Registration extends Component {
     render () {
         return (
             <div >
+                挂号
             </div>
         );
     }

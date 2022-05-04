@@ -13,20 +13,20 @@ body {
 }
 .ant-descriptions-item-content {
   /*color: white;*/
-  background: #f5e18d !important;
+  /* background: #f5e18d !important; */
 }
 .ant-descriptions-item-label {
   /*color: white;*/
-  background: #fd9e01 !important;
+  /* background: #fd9e01 !important; */
 }
   .ant-table-thead > tr >th{
     /*color: white;*/
-    background: #fd9e01 !important;
+    /* background: #fd9e01 !important; */
   }
 
   .ant-table-tbody > tr >th{
     /*color: white;*/
-    background: #fd9e01 !important;
+    /* background: #fd9e01 !important; */
   }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

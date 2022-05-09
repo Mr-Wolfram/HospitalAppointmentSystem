@@ -145,7 +145,8 @@ export default class Index extends Component {
                             style={{
                                 padding: 24,
                                 margin: 0,
-                                minHeight: "90vh",
+                                minHeight: "90vh"
+                                ,backgroundColor:'#F0F7F7'
                             }}
                         >
                             <Switch>

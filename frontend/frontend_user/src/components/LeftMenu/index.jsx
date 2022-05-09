@@ -31,7 +31,10 @@ const LeftMenu = (props) => {
                     <Menu.Item key="3" onClick={e => changePage("修改密码")}><Link to={{pathname:'/index/alterPwd'}}>修改密码</Link></Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub2" icon={<UserOutlined />} title="预约管理" >
-                    <Menu.Item key="2" onClick={e => changePage("科室浏览")}><Link to={{pathname:'/index/department'}}>科室浏览</Link></Menu.Item>
+                    <SubMenu key="sub3"  title="科室&排班表" >
+                        <Menu.Item key="2" onClick={e => changePage("科室浏览")}><Link to={{pathname:'/index/department'}}>科室浏览</Link></Menu.Item>
+                        <Menu.Item key="5" onClick={e => changePage("排班表")}><Link to={{pathname:'/index/timetable'}}>排班表</Link></Menu.Item>
+                    </SubMenu>
                     <Menu.Item key="6"  onClick={e => changePage("挂号预约")}><Link to={{pathname:'/index/registration'}}>挂号预约</Link></Menu.Item>
                     <Menu.Item key="8" onClick={e => changePage("订单管理")}><Link to={{pathname:'/index/ordermanage'}}>订单管理</Link></Menu.Item>
                     <Menu.Item key="4" onClick={e => changePage("系统通知")}><Link to={{pathname:'/index/notice'}}>系统通知</Link></Menu.Item>

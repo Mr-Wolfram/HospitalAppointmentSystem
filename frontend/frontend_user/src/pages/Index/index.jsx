@@ -12,6 +12,8 @@ import axios from "axios";
 import logo from "../../images/logo.png"
 
 import Department from "./../user/Department"
+import TimeTable from "./../user/TimeTable"
+
 import OrderManage from "./../user/OrderManage"
 import Notice from "./../user/Notice"
 import Registration from "./../user/Registration"
@@ -149,6 +151,7 @@ export default class Index extends Component {
                             <Switch>
                                 <Route exact path={"/index/alterPwd"} component={AlterPwd}/>
                                 <Route exact path={"/index/department"} component={Department}/>
+                                <Route exact path={"/index/timetable"} component={TimeTable}/>
                                 <Route exact path={"/index/ordermanage"} component={OrderManage}/>
                                 <Route exact path={"/index/notice"} component={Notice}/>
                                 <Route exact path={"/index/registration"} component={Registration}/>

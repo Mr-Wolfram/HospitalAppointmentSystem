@@ -27,7 +27,7 @@ const LeftMenu = (props) => {
                 <Menu.Item key="1" icon={<HomeOutlined />} onClick={e => changePage("首页")}><Link to={{pathname:'/index'}}>首页</Link></Menu.Item>
 
                 <SubMenu key="sub1" icon={<UserOutlined />} title="用户中心">
-
+                    <Menu.Item key="5" onClick={e => changePage("个人信息")}><Link to={{pathname:'/index/userinfo'}}>个人信息</Link></Menu.Item>
                     <Menu.Item key="3" onClick={e => changePage("修改密码")}><Link to={{pathname:'/index/alterPwd'}}>修改密码</Link></Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub2" icon={<UserOutlined />} title="预约管理" >

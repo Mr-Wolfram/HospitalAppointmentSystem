@@ -5,6 +5,7 @@ import {Typography, Breadcrumb, Button, Layout, Menu, message} from 'antd'
 import Footer from "../../components/Footer";
 import LeftMenu from "../../components/LeftMenu";
 import AlterPwd from "../AlterPwd";
+import Userinfo from "../Userinfo"
 import './index.css'
 import cookie from "react-cookies";
 import {Route, Switch} from "react-router-dom";
@@ -147,6 +148,7 @@ export default class Index extends Component {
                             }}
                         >
                             <Switch>
+                                <Route exact path={"/index/userinfo"} component={Userinfo}/>
                                 <Route exact path={"/index/alterPwd"} component={AlterPwd}/>
                                 <Route exact path={"/index/department"} component={Department}/>
                                 <Route exact path={"/index/ordermanage"} component={OrderManage}/>

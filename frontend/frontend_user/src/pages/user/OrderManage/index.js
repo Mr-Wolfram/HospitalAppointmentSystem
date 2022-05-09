@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 
-import { Input, Col, Select, InputNumber, DatePicker, AutoComplete, Cascader } from 'antd';
+import { Input, Col,Label, Button,Select, InputNumber, DatePicker, AutoComplete, Cascader } from 'antd';
 import TableCard from './component/TableCard';
 const Search = Input.Search;
 const InputGroup = Input.Group;
@@ -44,60 +44,74 @@ class OrderManage extends Component {
     render () {
         return (
             <div >
-                搜索框,列表
+                
                 <div>
                     
-                    <Search
+                    {/* <Search
                         placeholder="input search text"
                         style={{ width: 200 }}
                         onSearch={value => console.log(value)}
-                    />
+                    /> */}
                 <div>
                     <div>
-                        <InputGroup size="large">
+                        {/* <InputGroup size="large">
                         <Col span={4}>
                             <Input defaultValue="0571" />
                         </Col>
                         <Col span={8}>
                             <Input defaultValue="26888888" />
                         </Col>
+                        </InputGroup> */}
+                        
+                        <br />
+                        <InputGroup compact>
+                        <Select defaultValue="内科">
+                            <Option value="内科">内科</Option>
+                            <Option value="外科">外科</Option>
+                        </Select>
+                        <Input style={{ width: '50%' }} defaultValue="张医师" />
                         </InputGroup>
                         <br />
                         <InputGroup compact>
+                        <Select defaultValue="订单号">
+                            <Option value="订单号">订单号</Option>
+                            <Option value="药单号">药单号</Option>
+                        </Select>
+                        {/* <AutoComplete
+                            dataSource={this.state.dataSource}
+                            style={{ width: 200 }}
+                            onChange={this.handleChange}
+                            placeholder="请输入订单号"
+                        /> */}
+                        
                         <Input style={{ width: '20%' }} defaultValue="0571" />
                         <Input style={{ width: '30%' }} defaultValue="26888888" />
+                        
                         </InputGroup>
-                        <br />
+                        <br/>
                         <InputGroup compact>
-                        <Select defaultValue="Zhejiang">
-                            <Option value="Zhejiang">Zhejiang</Option>
-                            <Option value="Jiangsu">Jiangsu</Option>
-                        </Select>
-                        <Input style={{ width: '50%' }} defaultValue="Xihu District, Hangzhou" />
-                        </InputGroup>
-                        <br />
-                        <InputGroup compact>
-                        <Select defaultValue="Option1">
+                        {/* <Select defaultValue="Option1">
                             <Option value="Option1">Option1</Option>
                             <Option value="Option2">Option2</Option>
                         </Select>
                         <Input style={{ width: '50%' }} defaultValue="input content" />
-                        <InputNumber />
+                        <InputNumber /> */}
                         </InputGroup>
                         <br />
                         <InputGroup compact>
-                        <Input style={{ width: '50%' }} defaultValue="input content" />
+                        {/* <Input style={{ width: '50%' }} defaultValue="input content" /> */}
+                        <Button>日期选择</Button>
                         <DatePicker />
                         </InputGroup>
                         <br />
                         <InputGroup compact>
-                        <Select defaultValue="Option1-1">
-                            <Option value="Option1-1">Option1-1</Option>
-                            <Option value="Option1-2">Option1-2</Option>
+                        <Select defaultValue="支付状态选择">
+                            <Option value="待支付">待支付</Option>
+                            <Option value="已支付">已支付</Option>
                         </Select>
-                        <Select defaultValue="Option2-2">
-                            <Option value="Option2-1">Option2-1</Option>
-                            <Option value="Option2-2">Option2-2</Option>
+                        <Select defaultValue="标签">
+                            <Option value="待复诊">待复诊</Option>
+                            <Option value="完成">完成</Option>
                         </Select>
                         </InputGroup>
                         <br />
@@ -111,26 +125,15 @@ class OrderManage extends Component {
                         <Input style={{ width: 100, textAlign: 'center', borderLeft: 0 }} placeholder="Maximum" />
                         </InputGroup>
                         <br />
-                        <InputGroup compact>
-                        <Select defaultValue="Sign Up">
-                            <Option value="Sign Up">Sign Up</Option>
-                            <Option value="Sign In">Sign In</Option>
-                        </Select>
-                        <AutoComplete
-                            dataSource={this.state.dataSource}
-                            style={{ width: 200 }}
-                            onChange={this.handleChange}
-                            placeholder="Email"
-                        />
-                        </InputGroup>
+                        
                         <br />
-                        <InputGroup compact>
+                        {/* <InputGroup compact>
                         <Select style={{ width: '30%' }} defaultValue="Home">
                             <Option value="Home">Home</Option>
                             <Option value="Company">Company</Option>
                         </Select>
                         <Cascader style={{ width: '70%' }} options={options} placeholder="Select Address" />
-                        </InputGroup>
+                        </InputGroup> */}
                     </div>
                     <TableCard />
                     </div>

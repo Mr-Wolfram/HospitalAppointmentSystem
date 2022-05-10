@@ -148,7 +148,7 @@ class Register extends Component {
     render () {
         return (
             <div className='myForm'>
-                <img src='./images/registerPicture.jpeg' className='leftPicture' alt='leftPicture'/>
+                <img src='./images/registerPicture.jpg' className='leftPicture' alt='leftPicture'/>
                 <div className='right'>
                     <h4 className='title'>用户注册</h4>
                     <hr className='line'/>

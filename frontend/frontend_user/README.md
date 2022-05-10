@@ -1,3 +1,5 @@
+这是SE项目的前端分支(患者)
+
 nodejs:`v14.17.3`,npm `v6.14.13`
 
 `npm install`
@@ -17,5 +19,4 @@ please use
 `git commit -m "your commit"`
 
 `git push origin front_user`
-
 

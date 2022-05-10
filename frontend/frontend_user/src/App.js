@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Header from "./components/Header";
+// import Header from "./components/Header";
 import Login from "./pages/Login";
 import cookie from 'react-cookies';
 import {Route, Switch, Redirect} from 'react-router-dom'
@@ -30,7 +30,7 @@ class App extends Component {
         return (
             <div>
                 {
-                    this.state.username !== undefined ? <div/> : <Header/>
+                    this.state.username !== undefined ? <div/> : <div/>
                 }
                 <Switch>
                     <Route path="/index" component={Index} />

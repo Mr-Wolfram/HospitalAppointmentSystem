@@ -212,7 +212,7 @@ class Registration extends React.Component {
   }
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<Registration />);
+// const root = ReactDOM.createRoot(document.getElementById('root'));
+// root.render(<Registration />);
 
 export default Registration;

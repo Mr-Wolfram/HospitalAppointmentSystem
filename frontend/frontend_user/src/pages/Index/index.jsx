@@ -18,13 +18,13 @@ import TimeTable from "./../user/TimeTable"
 import OrderManage from "./../user/OrderManage"
 import Notice from "./../user/Notice"
 import Registration from "./../user/Registration"
-
+import IndexPage from "./../user/IndexPage"
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
 const items1 = ['1', '2', '3'].map((key) => ({
     key,
-    label: `视图 ${key}`,
+    label: `shortcut ${key}`,
   }));
 export default class Index extends Component {
 
@@ -115,7 +115,7 @@ export default class Index extends Component {
         }
 
     }
-    
+
     render () {
         return (
             <div>
@@ -130,7 +130,12 @@ export default class Index extends Component {
                     </Menu>
                 </Header> */}
                 <Header className="header">
-                    <div className="logo" />
+
+                    <div className="logo" >
+
+                        <div style={{position:"absolute",width:130,top:0,left:40,height:10,fontSize:17}}>
+                            <img src={logo} alt={logo} width={18} />医疗诊断系统</div>
+                    </div>
                     <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} />
                     <Button type="primary" id="exitBtn" onClick = {this.handleLoginOut}>退出登录</Button>
                 </Header>
@@ -151,6 +156,7 @@ export default class Index extends Component {
                             }}
                         >
                             <Switch>
+                                <Route exact path={"/index"} component={IndexPage}/>
                                 <Route exact path={"/index/userinfo"} component={Userinfo}/>
                                 <Route exact path={"/index/alterPwd"} component={AlterPwd}/>
                                 <Route exact path={"/index/department"} component={Department}/>

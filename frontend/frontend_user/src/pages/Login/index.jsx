@@ -5,7 +5,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import cookie from 'react-cookies'
 import './index.css'
 import {Link} from "react-router-dom";
-
+import loginPicture from "./../../images/loginPicture.jpg"
 
 class Login extends Component {
     //防止修改url访问
@@ -75,7 +75,7 @@ class Login extends Component {
     render () {
         return (
             <div className='myForm'>
-                <img src={'./images/Login_pic.png'} alt={'loginPicture'} className='leftPicture'/>
+                <img src={'./images/loginPicture.jpg'} alt={'loginPicture'} className='leftPicture'/>
                 <div className='right'>
                     <h6 className='title'>用户登录</h6>
                     <hr className='line'/>

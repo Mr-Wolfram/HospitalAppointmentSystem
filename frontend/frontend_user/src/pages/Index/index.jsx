@@ -5,6 +5,7 @@ import {Typography, Breadcrumb, Button, Layout, Menu, message} from 'antd'
 import Footer from "../../components/Footer";
 import LeftMenu from "../../components/LeftMenu";
 import AlterPwd from "../AlterPwd";
+import Userinfo from "../Userinfo"
 import './index.css'
 import cookie from "react-cookies";
 import {Route, Switch} from "react-router-dom";
@@ -12,16 +13,18 @@ import axios from "axios";
 import logo from "../../images/logo.png"
 
 import Department from "./../user/Department"
+import TimeTable from "./../user/TimeTable"
+
 import OrderManage from "./../user/OrderManage"
 import Notice from "./../user/Notice"
 import Registration from "./../user/Registration"
-
+import IndexPage from "./../user/IndexPage"
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
 const items1 = ['1', '2', '3'].map((key) => ({
     key,
-    label: `视图 ${key}`,
+    label: `shortcut ${key}`,
   }));
 export default class Index extends Component {
 
@@ -49,24 +52,24 @@ export default class Index extends Component {
     }
 
     getMytask = () => {
-        axios.post("/getPersonalInfo", {
-            username:this.state.username
-        }).then(response => {
-            const data =  response.data;
-            if(data.code === "success"){
-                let array = data.taskArray.map((item, index) => {
-                    return {
-                        taskName: item.taskName,
-                        taskID: item.taskID
-                    }
-                });
+        // axios.post("/getPersonalInfo", {
+        //     username:this.state.username
+        // }).then(response => {
+        //     const data =  response.data;
+        //     if(data.code === "success"){
+        //         let array = data.taskArray.map((item, index) => {
+        //             return {
+        //                 taskName: item.taskName,
+        //                 taskID: item.taskID
+        //             }
+        //         });
 
-                cookie.save('taskArray', array, {path:'/'});
-            }
-            else{
-                message.warning ("获取个人信息出错3").then (r  => console.log(r));
-            }
-        })
+        //         cookie.save('taskArray', array, {path:'/'});
+        //     }
+        //     else{
+        //         message.warning ("获取个人信息出错3").then (r  => console.log(r));
+        //     }
+        // })
     }
 
     componentDidMount () {
@@ -112,7 +115,7 @@ export default class Index extends Component {
         }
 
     }
-    
+
     render () {
         return (
             <div>
@@ -127,7 +130,12 @@ export default class Index extends Component {
                     </Menu>
                 </Header> */}
                 <Header className="header">
-                    <div className="logo" />
+
+                    <div className="logo" >
+
+                        <div style={{position:"absolute",width:130,top:0,left:40,height:10,fontSize:17}}>
+                            <img src={logo} alt={logo} width={18} />医疗诊断系统</div>
+                    </div>
                     <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} />
                     <Button type="primary" id="exitBtn" onClick = {this.handleLoginOut}>退出登录</Button>
                 </Header>
@@ -143,14 +151,19 @@ export default class Index extends Component {
                             style={{
                                 padding: 24,
                                 margin: 0,
-                                minHeight: "90vh",
+                                minHeight: "90vh"
+                                ,backgroundColor:'#F0F7F7'
                             }}
                         >
                             <Switch>
+                                <Route exact path={"/index"} component={IndexPage}/>
+                                <Route exact path={"/index/userinfo"} component={Userinfo}/>
                                 <Route exact path={"/index/alterPwd"} component={AlterPwd}/>
                                 <Route exact path={"/index/department"} component={Department}/>
+                                <Route exact path={"/index/timetable"} component={TimeTable}/>
                                 <Route exact path={"/index/ordermanage"} component={OrderManage}/>
                                 <Route exact path={"/index/notice"} component={Notice}/>
+                                <Route exact path={"/index/registration"} component={Registration}/>
                             </Switch>
                             {/*<Footer/>*/}
                         </Content>

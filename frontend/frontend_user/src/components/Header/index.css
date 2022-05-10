@@ -1,11 +1,14 @@
 .myHeader{
     width: auto;
-    min-width: 1000px;
-    height: 12vh;
+    /*height: auto;*/
+    min-width: 150px;
+    height: 6vh;
     /* background-color: rgba(214, 214, 214, 0.5); */
     text-align: center;
     /* line-height: 100px; */
     position: absolute;
+    left: 2%;
+    top:1vh;
     /* right: 0.5%;
     left: 0.5%; */
     overflow: hidden;
@@ -15,7 +18,7 @@
     position: absolute;
     left: 1%;
     right: 1%;
-    height: 1rem;
+    height: 2rem;
     cursor: pointer;
 }
 
@@ -31,15 +34,16 @@
 .myFont{
     font-style: normal;
     position: relative;
-    font-size: 3rem;
-    top: 4rem;
+    font-size: 24px;
+    left: 0;
+    top: 5rem;
     animation: .6s swift-up ease-in-out forwards;
 }
 
 mark{
     background-color: transparent;
     color: inherit;
-    background-image: linear-gradient(rgb(112, 212, 228), rgb(112, 212, 228));
+    /*background-image: linear-gradient(rgb(112, 212, 228), rgb(112, 212, 228));*/
     background-repeat: no-repeat;
     background-size: 0 50%;
     animation: .6s rowMove ease-in-out forwards;

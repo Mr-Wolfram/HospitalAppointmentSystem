@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-
+import api from "./../../../commons/index"
 import { Input, Col,Label, Button,Select, InputNumber, DatePicker, AutoComplete, Cascader } from 'antd';
 import TableCard from './component/TableCard';
 const Search = Input.Search;
@@ -41,12 +41,20 @@ class OrderManage extends Component {
           ],
         });
       }
+      
     render () {
         return (
             <div >
                 
                 <div>
-                    
+                  <Button onClick={()=>{
+                    //这里可以加get的参数
+                      api.get_filelist().then(r=>console.log("get file list",r.data))
+                  }}>try get</Button>
+                    <Button onClick={()=>{
+                      api.post_file("https://www.zju.edu.cn/_upload/tpl/05/e5/1509/template1509/images/logo.png","zju_logo")
+                      .then(r=>console.log("post file",r.data))
+                  }}>try post</Button>
                     {/* <Search
                         placeholder="input search text"
                         style={{ width: 200 }}
@@ -100,7 +108,7 @@ class OrderManage extends Component {
                         <br />
                         <InputGroup compact>
                         {/* <Input style={{ width: '50%' }} defaultValue="input content" /> */}
-                        <Button>日期选择</Button>
+                        <Button >日期选择</Button>
                         <DatePicker />
                         </InputGroup>
                         <br />

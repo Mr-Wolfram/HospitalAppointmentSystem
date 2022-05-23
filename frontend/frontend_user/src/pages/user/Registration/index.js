@@ -82,8 +82,8 @@ class Registration extends React.Component {
       modalText: '??',
       time: undefined,
       payVisible: false,
-      doctorData: undefined,
-      treeData: undefined,
+      doctorData: [],
+      treeData: [],
       doctorMap: new Map(),
     };
   }
@@ -93,14 +93,31 @@ class Registration extends React.Component {
     api.post_doctor_info(date)
     .then(r => {
       console.log("post doctor info");
-      this.setState({doctorData: r.data.data.doctorData, treeData: r.data.data.treeData});
-      console.log(this.state.doctorData, this.state.treeData);
+      this.setState(
+          {
+            doctorData: r.data.data.doctorData,
+            treeData: r.data.data.treeData
+          }
+          )
+      //反正是一样的值,直接用刚才穿过来的值,因为还没更新state呢,就还是用r.data.data.doctorData
+      let i;
+      let newMap=new Map();
+      for(i = 0; i < r.data.data.doctorData.length; i++) {
+        //还是要用setState,可以new一个map,再覆盖
+        newMap.set(
+            r.data.data.doctorData.doctorId,
+            {name: r.data.data.doctorData[i].name,
+              department: r.data.data.doctorData[i].department,
+              major: r.data.data.doctorData[i].major,
+              info: r.data.data.doctorData[i].info
+            })
+      }
+      //循环完之后一下子赋值改state的map
+      this.setState({doctorMap:newMap});
+      console.log(r.data.data.doctorData);
     });
     console.log(this.state.doctorData, this.state.treeData);
-    let i;
-    for(i = 0; i < this.state.doctorData.length; i++) {
-      this.state.doctorMap.set(this.state.doctorData[i].doctorId, {name: this.state.doctorData[i].name, department: this.state.doctorData[i].department, major: this.state.doctorData[i].major, info: this.state.doctorData[i].info})
-    }
+
   };
 
   searchOnChange = value => {

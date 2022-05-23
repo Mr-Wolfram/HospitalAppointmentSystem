@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { TreeSelect, Modal, Button, Space, Radio, message } from 'antd';
 // 由于 antd 组件的默认文案是英文，所以需要修改为中文
@@ -9,6 +9,7 @@ import 'antd/dist/antd.css';
 import './index.css';
 import img1 from './images/1.png'
 import img2 from './images/2.png'
+import api from "./../../../commons/index"
 
 moment.locale('zh-cn');
 
@@ -21,12 +22,6 @@ const doctorData = [
   {departmentId: '01', doctorId: '0448', name: '李明', department: '眼科' , major: '青光眼', info: '浙江医科大学博士毕业'},
   {departmentId: '01', doctorId: '0129', name: '王刚', department: '眼科' , major: '白内障', info: '浙江大学校医院副院长'},
 ]
-
-const map = new Map();
-let i;
-for(i = 0; i < doctorData.length; i++) {
-  map.set(doctorData[i].doctorId, {name: doctorData[i].name, department: doctorData[i].department, major: doctorData[i].major, info: doctorData[i].info})
-}
 
 const treeData = [
   {
@@ -87,8 +82,26 @@ class Registration extends React.Component {
       modalText: '??',
       time: undefined,
       payVisible: false,
+      doctorData: undefined,
+      treeData: undefined,
+      doctorMap: new Map(),
     };
   }
+
+  componentWillMount() {
+    let date = new Date()
+    api.post_doctor_info(date)
+    .then(r => {
+      console.log("post doctor info");
+      this.setState({doctorData: r.data.data.doctorData, treeData: r.data.data.treeData});
+      console.log(this.state.doctorData, this.state.treeData);
+    });
+    console.log(this.state.doctorData, this.state.treeData);
+    let i;
+    for(i = 0; i < this.state.doctorData.length; i++) {
+      this.state.doctorMap.set(this.state.doctorData[i].doctorId, {name: this.state.doctorData[i].name, department: this.state.doctorData[i].department, major: this.state.doctorData[i].major, info: this.state.doctorData[i].info})
+    }
+  };
 
   searchOnChange = value => {
     // console.log(value)
@@ -96,6 +109,8 @@ class Registration extends React.Component {
   };
 
   showSearchModal = () => {
+    api.post_doctor_select(this.state.doctorId)
+    .then(r=>console.log("post doctor select", r.data.data.doctor_name, r.data.data.department))
     this.setState({ timeTableVisible: true });
   };
 
@@ -153,7 +168,7 @@ class Registration extends React.Component {
               style={{ width: '80%' }}
               value={this.state.doctorId}
               dropdownStyle={{ maxHeight: 600, overflow: 'auto' }}
-              treeData={treeData}
+              treeData={this.state.treeData}
               placeholder='请选择预约医生'
               treeDefaultExpandAll
               onChange={this.searchOnChange}
@@ -164,7 +179,7 @@ class Registration extends React.Component {
           </div>
           <Radio.Group defaultValue='0' buttonStyle='outline' onChange={this.chooseOnChange}>
             <Space size={[20, 20]} wrap>
-              {doctorData.map((item, index) => {
+              {this.state.doctorData.map((item, index) => {
                 return (
                   <Radio.Button value={item.doctorId} style={{width: '300px', height: '300px'}}><span><img src={img1} alt='img1' style={{width: '100px', height: '100px', marginLeft: '90px', marginTop: '10px'}} /><br/>姓名: {item.name}<br/>科室: {item.department}<br/>主治症状: {item.major}<br/>个人简介: {item.info}</span></Radio.Button>
                 )
@@ -181,7 +196,7 @@ class Registration extends React.Component {
           okText='确定'
           cancelText='取消'
         >
-          <span>姓名: {map.get(this.state.doctorId).name}<br/>科室: {map.get(this.state.doctorId).department}<br/>主治症状: {map.get(this.state.doctorId).major}<br/>个人简介: {map.get(this.state.doctorId).info}</span>
+          <span>姓名: {this.state.doctorMap.get(this.state.doctorId).name}<br/>科室: {this.state.doctorMap.get(this.state.doctorId).department}<br/>主治症状: {this.state.doctorMap.get(this.state.doctorId).major}<br/>个人简介: {this.state.doctorMap.get(this.state.doctorId).info}</span>
           <Radio.Group defaultValue='0' buttonStyle='solid' onChange={this.selectOnChange} style={{marginLeft: '30px', marginTop: '10px'}}>
             <Space size={[20, 20]} wrap>
               <Radio.Button value='8' style={{width: '120px', height: '60px'}}><span>8:00-9:00<br/>当前空余6人</span></Radio.Button>
@@ -202,7 +217,7 @@ class Registration extends React.Component {
           onCancel={this.handlePayModalCancel}
           okText='确定'
           cancelText='取消'>
-          <p>预约医生: {map.get(this.state.doctorId).name}</p>
+          <p>预约医生: {this.state.doctorMap.get(this.state.doctorId).name}</p>
           <p>预约时间: {this.state.time}:00-{Number(this.state.time) + 1}:00</p>
           <img src={img2} alt='img2' style={{marginLeft: '35px'}}></img>
         </Modal>

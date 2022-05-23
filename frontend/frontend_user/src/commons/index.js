@@ -10,8 +10,26 @@ export default {
       return await http.post('/upload/file', {
           file_url:file_url,file_name:file_name
       })
-  },
+    },
     // add  here
+    async post_doctor_info(date) {
+      return await http.post('/doctor/info', {
+        date: date
+      })
+    },
+
+    async post_doctor_select(doctorId) {
+      return await http.post('/doctor/select', {
+        doctorId: doctorId
+      })
+    },
+
+    async post_appointment_form() {
+      return await http.post('/appointment/form', {
+
+      })
+    },
+
 }
 
 

@@ -14,7 +14,7 @@ class Department extends React.Component {
         };
     }
 
- 
+
     changeshow(name){
         let depart_struct=require('./data/departstruct.json');
         let l = 0;
@@ -23,7 +23,7 @@ class Department extends React.Component {
             if(i === name){
                 break;
             }
-        } 
+        }
         this.setState(
             {
                 num:l,
@@ -31,7 +31,12 @@ class Department extends React.Component {
             }
         );
     }
-
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        get
+            .then(
+                setSta
+            )
+    }
     changeshow1(name){
         let depart_general_name = [];
         let depart_struct=require('./data/departstruct.json');
@@ -45,7 +50,7 @@ class Department extends React.Component {
             if(i === name){
                 break;
             }
-        } 
+        }
         this.setState(
             {
                 num1:l
@@ -81,7 +86,7 @@ class Department extends React.Component {
         )
 
     }
-  
+
 }
 
 

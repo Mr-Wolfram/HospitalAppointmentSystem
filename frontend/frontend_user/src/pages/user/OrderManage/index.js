@@ -1,51 +1,29 @@
-import React,{Component} from 'react';
+import React, {Component, useEffect} from 'react';
 import api from "./../../../commons/index"
-import { Input, Col,Label, Button,Select, InputNumber, DatePicker, AutoComplete, Cascader } from 'antd';
+import { Input, Col, Button,Select, DatePicker, AutoComplete, Cascader } from 'antd';
 import TableCard from './component/TableCard';
+import order_api from "./../../../commons/components/orderManage"
+
+
+
 const Search = Input.Search;
 const InputGroup = Input.Group;
 const Option = Select.Option;
-const options = [{
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [{
-      value: 'hangzhou',
-      label: 'Hangzhou',
-      children: [{
-        value: 'xihu',
-        label: 'West Lake',
-      }],
-    }],
-  }, {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [{
-      value: 'nanjing',
-      label: 'Nanjing',
-      children: [{
-        value: 'zhonghuamen',
-        label: 'Zhong Hua Men',
-      }],
-    }],
-  }];
-class OrderManage extends Component {
-    state = {
-        dataSource: [],
-      }
-      handleChange = (value) => {
-        this.setState({
-          dataSource: !value || value.indexOf('@') >= 0 ? [] : [
-            `${value}@gmail.com`,
-            `${value}@163.com`,
-            `${value}@qq.com`,
-          ],
-        });
-      }
-      
-    render () {
+
+function OrderManage () {
+
+    useEffect(()=>{
+        order_api.get_query_order(
+            "032324",1,["神经内科","呼吸外科"],"2022-01-01 00:00:00","2022-05-13 00:00:00"
+        ).then(r=>
+            console.log("order query",r.data)
+        )
+    })
+
+
         return (
             <div >
-                
+
                 <div>
                   <Button onClick={()=>{
                     //这里可以加get的参数
@@ -62,15 +40,7 @@ class OrderManage extends Component {
                     /> */}
                 <div>
                     <div>
-                        {/* <InputGroup size="large">
-                        <Col span={4}>
-                            <Input defaultValue="0571" />
-                        </Col>
-                        <Col span={8}>
-                            <Input defaultValue="26888888" />
-                        </Col>
-                        </InputGroup> */}
-                        
+
                         <br />
                         <InputGroup compact>
                         <Select defaultValue="内科">
@@ -91,10 +61,10 @@ class OrderManage extends Component {
                             onChange={this.handleChange}
                             placeholder="请输入订单号"
                         /> */}
-                        
+
                         <Input style={{ width: '20%' }} defaultValue="0571" />
                         <Input style={{ width: '30%' }} defaultValue="26888888" />
-                        
+
                         </InputGroup>
                         <br/>
                         <InputGroup compact>
@@ -133,7 +103,7 @@ class OrderManage extends Component {
                         <Input style={{ width: 100, textAlign: 'center', borderLeft: 0 }} placeholder="Maximum" />
                         </InputGroup>
                         <br />
-                        
+
                         <br />
                         {/* <InputGroup compact>
                         <Select style={{ width: '30%' }} defaultValue="Home">
@@ -145,11 +115,11 @@ class OrderManage extends Component {
                     </div>
                     <TableCard />
                     </div>
-                    
+
                 </div>
             </div>
         );
-        }
+
 }
 
 export default OrderManage;

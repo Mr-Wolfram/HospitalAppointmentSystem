@@ -22,8 +22,8 @@ export default [
   {
     url: '/getList/file',
     type: 'get',
-    response: () => {
-
+    response: (config) => {
+      console.log("aaa",config);
       let fileList = []
       for (let i = 0; i < 6; i++) {
         let file = {}

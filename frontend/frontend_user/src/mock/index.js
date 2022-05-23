@@ -3,11 +3,13 @@ import Mock from 'mockjs'
 import file from './file'
 import role from './role'
 import design from './design'
+import order from "./order";
 
 const mocks = [
   ...file,
   ...role,
-  ...design
+  ...design,
+  ...order
 ]
 
 for (const i of mocks) {

@@ -8,6 +8,7 @@ import login from './login'
 import indexpage from './indexpage'
 import querydepartment from './querydepartment'
 import registerorder from "./registerorder";
+import userinfo from './userinfo';
 const mocks = [
   ...file,
   ...role,
@@ -16,7 +17,8 @@ const mocks = [
   ...indexpage,
   ...login,
   ...querydepartment,
-  ...registerorder
+  ...registerorder,
+  ...userinfo
 ]
 
 for (const i of mocks) {

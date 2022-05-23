@@ -1,10 +1,15 @@
 import React, {Component} from 'react';
 import { Descriptions, Badge, Layout } from 'antd';
-import { Button, Menu } from 'antd';
+import { Button, Menu, message } from 'antd';
 import "./index.css"
 import { Avatar } from 'antd';
+import axios from "axios";
 import { UserOutlined } from '@ant-design/icons';
 const { Header, Content, Sider } = Layout;
+
+function changephone(){
+    message.warning("ss");
+}
 
 let basicinfo = (
     <div class = "repodiv">
@@ -12,7 +17,7 @@ let basicinfo = (
             <Descriptions.Item label="头像"><Avatar size={64} icon={<UserOutlined />} /></Descriptions.Item>
             <Descriptions.Item label="用户名">usrname</Descriptions.Item>
             <Descriptions.Item label="身份证号">111111</Descriptions.Item>
-            <Descriptions.Item label={<div class="labeldiv"><text>手机号</text><Button>换绑</Button></div>}>123456</Descriptions.Item>
+            <Descriptions.Item label={<div class="labeldiv"><text>手机号</text><Button onClick={changephone}>换绑</Button></div>}>123456</Descriptions.Item>
             <Descriptions.Item label={<div class="labeldiv"><text>邮箱</text><Button>换绑</Button></div>}>123@qq.com</Descriptions.Item>
             <Descriptions.Item label="年龄">18</Descriptions.Item>
             <Descriptions.Item label="收藏医生">

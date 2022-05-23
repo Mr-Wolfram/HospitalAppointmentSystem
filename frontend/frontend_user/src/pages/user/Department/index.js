@@ -31,12 +31,6 @@ class Department extends React.Component {
             }
         );
     }
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        get
-            .then(
-                setSta
-            )
-    }
     changeshow1(name){
         let depart_general_name = [];
         let depart_struct=require('./data/departstruct.json');

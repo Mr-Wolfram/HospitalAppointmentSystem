@@ -213,7 +213,10 @@ class Registration extends React.Component {
           okText='确定'
           cancelText='取消'
         >
-          <span>姓名: {this.state.doctorMap.get(this.state.doctorId).name}<br/>科室: {this.state.doctorMap.get(this.state.doctorId).department}<br/>主治症状: {this.state.doctorMap.get(this.state.doctorId).major}<br/>个人简介: {this.state.doctorMap.get(this.state.doctorId).info}</span>
+          <span>姓名: {this.state.doctorMap.get(this.state.doctorId)?this.state.doctorMap.get(this.state.doctorId).name:""}<br/>
+            科室: {this.state.doctorMap.get(this.state.doctorId)?this.state.doctorMap.get(this.state.doctorId).department:""}<br/>
+            主治症状: {this.state.doctorMap.get(this.state.doctorId)?this.state.doctorMap.get(this.state.doctorId).major:""}<br/>
+            个人简介: {this.state.doctorMap.get(this.state.doctorId)?this.state.doctorMap.get(this.state.doctorId).info:""}</span>
           <Radio.Group defaultValue='0' buttonStyle='solid' onChange={this.selectOnChange} style={{marginLeft: '30px', marginTop: '10px'}}>
             <Space size={[20, 20]} wrap>
               <Radio.Button value='8' style={{width: '120px', height: '60px'}}><span>8:00-9:00<br/>当前空余6人</span></Radio.Button>
@@ -234,7 +237,7 @@ class Registration extends React.Component {
           onCancel={this.handlePayModalCancel}
           okText='确定'
           cancelText='取消'>
-          <p>预约医生: {this.state.doctorMap.get(this.state.doctorId).name}</p>
+          <p>预约医生: {this.state.doctorMap.get(this.state.doctorId)?this.state.doctorMap.get(this.state.doctorId).name:""}</p>
           <p>预约时间: {this.state.time}:00-{Number(this.state.time) + 1}:00</p>
           <img src={img2} alt='img2' style={{marginLeft: '35px'}}></img>
         </Modal>

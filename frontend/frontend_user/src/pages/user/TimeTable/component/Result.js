@@ -67,7 +67,7 @@ class Result extends React.Component{
                     Data.data_info.map(Item=>{
                         return (
                             <>
-                                <h3>{Item}</h3>
+                                <p className='week'>{Item}</p>
                                 <Schedule depart={this.props.depart} data={Data[type[this.getnum(Item)-1]]}></Schedule>
                             </>
                         )

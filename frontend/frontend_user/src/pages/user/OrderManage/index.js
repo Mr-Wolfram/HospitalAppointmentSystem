@@ -26,7 +26,7 @@ function OrderManage () {
             "032324","","","TRADE_SUCCESS","神经内科","2022-01-01 00:00:00","2022-05-13 00:00:00"
         ).then(r=>{
                 console.log("order query",r.data);
-                // setOrderList(r.data.data)
+                setOrderList(r.data.data)
             }
         )
     },[])

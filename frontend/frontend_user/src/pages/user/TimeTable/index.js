@@ -106,32 +106,37 @@ class TimeTable extends React.Component{
         
         return (
             <>
-                <h2>时间表查询</h2>
+                
                 <br />
                 <Select size={this.state.size} placeholder="请选择想要查询的大类（单选）"  onChange={value=>this.handleChange(value)} style={{ width: 200 }}>
                     {depart_general}
                 </Select>
                 <br />
+                <p />
                 <Select
                     mode="multiple"
                     size={this.state.size}
                     placeholder="请选择想要查询的科室（多选）"
                     onChange={value=>this.handledepart(value)}
-                    style={{ width: '100%' }}
+                    style={{ width: '90%' }}
                 >
                     {depart_detail}
                 </Select>
                 <br />
+                <p />
                 <Select
                     mode="tags"
                     size={this.state.size}
                     placeholder="请选择想要查询的日期（多选）（测试的时候先选两个就好）"
                     onChange={value=>this.handleday(value)}
-                    style={{ width: '100%' }}
+                    style={{ width: '90%' }}
                 >
                     {week}
                 </Select>
+                <br />
+                <p />
                 <Button type='primary' onClick={()=>this.display()} >查询</Button>
+                <p />
                 {
                     this.state.isShow !== false&&<Result data={this.state.data1} day={this.state.day} depart={this.state.depart}></Result>
                 }

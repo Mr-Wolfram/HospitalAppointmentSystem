@@ -1,54 +1,100 @@
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {Table} from "antd"
-const dataSource = [{
-    key: '1',
-    name: '内科',
-    age: "2022-01-03",
-    address: '完成',
-    doctor:'张三'
-  }, {
-    key: '2',
-    name: '外科',
-    age: '2022-04-25',
-    address: '待支付',
-    doctor:'李燕'
-  },{
-    key: '3',
-    name: '外科',
-    age: '2022-04-24',
-    address: '完成',
-    doctor:'王威'
-  },
-];
-  
+import { Modal, Button } from 'antd';
+import {StarFilled, StarOutlined} from "@ant-design/icons";
+
   const columns = [{
+      title: '订单号',
+      dataIndex: 'order_id',
+      key: 'order_id',
+  },,
+      {
     title: '科室',
-    dataIndex: 'name',
-    key: 'name',
+    dataIndex: 'department',
+    key: 'department',
   }, {
     title: '时间',
-    dataIndex: 'age',
-    key: 'age',
+    dataIndex: 'time',
+    key: 'time',
   }, {
     title: '订单状态',
-    dataIndex: 'address',
-    key: 'address',
+    dataIndex: 'status',
+    key: 'status',
   },{
     title: '医生',
-    dataIndex: 'doctor',
-    key: 'doctor',
-  }];
-class TableCard extends Component {
-    
-      
-      
-    render () {
+    dataIndex: 'doctor_name',
+    key: 'doctor_name',
+  },{
+      title: '病情简述',
+      dataIndex: 'condition_description',
+      key: 'condition_description',
+  },{
+          title: '详情',
+          dataIndex: 'detail',
+          key: 'detail',
+      }
+      ];
+function TableCard(props)  {
+        console.log("order manage,table props data",props)
+        const tmpArr=[0];
+
+        const [IsModalOpen,setIsModalOpen]=useState(new Array(props.orderList.length));
+        const [icoStatus,setCollect]=useState(new Array(props.orderList.length));
+        function setIsModalVisible(bool,idx){
+            if(bool===true){
+                let newArray=IsModalOpen.map(r=>false);
+                newArray[idx]=true;
+                setIsModalOpen(newArray);
+            }else{
+                let newArray=IsModalOpen.map(r=>false);
+                newArray[idx]=false;
+                setIsModalOpen(newArray);
+            }
+        }
         return (
             <div >
-                <Table dataSource={dataSource} columns={columns} />
+                <Table dataSource={props.orderList.map((d,idx)=>{
+                    return {
+                        key: idx,
+                        department: d.department,
+                        time: d.time,
+                        status: d.status,
+                        order_id: d.order_id,
+                        doctor_name: d.doctor_name,
+                        detail:<div>
+                            <Button type="primary" onClick={()=>setIsModalVisible(true,idx)}>
+                                详情
+                            </Button>
+                            <Modal title="订单详情" visible={IsModalOpen[idx]} onOk={()=>setIsModalVisible(false,idx)}
+                                   onCancel={()=>setIsModalVisible(false,idx)}>
+                                <p>患者姓名:{d.user_name}</p>
+                                <p>医生姓名:{d.doctor_name}</p>
+                                <p>科室:{d.department}</p>
+                                {tmpArr.map(r=>{
+                                    if(icoStatus[idx]){return <StarOutlined onClick={(e) =>{
+                                        console.log("dsd")
+                                        let newArr=icoStatus;
+                                        newArr[idx]=!icoStatus[idx];
+                                        setCollect(newArr);
+                                    }} />}
+                                    else {
+                                        return <StarFilled onClick={(e) =>{
+                                            console.log("dsdcds")
+                                            let newArr=icoStatus;
+                                            newArr[idx]=!icoStatus[idx];
+                                            setCollect(newArr);
+                                            console.log(newArr);
+                                        }} />
+                                    }
+                                })}
+                            </Modal>
+                        </div>
+                    }
+                }
+                )} columns={columns} />
             </div>
         );
-    }
+
 }
 
 export default TableCard;

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Form, Input, Button, message} from 'antd';
-import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
+import {UserOutlined, LockOutlined, MailOutlined, PhoneOutlined} from '@ant-design/icons';
 import axios from "axios";
 import cookie from 'react-cookies'
 
@@ -9,13 +9,13 @@ class Register extends Component {
     state = {
         username: '',
         password: '',
-        email:'',
+        phone:'',
         nameRepeated: false,
-        emailRepeated: false,
+        phoneRepeated: false,
         nameStyle:'',
-        emailStyle:'',
+        phoneStyle:'',
         nameHelp:null,
-        emailHelp:null,
+        phoneHelp:null,
         id1:undefined,
         id2:undefined
     }
@@ -48,13 +48,14 @@ class Register extends Component {
         //延时1s，增加动画效果
         let id = setTimeout(() => {
             let that = this
-            axios.post('/register', {
+            axios.post('/user/check/name', {
                 username
             })
                 .then(function (response) {
                     const data = response.data
-                    const result = data.status
-                    if (result === 'repeated'){
+                    const result = data.data.IsExit
+                    // console.log(data,result);
+                    if (result === 'true'){
                         that.setState({nameRepeated:true, nameStyle:'error', nameHelp:'该用户名已存在'})
                     }
                     else{
@@ -70,29 +71,30 @@ class Register extends Component {
 
 
     //实时发送ajax请求验证邮箱是否被注册
-    handleEmail = e => {
-        const email = e.target.value
-        const reg = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/
-        //使用邮箱的正则判断邮箱格式是否符合要求
-        if (!reg.test(email)) {
-            this.setState({emailStyle:'warning', emailHelp:'请输入正确的邮箱格式'})
+    handlePhone = e => {
+        const phone = e.target.value
+        const reg = /^1[3456789]\d{9}$/
+        //使用邮箱的正则判断手机号格式是否符合要求
+        if (!reg.test(phone)) {
+            this.setState({phoneStyle:'warning', phoneHelp:'请输入正确的手机号格式'})
             return
         }
-        this.setState({email, emailStyle:'validating'})
+        this.setState({phone, phoneStyle:'validating'})
         clearTimeout(this.state.id2) // 防抖
         let id = setTimeout(() => {
             let that = this
-            axios.post('/register', {
-                email
+            axios.post('/user/check/phone', {
+                phone
             })
                 .then(function (response) {
                     const data = response.data
-                    const result = data.status
-                    if (result === 'repeated'){
-                        that.setState({emailRepeated:true, emailStyle:'error', emailHelp:'该邮箱已被注册'})
+                    const result = data.data.IsExit
+                    // console.log(data,result);
+                    if (result === 'true'){
+                        that.setState({phoneRepeated:true, phoneStyle:'error', phoneHelp:'该手机号已被注册'})
                     }
                     else{
-                        that.setState({emailRepeated:false, emailStyle:'success', emailHelp:'该邮箱可用'})
+                        that.setState({phoneRepeated:false, phoneStyle:'success', phoneHelp:'该手机号可用'})
                     }
                 })
                 .catch(function (error) {
@@ -116,27 +118,29 @@ class Register extends Component {
     //提交表单
     handleSubmit = () => {
         let that = this
-        const {username, password, email} = that.state
+        const {username, password, phone} = that.state
         const reg1 = /[0-9A-Za-z]{6,12}$/
-        const reg2 = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/
+        const reg2 = /^1[3456789]\d{9}$/
         const reg3 = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/
         //判断提交数据格式的合法性
-        if (username === '' || password === '' || email === '' || !reg1.test(username) || !reg2.test(email) ||
-            !reg3.test(password) || this.verifyPwd !== password || this.state.nameRepeated || this.state.emailRepeated) return
-        axios.post('/register', {
+        if (username === '' || password === '' || phone === '' || !reg1.test(username) || !reg2.test(phone) ||
+            !reg3.test(password) || this.verifyPwd !== password || this.state.nameRepeated || this.state.phoneRepeated) return
+        axios.post('/user/register', {
             username,
             password,
-            email
+            phone
         })
             .then(function (response) {
                 const data = response.data
-                const result = data.status
+                const result = data.data.status
+
                 if (result === 'success'){
                     //注册成功返回登陆界面
                     cookie.save('registerSuccess', true, { path: '/' })
                     window.location.href = '/login'
                 }
                 else{
+                    console.log("result reg",result);
                     message.warning('注册错误，请联系管理员', 3);
                 }
             })
@@ -181,23 +185,23 @@ class Register extends Component {
                         </Form.Item>
 
                         <Form.Item
-                            name="email"
+                            name="phone"
                             rules={[
                                 {
                                     required: true,
-                                    message: '请输入您的邮箱地址',
+                                    message: '请输入您的手机号',
                                     trigger: 'blur'
                                 },
                                 {
-                                    pattern:/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/,
-                                    message:'请输入正确的邮箱格式'
+                                    pattern:/^1[3456789]\d{9}$/,
+                                    message:'请输入正确的手机格式'
                                 }
                             ]}
-                            validateStatus={this.state.emailStyle}
+                            validateStatus={this.state.phoneStyle}
                             hasFeedback
-                            help={this.state.emailHelp}
+                            help={this.state.phoneHelp}
                         >
-                            <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="邮箱" onChange={this.handleEmail}/>
+                            <Input prefix={<PhoneOutlined className="site-form-item-icon" />} placeholder="手机号" onChange={this.handlePhone}/>
                         </Form.Item>
 
                         <Form.Item

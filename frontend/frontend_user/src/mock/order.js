@@ -31,12 +31,25 @@ export default [
                 let unit={
                     order_id:"zd01201030232",
                     user_id:user_id,
-                    payment_state:"HAS_PAYED",
+                    user_name:"zhang si",
+                    status:"HAS_PAYED",
                     department:"神经内科",
-                    date:new Date("2022-02-03 13:34:00"),
+                    doctor_id:"0123",
+                    doctor_name:"张三",
+                    time:new Date("2022-02-03 13:34:00"),
                 }
                 return_list.push(unit);
             };
+            return_list.push({
+                order_id:"zd02434332434",
+                user_id:user_id,
+                user_name:"zhang si",
+                status:"HAS_FINISHED",
+                department:"五官科",
+                doctor_id:"0143",
+                doctor_name:"林建华",
+                time:new Date("2022-04-02 08:24:30"),
+            })
             generateData()
             return {
                 code: 200,

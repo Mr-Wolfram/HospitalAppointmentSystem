@@ -13,7 +13,9 @@ http.post = function(api, data) {
             paramsSerializer: params => qs.stringify(params)
         }).then((respnse) => {
             resolve(respnse)
-        })
+        }).catch(function (error) {
+            console.log("http request error", error);
+        });
     })
 }
 
@@ -24,7 +26,9 @@ http.get = function(api, data) {
             paramsSerializer: params => qs.stringify(params)
         }).then((respnse) => {
             resolve(respnse)
-        })
+        }).catch(function (error) {
+            console.log("http request error",error);
+        });
     })
 }
 

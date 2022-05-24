@@ -36,9 +36,9 @@ export default class Index extends Component {
     constructor (props) {
         super (props);
         const username = cookie.load('username');
-        // if(username === undefined) {
-        //     window.location.href = '/login'
-        // }
+        if(username === undefined) {
+            window.location.href = '/login'
+        }
 
     }
     handleLoginOut = () => {

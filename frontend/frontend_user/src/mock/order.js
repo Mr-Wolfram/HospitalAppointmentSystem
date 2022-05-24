@@ -4,6 +4,8 @@
 
 import Time from "../pages/user/TimeTable/component/Time";
 import React from "react";
+import cookie from "react-cookies";
+
 
 export default [
     {
@@ -19,6 +21,7 @@ export default [
             let params=JSON.parse(config.body).params;
             // console.log("shen",params);
             const user_id=params.user_id;
+            const username=cookie.load("username");
             const status=params.status;
 
             const payment_STATE=["TRADE_SUCCESS","TRADE_FINISHED","WAIT_BUYER_PAY","TRADE_CLOSED"];
@@ -30,6 +33,74 @@ export default [
             // query 符合条件的订单信息
             let return_list=[];
             //查询数据库,把每一个订单信息push进去
+
+
+
+            const exampleOrderList=[
+                {
+                    order_id:"zd02434332434",
+                    user_id:user_id,
+                    user_name:"xiaoma",
+                    status:"TRADE_SUCCESS",
+                    department:"普通外科",
+                    doctor_id:"d0143",
+                    doctor_name:"王五",
+                    time:new Date("2022-04-01 08:04:30"),
+                },
+                {
+                    order_id:"zd02434332434",
+                    user_id:user_id,
+                    user_name:"zhang si",
+                    status:"TRADE_SUCCESS",
+                    department:"五官科",
+                    doctor_id:"0143",
+                    doctor_name:"林建华",
+                    time:new Date("2022-04-02 08:14:30"),
+                },
+                {
+                    order_id:"zd02434332434",
+                    user_id:user_id,
+                    user_name:"zhang si",
+                    status:"TRADE_SUCCESS",
+                    department:"五官科",
+                    doctor_id:"0143",
+                    doctor_name:"林建华",
+                    time:new Date("2022-04-03 08:24:30"),
+                },
+                {
+                    order_id:"zd02434332434",
+                    user_id:user_id,
+                    user_name:"zhang si",
+                    status:"TRADE_SUCCESS",
+                    department:"五官科",
+                    doctor_id:"0143",
+                    doctor_name:"林建华",
+                    time:new Date("2022-04-04 08:34:30"),
+                },
+                {
+                    order_id:"zd02434332434",
+                    user_id:user_id,
+                    user_name:"zhang si",
+                    status:"TRADE_SUCCESS",
+                    department:"五官科",
+                    doctor_id:"0143",
+                    doctor_name:"林建华",
+                    time:new Date("2022-04-05 08:44:30"),
+                },
+                {
+                    order_id:"zd02434332434",
+                    user_id:user_id,
+                    user_name:"zhang si",
+                    status:"TRADE_SUCCESS",
+                    department:"五官科",
+                    doctor_id:"0143",
+                    doctor_name:"林建华",
+                    time:new Date("2022-04-06 08:54:30"),
+                }
+            ]
+
+
+
             const generateData = () => {
                 let unit={
                     order_id:"zd01201030232",

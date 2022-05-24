@@ -35,7 +35,7 @@ import {StarFilled, StarOutlined} from "@ant-design/icons";
       }
       ];
 function TableCard(props)  {
-        console.log("order manage,table props data",props)
+        // console.log("order manage,table props data",props)
         const tmpArr=[0];
 
         const [IsModalOpen,setIsModalOpen]=useState(new Array(props.orderList.length));

@@ -16,11 +16,11 @@ class Schedule extends React.Component{
         return (
             <>
             {
-                <Descriptions size='small' bordered={true} title={''} column={1}>
+                <Descriptions className='table' size='small' bordered={true} title={''} column={1}>
                     {
                         depart.map(Item=>{
                             return (
-                            <Descriptions.Item label={Item}>
+                            <Descriptions.Item bordered={true} label={Item}>
                                 {
                                     <Time depart={Item} data={Data[Item]}></Time>
                                 }

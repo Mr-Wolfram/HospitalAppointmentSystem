@@ -122,7 +122,7 @@ class Time extends React.Component{
         return (
             <> 
                 {
-                    <Descriptions size='small' title={''} column={1} bordered={true}>
+                    <Descriptions size='small' title={''} column={1} bordered={false}>
                         {
                             <>
                                 <Descriptions.Item label="上午">{this.getbutton(Data.上午)}</Descriptions.Item>

@@ -138,7 +138,6 @@ class Department extends React.Component {
 
         return  (
             <div>
-                <h2>科室浏览</h2>
                 <Segmented size="middle" key={depart_general_name[0]} options={depart_general_name} defaultValue={depart_general_name[0]} onChange={value=>this.changeshow(value)}/>
                 {/*<Struct data={depart_struct[depart_general_name[this.state.num-1]]}></Struct>*/}
                 <p></p>

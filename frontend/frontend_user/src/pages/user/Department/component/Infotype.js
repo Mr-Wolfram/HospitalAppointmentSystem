@@ -90,6 +90,7 @@ class Infotype extends React.Component{
         return (
             <div>
                 <Segmented size="middle" options={['简介','人员','时间表']} onChange={value=>this.changeshow(value)}/>
+                <p></p>
                 <Showtype personinfo={people} departmentinfo={department_detailinfo} showtype={this.state.type}></Showtype>
             </div>
         )

@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
-import {Typography, Breadcrumb, Button, Layout, Menu, message} from 'antd'
-
+import React, {Component, useState} from 'react';
+import {Typography, Breadcrumb, Button, Layout, Menu, message, Avatar, Dropdown} from 'antd'
 
 import Footer from "../../components/Footer";
 import LeftMenu from "../../components/LeftMenu";
@@ -19,6 +18,10 @@ import OrderManage from "./../user/OrderManage"
 import Notice from "./../user/Notice"
 import Registration from "./../user/Registration"
 import IndexPage from "./../user/IndexPage"
+import {UserOutlined} from "@ant-design/icons";
+
+// import {MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined} from "@ant-design/icons";
+
 
 const { Header, Content } = Layout;
 const { Title } = Typography;
@@ -28,7 +31,7 @@ const items1 = ['1', '2', '3'].map((key) => ({
   }));
 export default class Index extends Component {
 
-    state = {currentPage:"", username:cookie.load('username'), ws:null}
+    state = {currentPage:"", username:cookie.load('username'), ws:null,collapsed:false}
 
     constructor (props) {
         super (props);
@@ -51,69 +54,7 @@ export default class Index extends Component {
         this.setState({currentPage:name});
     }
 
-    getMytask = () => {
-        // axios.post("/getPersonalInfo", {
-        //     username:this.state.username
-        // }).then(response => {
-        //     const data =  response.data;
-        //     if(data.code === "success"){
-        //         let array = data.taskArray.map((item, index) => {
-        //             return {
-        //                 taskName: item.taskName,
-        //                 taskID: item.taskID
-        //             }
-        //         });
-
-        //         cookie.save('taskArray', array, {path:'/'});
-        //     }
-        //     else{
-        //         message.warning ("获取个人信息出错3").then (r  => console.log(r));
-        //     }
-        // })
-    }
-
     componentDidMount () {
-        this.getMytask();
-        const webSocket = cookie.load('webSocket');
-        if(webSocket === undefined){
-            const ws = new WebSocket ('ws://localhost:4000');
-            ws.onopen = function(e){
-                console.log("连接服务器成功");
-                ws.send('hello');
-                // 向服务器发送消息
-                ws.send("test");
-            }
-            ws.onclose = (e) => {
-                this.setState({ws:null});
-                cookie.remove('webSocket');
-                console.log('websocket连接关闭')
-            }
-            ws.onmessage = function(e) {
-                console.log(e.data);
-                const array =JSON.parse( cookie.load('taskArray'));
-                if(e.data.indexOf("onload") !== -1){
-                    array.forEach(item => {
-                        if(e.data.indexOf(item.taskID) !== -1){
-                            const str = e.data.replace(item.taskID, "");
-                            message.success( str, 10)
-                                .then(value => console.log(value), reason => console.log(reason))
-                        }
-                    })
-                }
-                else{
-                    array.forEach(item => {
-                        if(e.data.indexOf(item.taskID) !== -1){
-                            const str = e.data.replace(item.taskID, "");
-                            message.warning( str, 10)
-                                .then(value => console.log(value), reason => console.log(reason))
-                        }
-                    })
-                }
-            }
-            this.setState({ws:ws});
-            cookie.save('webSocket', true, {path:'/'});
-        }
-
     }
 
     render () {
@@ -130,13 +71,28 @@ export default class Index extends Component {
                     </Menu>
                 </Header> */}
                 <Header className="header">
+                    {/*<div className="left-content">*/}
+                    {/*    {React.createElement(this.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {*/}
+                    {/*        className: 'trigger',*/}
+                    {/*        onClick: ()=>this.setState({collapsed:!this.state.collapsed})*/}
+                    {/*    })}*/}
+                    {/*    /!*<Bread route={props} />*!/*/}
+                    {/*</div>*/}
+                    <div style={{position:'absolute',right:'10%',color:'white'}}>
+                        <span style={{paddingRight: '10px'}}>
+                          <Avatar size="large" icon={<UserOutlined />} />
+                            &nbsp;{cookie.load('username')}
+                        </span>
 
+
+
+                    </div>
                     <div className="logo" >
 
                         <div style={{position:"absolute",width:130,top:0,left:40,height:10,fontSize:17}}>
                             <img src={logo} alt={logo} width={18} />医疗诊断系统</div>
                     </div>
-                    <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} />
+                    {/*<Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} />*/}
                     <Button type="primary" id="exitBtn" onClick = {this.handleLoginOut}>退出登录</Button>
                 </Header>
                 <Layout>

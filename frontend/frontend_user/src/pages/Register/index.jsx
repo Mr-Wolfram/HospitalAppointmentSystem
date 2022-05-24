@@ -53,7 +53,7 @@ class Register extends Component {
             })
                 .then(function (response) {
                     const data = response.data
-                    const result = data.data.IsExit
+                    const result = data.data.IsExist
                     // console.log(data,result);
                     if (result === 'true'){
                         that.setState({nameRepeated:true, nameStyle:'error', nameHelp:'该用户名已存在'})
@@ -88,7 +88,7 @@ class Register extends Component {
             })
                 .then(function (response) {
                     const data = response.data
-                    const result = data.data.IsExit
+                    const result = data.data.IsExist
                     // console.log(data,result);
                     if (result === 'true'){
                         that.setState({phoneRepeated:true, phoneStyle:'error', phoneHelp:'该手机号已被注册'})

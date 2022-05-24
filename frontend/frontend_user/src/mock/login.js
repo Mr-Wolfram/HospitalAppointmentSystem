@@ -8,7 +8,7 @@ export default [
             return {
                 code:200,
                 data:{
-                    "IsExit":false
+                    "IsExist":false
                 }
             }
         }
@@ -22,7 +22,7 @@ export default [
             return {
                 code:200,
                 data:{
-                    "IsExit":false
+                    "IsExist":false
                 }
             }
         }

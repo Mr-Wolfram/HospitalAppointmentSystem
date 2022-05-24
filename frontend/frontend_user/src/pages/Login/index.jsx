@@ -27,141 +27,80 @@ class Login extends Component {
         }
     }
 
-    login_by_username = (
-        <Form
-            name="normal_login"
-            className="trueForm"
-            initialValues={{
-                remember: true,
-            }}
-        >
-            <Form.Item
-                name="username"
-                rules={[
-                    {
-                        required: true,
-                        message: '请输入您的用户名',
-                        trigger: 'blur'
-                    },
-                    {
-                        min: 6,
-                        max: 18,
-                        message: '用户名长度应为6-18个字符',
-                        trigger: 'blur'
-                    }
-                ]}
-            >
-                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="用户名" onChange={this.handleUsername}/>
-            </Form.Item>
-            <Form.Item
-                name="password"
-                rules={[
-                    {
-                        required: true,
-                        message: '请输入您的密码！',
-                    },
-                ]}
-            >
-                <Input.Password
-                    prefix={<LockOutlined className="site-form-item-icon"/>}
-                    type="password"
-                    placeholder="密码"
-                    onChange={this.handlePassword}
-                />
-            </Form.Item>
-            <Form.Item >
-                <Form.Item name="remember" noStyle>
-                    <Checkbox>记住我</Checkbox>
-                </Form.Item>
-                <Link className="login-form-forgot" to="/forgetPwd" id="forgetPassword">
-                    忘记密码？
-                </Link>
-            </Form.Item>
-
-            <Form.Item id='buttons'>
-                <div className='myBtn'>
-                    <Button type="primary" htmlType="submit" className="login-form-button"
-                            onClick = {this.handleSubmit}>
-                        登录
-                    </Button>
-                    <Button type="primary" className="login-form-button" onClick = {this.goRegister}>
-                        注册
-                    </Button>
-                </div>
-            </Form.Item>
-        </Form>
-    )
-
-    login_by_phone = (
-        <Form
-            name="normal_login"
-            className="trueForm"
-            initialValues={{
-                remember: true,
-            }}
-        >
-            <Form.Item
-                name="phone"
-                rules={[
-                    {
-                        required: true,
-                        message: '请输入您的手机号',
-                        trigger: 'blur'
-                    },
-                    {
-                        pattern:/^1[3456789]\d{9}$/,
-                        message:'非法字符或格式错误',
-                        trigger:'blur'
-                    }
-                ]}
-            >
-                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="手机号" onChange={this.handlePhone}/>
-            </Form.Item>
-            <Form.Item
-                name="password"
-                rules={[
-                    {
-                        required: true,
-                        message: '请输入您的密码！',
-                    },
-                ]}
-            >
-                <Input.Password
-                    prefix={<LockOutlined className="site-form-item-icon"/>}
-                    type="password"
-                    placeholder="密码"
-                    onChange={this.handlePassword}
-                />
-            </Form.Item>
-            <Form.Item >
-                <Form.Item name="remember" noStyle>
-                    <Checkbox>记住我</Checkbox>
-                </Form.Item>
-                <Link className="login-form-forgot" to="/forgetPwd" id="forgetPassword">
-                    忘记密码？
-                </Link>
-            </Form.Item>
-
-            <Form.Item id='buttons'>
-                <div className='myBtn'>
-                    <Button type="primary" htmlType="submit" className="login-form-button"
-                            onClick = {this.handleSubmit}>
-                        登录
-                    </Button>
-                    <Button type="primary" className="login-form-button" onClick = {this.goRegister}>
-                        注册
-                    </Button>
-                </div>
-            </Form.Item>
-        </Form>
-    )
+    // login_by_username = (
+    //
+    // )
+    //
+    // login_by_phone = (
+    //     <Form
+    //         name="normal_login"
+    //         className="trueForm"
+    //         initialValues={{
+    //             remember: true,
+    //         }}
+    //     >
+    //         <Form.Item
+    //             name="phone"
+    //             rules={[
+    //                 {
+    //                     required: true,
+    //                     message: '请输入您的手机号',
+    //                     trigger: 'blur'
+    //                 },
+    //                 {
+    //                     pattern:/^1[3456789]\d{9}$/,
+    //                     message:'非法字符或格式错误',
+    //                     trigger:'blur'
+    //                 }
+    //             ]}
+    //         >
+    //             <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="手机号" onChange={this.handlePhone}/>
+    //         </Form.Item>
+    //         <Form.Item
+    //             name="password"
+    //             rules={[
+    //                 {
+    //                     required: true,
+    //                     message: '请输入您的密码！',
+    //                 },
+    //             ]}
+    //         >
+    //             <Input.Password
+    //                 prefix={<LockOutlined className="site-form-item-icon"/>}
+    //                 type="password"
+    //                 placeholder="密码"
+    //                 onChange={this.handlePassword}
+    //             />
+    //         </Form.Item>
+    //         <Form.Item >
+    //             <Form.Item name="remember" noStyle>
+    //                 <Checkbox>记住我</Checkbox>
+    //             </Form.Item>
+    //             <Link className="login-form-forgot" to="/forgetPwd" id="forgetPassword">
+    //                 忘记密码？
+    //             </Link>
+    //         </Form.Item>
+    //
+    //         <Form.Item id='buttons'>
+    //             <div className='myBtn'>
+    //                 <Button type="primary" htmlType="submit" className="login-form-button"
+    //                         onClick = {this.handleSubmit}>
+    //                     登录
+    //                 </Button>
+    //                 <Button type="primary" className="login-form-button" onClick = {this.goRegister}>
+    //                     注册
+    //                 </Button>
+    //             </div>
+    //         </Form.Item>
+    //     </Form>
+    // )
 
     state = {
         username: '',
         password: '',
         phone:'',
         login:"username",
-        render_login:this.login_by_username
+        // render_login:this.login_by_username
     }
 
     //保存用户输入的用户名
@@ -210,16 +149,16 @@ class Login extends Component {
         window.location.href = '/register'
     }
 
-    login_method=()=>{
-        if(this.state.login == "username"){
-            this.setState({render_login:this.login_by_phone})
-            this.setState({login:"phone"})
-        }else{
-            this.setState({render_login:this.login_by_username})
-            this.setState({login:"username"})
-        }
-        
-    }
+    // login_method=()=>{
+    //     if(this.state.login == "username"){
+    //         this.setState({render_login:this.login_by_phone})
+    //         this.setState({login:"phone"})
+    //     }else{
+    //         this.setState({render_login:this.login_by_username})
+    //         this.setState({login:"username"})
+    //     }
+    //
+    // }
 
 
 
@@ -232,7 +171,68 @@ class Login extends Component {
                     <h6 className='title'>用户登录</h6>
                     <text onClick={this.login_method}>切换登录方式</text>
                     <hr className='line'/>
-                    {this.state.render_login}
+                    <Form
+                        name="normal_login"
+                        className="trueForm"
+                        initialValues={{
+                            remember: true,
+                        }}
+                    >
+                        <Form.Item
+                            name="username"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: '请输入您的用户名',
+                                    trigger: 'blur'
+                                },
+                                {
+                                    min: 6,
+                                    max: 18,
+                                    message: '用户名长度应为6-18个字符',
+                                    trigger: 'blur'
+                                }
+                            ]}
+                        >
+                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="用户名" onChange={this.handleUsername}/>
+                        </Form.Item>
+                        <Form.Item
+                            name="password"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: '请输入您的密码！',
+                                },
+                            ]}
+                        >
+                            <Input.Password
+                                prefix={<LockOutlined className="site-form-item-icon"/>}
+                                type="password"
+                                placeholder="密码"
+                                onChange={this.handlePassword}
+                            />
+                        </Form.Item>
+                        <Form.Item >
+                            <Form.Item name="remember" noStyle>
+                                <Checkbox>记住我</Checkbox>
+                            </Form.Item>
+                            <Link className="login-form-forgot" to="/forgetPwd" id="forgetPassword">
+                                忘记密码？
+                            </Link>
+                        </Form.Item>
+
+                        <Form.Item id='buttons'>
+                            <div className='myBtn'>
+                                <Button type="primary" htmlType="submit" className="login-form-button"
+                                        onClick = {this.handleSubmit}>
+                                    登录
+                                </Button>
+                                <Button type="primary" className="login-form-button" onClick = {this.goRegister}>
+                                    注册
+                                </Button>
+                            </div>
+                        </Form.Item>
+                    </Form>
                 </div>
             </div>
         );

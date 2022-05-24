@@ -40,7 +40,7 @@ export default [
                 {
                     order_id:"zd02434332434",
                     user_id:user_id,
-                    user_name:"xiaoma",
+                    user_name:username,
                     status:"TRADE_SUCCESS",
                     department:"普通外科",
                     doctor_id:"d0143",
@@ -50,7 +50,7 @@ export default [
                 {
                     order_id:"zd02434332434",
                     user_id:user_id,
-                    user_name:"zhang si",
+                    user_name:username,
                     status:"TRADE_SUCCESS",
                     department:"五官科",
                     doctor_id:"0143",
@@ -60,7 +60,7 @@ export default [
                 {
                     order_id:"zd02434332434",
                     user_id:user_id,
-                    user_name:"zhang si",
+                    user_name:username,
                     status:"TRADE_SUCCESS",
                     department:"五官科",
                     doctor_id:"0143",
@@ -70,7 +70,7 @@ export default [
                 {
                     order_id:"zd02434332434",
                     user_id:user_id,
-                    user_name:"zhang si",
+                    user_name:username,
                     status:"TRADE_SUCCESS",
                     department:"五官科",
                     doctor_id:"0143",
@@ -80,7 +80,7 @@ export default [
                 {
                     order_id:"zd02434332434",
                     user_id:user_id,
-                    user_name:"zhang si",
+                    user_name:username,
                     status:"TRADE_SUCCESS",
                     department:"五官科",
                     doctor_id:"0143",
@@ -90,7 +90,7 @@ export default [
                 {
                     order_id:"zd02434332434",
                     user_id:user_id,
-                    user_name:"zhang si",
+                    user_name:username,
                     status:"TRADE_SUCCESS",
                     department:"五官科",
                     doctor_id:"0143",
@@ -105,7 +105,7 @@ export default [
                 let unit={
                     order_id:"zd01201030232",
                     user_id:user_id,
-                    user_name:"zhang si",
+                    user_name:username,
                     status:"TRADE_FINISHED",
                     department:"神经内科",
                     doctor_id:"0123",
@@ -117,7 +117,7 @@ export default [
             return_list.push({
                 order_id:"zd02434332434",
                 user_id:user_id,
-                user_name:"zhang si",
+                user_name:username,
                 status:"TRADE_SUCCESS",
                 department:"五官科",
                 doctor_id:"0143",

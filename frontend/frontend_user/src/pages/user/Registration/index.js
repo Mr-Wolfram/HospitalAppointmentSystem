@@ -10,6 +10,7 @@ import './index.css';
 import img1 from './images/1.png'
 import img2 from './images/2.png'
 import api from "./../../../commons/index"
+import cookie from 'react-cookies'
 
 moment.locale('zh-cn');
 
@@ -17,7 +18,7 @@ class Registration extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: 'u1144',
+      userId: undefined,
       doctorId: undefined,
       timeTableVisible: false,
       confirmLoading: false,
@@ -34,6 +35,7 @@ class Registration extends React.Component {
   }
 
   componentWillMount() {
+    this.setState({userId: cookie.load('user_id')})
     let date = new Date()
     api.post_doctor_info(date)
     .then(r => {
@@ -223,14 +225,6 @@ class Registration extends React.Component {
                   )
                 }
               })}
-              {/* <Radio.Button value='8' style={{width: '120px', height: '60px'}}><span>8:00-9:00<br/>当前空余{this.state.numberOfQueue[0]}人</span></Radio.Button>
-              <Radio.Button value='9' style={{width: '120px', height: '60px'}}><span>9:00-10:00<br/>当前空余{this.state.numberOfQueue[1]}人</span></Radio.Button>
-              <Radio.Button value='10' style={{width: '120px', height: '60px'}}><span>10:00-11:00<br/>当前空余{this.state.numberOfQueue[2]}人</span></Radio.Button>
-              <Radio.Button value='11' style={{width: '120px', height: '60px'}} disabled><span>11:00-12:00<br/>当前空余{this.state.numberOfQueue[3]}人</span></Radio.Button>
-              <Radio.Button value='14' style={{width: '120px', height: '60px'}}><span>14:00-15:00<br/>当前空余{this.state.numberOfQueue[4]}人</span></Radio.Button>
-              <Radio.Button value='15' style={{width: '120px', height: '60px'}}><span>15:00-16:00<br/>当前空余{this.state.numberOfQueue[5]}人</span></Radio.Button>
-              <Radio.Button value='16' style={{width: '120px', height: '60px'}} disabled><span>16:00-17:00<br/>当前空余{this.state.numberOfQueue[6]}人</span></Radio.Button>
-              <Radio.Button value='17' style={{width: '120px', height: '60px'}}><span>17:00-18:00<br/>当前空余{this.state.numberOfQueue[7]}人</span></Radio.Button> */}
             </Space>
           </Radio.Group>
         </Modal>

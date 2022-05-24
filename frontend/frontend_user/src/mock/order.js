@@ -3,6 +3,7 @@
 // const Random = Mock.Random
 
 import Time from "../pages/user/TimeTable/component/Time";
+import React from "react";
 
 export default [
     {
@@ -19,7 +20,8 @@ export default [
             // console.log("shen",params);
             const user_id=params.user_id;
             const status=params.status;
-            const payment_STATE=["NONE","HAS_PAYED","NOT_PAYED"];
+
+            const payment_STATE=["TRADE_SUCCESS","TRADE_FINISHED","WAIT_BUYER_PAY","TRADE_CLOSED"];
             const department=params.department;
             const start_date=params.start_date;
             const end_date=params.end_date;
@@ -33,7 +35,7 @@ export default [
                     order_id:"zd01201030232",
                     user_id:user_id,
                     user_name:"zhang si",
-                    status:"HAS_PAYED",
+                    status:"TRADE_FINISHED",
                     department:"神经内科",
                     doctor_id:"0123",
                     doctor_name:"张三",
@@ -45,7 +47,7 @@ export default [
                 order_id:"zd02434332434",
                 user_id:user_id,
                 user_name:"zhang si",
-                status:"HAS_FINISHED",
+                status:"TRADE_SUCCESS",
                 department:"五官科",
                 doctor_id:"0143",
                 doctor_name:"林建华",

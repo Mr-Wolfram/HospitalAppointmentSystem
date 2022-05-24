@@ -75,19 +75,7 @@ class Registration extends React.Component {
   };
 
   tmpArray=["姓名","科室","主治症状","个人简介"];
-  generateIntroComponent(r){
-    let res;
-    if(r==="姓名"){
-        res=this.state.doctorMap.get(this.state.doctorId)?this.state.doctorMap.get(this.state.doctorId).name:""
-    }else if(r==="科室"){
-        res=this.state.doctorMap.get(this.state.doctorId)?this.state.doctorMap.get(this.state.doctorId).department:""
-    }else if(r==="主治症状"){
-        res=this.state.doctorMap.get(this.state.doctorId)?this.state.doctorMap.get(this.state.doctorId).major:""
-    }else if(r==="个人简介"){
-        res=this.state.doctorMap.get(this.state.doctorId)?this.state.doctorMap.get(this.state.doctorId).info:""
-    }
-    return r + ": " + res + "\n";
-  }
+
 
   showSearchModal = () => {
     this.setState({ timeTableVisible: true });
@@ -160,11 +148,12 @@ class Registration extends React.Component {
     this.showSearchModal()
   }
 
-  changeTimeTableInvisible() {
-    // this.setState({timeTableVisible: false});
-  }
+
 
   render() {
+    // setTimeout(()=>{
+    //   this.setState({doctorId:"d0001"})
+    // },10000)
     return (
       <>
         <Space direction='vertical' size='middle'>
@@ -196,7 +185,11 @@ class Registration extends React.Component {
         <SelectModal
           timeTableVisible={this.state.timeTableVisible}
           doctorId={this.state.doctorId}
-          changeTimeTableInvisible={this.changeTimeTableInvisible}
+          doctorMap={this.state.doctorMap}
+          doctorData={this.state.doctorData}
+          changeTimeTableInvisible={()=>{
+            this.setState({timeTableVisible: false});
+          }}
         />
 
         {/* <Modal

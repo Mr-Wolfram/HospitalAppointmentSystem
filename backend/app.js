@@ -13,10 +13,16 @@ const express = require('express'),
   app = express();
 
 // connect to MongoDB
-let uri = process.env.ME_CONFIG_MONGODB_URL;
+// let uri = process.env.ME_CONFIG_MONGODB_URL;
+// let options = {
+//     user: process.env.ME_CONFIG_MONGODB_USERNAME,
+//     pass: process.env.ME_CONFIG_MONGODB_PASSWORD,
+// };
+
+let uri = "mongodb://localhost:27017/test";
 let options = {
-    user: process.env.ME_CONFIG_MONGODB_USERNAME,
-    pass: process.env.ME_CONFIG_MONGODB_PASSWORD,
+    user: "ReadWriter",
+    pass: "ReadWriter"
 };
 mongoose.connect(uri, options);
 mongoose.connection.once('open', () => {

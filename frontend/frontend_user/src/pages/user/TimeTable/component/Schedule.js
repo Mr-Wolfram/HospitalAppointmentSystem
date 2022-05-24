@@ -2,6 +2,7 @@ import '../index.css';
 import React from 'react';
 import { Descriptions } from 'antd';
 import Time from './Time';
+import api from './../../../../commons/components/querydeparment'
 
 
 class Schedule extends React.Component{
@@ -21,7 +22,7 @@ class Schedule extends React.Component{
                             return (
                             <Descriptions.Item label={Item}>
                                 {
-                                    <Time data={Data[Item]}></Time>
+                                    <Time depart={Item} data={Data[Item]}></Time>
                                 }
                             </Descriptions.Item>
                             )

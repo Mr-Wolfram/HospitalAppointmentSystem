@@ -1,9 +1,10 @@
 import React from 'react';
-import '../index.css';
+import './../index.css';
 import { Descriptions } from 'antd';
 import { Button } from 'antd';
 import { Table } from 'antd';
 import { Modal } from 'antd';
+import api from "./../../../../commons/components/querydeparment"
 
 
 class Showtype extends React.Component{
@@ -11,17 +12,61 @@ class Showtype extends React.Component{
         super(props);
         this.state = {
             isModalVisible: false,
-            person: '张三'
+            depart:"",
+            person: '张三',
+            data:{
+                "number":"",
+                "doctor_list":[
+                    {},
+                    {}
+                ]
+            }
         };
     }
 
+    componentDidMount(){
+        api.postdoctorinfo(this.state.person).then(r=>{
+            this.setState(
+                {
+                    data:r.data.data
+                }
+            );
+        });
+    }
+/*
+    shouldComponentUpdate(nextProps,nextState){
+        if(this.state.person != nextState.person){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    componentDidUpdate(){
+        api.postdoctorinfo(this.state.person).then(r=>{
+            this.setState(
+                {
+                    data:r.data.data
+                }
+            );
+        });
+    }
+*/
     showModal(name){
         this.setState(
             {
                 isModalVisible:true,
-                person: name
+                person: name,
+                depart:this.props.departmentinfo.name
             }
         );
+        api.postdoctorinfo(name,this.props.departmentinfo.name).then(r=>{
+            this.setState(
+                {
+                    data:r.data.data
+                }
+            );
+        });
     }
 
     handleOk(){
@@ -59,6 +104,7 @@ class Showtype extends React.Component{
 
     render(){
         //console.log(this.props.showtype)
+        //console.log(this.props.departmentinfo);
         const columns = [
             {
                 title: 'ID',
@@ -94,7 +140,7 @@ class Showtype extends React.Component{
         }
         let departmentinfo = this.props.departmentinfo;
         let detailinfo = [];
-        let person_info=require('../data/doctorinfo.json');    //读入json
+        let person_info=this.state.data;    //读入json
         for(let i=0;i<person_info.number;i++){
             detailinfo.push(person_info.doctor_list[i]);
         }

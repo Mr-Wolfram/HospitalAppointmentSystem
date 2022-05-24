@@ -68,12 +68,12 @@
     "@ant-design/icons": "^4.5.0",
     "@material-ui/core": "^4.12.3",
     "@storybook/addon-actions": "^6.4.9",
+    "antd": "^4.20.6",
     "body-parser": "^1.19.0",
     "customize-cra": "^1.0.0",
+    "jszip": "^3.7.1",
     "prop-types": "^15.7.2",
     "use-event-callback": "^0.1.0",
-    "x2js": "^3.4.2",
-    "jszip": "^3.7.1",
-    "antd": "^4.14.0"
+    "x2js": "^3.4.2"
   }
 }

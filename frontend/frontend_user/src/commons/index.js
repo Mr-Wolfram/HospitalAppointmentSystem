@@ -10,8 +10,34 @@ export default {
       return await http.post('/upload/file', {
           file_url:file_url,file_name:file_name
       })
-  },
+    },
     // add  here
+    async post_doctor_info(date) {
+      return await http.post('/registration/info', {
+        date: date
+      })
+    },
+
+    async post_doctor_select(doctorId) {
+      return await http.post('/registration/select', {
+        doctorId: doctorId
+      })
+    },
+
+    async post_registration_form(userId, doctorId, time) {
+      return await http.post('/registration/form', {
+        userId: userId,
+        doctorId: doctorId,
+        time: time,
+      })
+    },
+
+    async post_registration_pay(orderId) {
+      return await http.post('/registration/pay', {
+        orderId: orderId,
+      })
+    },
+
 }
 
 

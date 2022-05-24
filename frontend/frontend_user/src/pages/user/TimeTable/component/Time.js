@@ -4,23 +4,50 @@ import { Descriptions } from 'antd';
 import { Button } from 'antd';
 import { Table } from 'antd';
 import { Modal } from 'antd';
+import api from './../../../../commons/components/querydeparment'
 
 class Time extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
             isModalVisible: false,
-            person: '张三'
+            person: '张三',
+            depart:"",
+            data:{
+                "number":2,
+                "doctor_list":[
+                    {},
+                    {}
+                ]
+            }
         };
     }
+
+    componentDidMount(){
+        api.postdoctorinfo(this.state.person,this.props.depart).then(r=>{
+            this.setState(
+                {
+                    data:r.data.data
+                }
+            );
+        });
+    }
+
 
     showModal(name){
         this.setState(
             {
                 isModalVisible:true,
-                person: name
+                person: name,
             }
         );
+        api.postdoctorinfo(name,this.props.depart).then(r=>{
+            this.setState(
+                {
+                    data:r.data.data
+                }
+            );
+        });
     }
 
     handleOk(){
@@ -87,7 +114,7 @@ class Time extends React.Component{
 
         let Data = this.props.data;
         let detailinfo = [];
-        let person_info=require('../data/doctorinfo.json');    //读入json
+        let person_info=this.state.data;    //读入json
         for(let i=0;i<person_info.number;i++){
             detailinfo.push(person_info.doctor_list[i]);
         }

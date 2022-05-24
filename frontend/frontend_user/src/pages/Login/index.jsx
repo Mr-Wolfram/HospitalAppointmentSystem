@@ -45,17 +45,18 @@ class Login extends Component {
     handleSubmit = () => {
         let that = this
         if (that.state.username === '' && that.state.password === '') return
-        axios.post('/login', {
+        axios.post('/user/login_pwd', {
             username: this.state.username,
             password: this.state.password
         })
             .then(function (response) {
                 const data = response.data
-                const result = data.status
+                const result = data.data.status
                 if (result === 'success'){
                     cookie.save('username', that.state.username, { path: '/' });
                     cookie.save('loginSuccess', true, { path: '/' });
-                    cookie.save('email', data.email, {path:'/'});
+                    cookie.save('user_id',data.data.user_id)
+                    // cookie.save('email', data.email, {path:'/'});
                     window.location.href = '/index';
                 }
                 else{

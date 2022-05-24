@@ -11,6 +11,7 @@ import img1 from './images/1.png'
 import img2 from './images/2.png'
 import api from "./../../../commons/index"
 import cookie from 'react-cookies'
+import SelectModal from './components/SelectModal'
 
 moment.locale('zh-cn');
 
@@ -74,26 +75,9 @@ class Registration extends React.Component {
   };
 
   tmpArray=["姓名","科室","主治症状","个人简介"];
-  generateIntroComponent(r){
-    let res;
-    if(r==="姓名"){
-        res=this.state.doctorMap.get(this.state.doctorId)?this.state.doctorMap.get(this.state.doctorId).name:""
-    }else if(r==="科室"){
-        res=this.state.doctorMap.get(this.state.doctorId)?this.state.doctorMap.get(this.state.doctorId).department:""
-    }else if(r==="主治症状"){
-        res=this.state.doctorMap.get(this.state.doctorId)?this.state.doctorMap.get(this.state.doctorId).major:""
-    }else if(r==="个人简介"){
-        res=this.state.doctorMap.get(this.state.doctorId)?this.state.doctorMap.get(this.state.doctorId).info:""
-    }
-    return r + ": " + res + "\n";
-  }
+
 
   showSearchModal = () => {
-    api.post_doctor_select(this.state.doctorId)
-    .then(r => {
-      console.log("post doctor select");
-      this.setState({numberOfQueue: r.data.data.numberOfQueue});
-    })
     this.setState({ timeTableVisible: true });
   };
 
@@ -164,7 +148,12 @@ class Registration extends React.Component {
     this.showSearchModal()
   }
 
+
+
   render() {
+    // setTimeout(()=>{
+    //   this.setState({doctorId:"d0001"})
+    // },10000)
     return (
       <>
         <Space direction='vertical' size='middle'>
@@ -192,7 +181,18 @@ class Registration extends React.Component {
             </Space>
           </Radio.Group>
         </Space>
-        <Modal
+
+        <SelectModal
+          timeTableVisible={this.state.timeTableVisible}
+          doctorId={this.state.doctorId}
+          doctorMap={this.state.doctorMap}
+          doctorData={this.state.doctorData}
+          changeTimeTableInvisible={()=>{
+            this.setState({timeTableVisible: false});
+          }}
+        />
+
+        {/* <Modal
           title='预约挂号'
           visible={this.state.timeTableVisible}
           onOk={this.handleSearchModalOk}
@@ -227,7 +227,7 @@ class Registration extends React.Component {
               })}
             </Space>
           </Radio.Group>
-        </Modal>
+        </Modal> */}
         <Modal
           title='挂号费支付'
           visible={this.state.payVisible}

@@ -13,20 +13,28 @@ export default {
     },
     // add  here
     async post_doctor_info(date) {
-      return await http.post('/doctor/info', {
+      return await http.post('/registration/info', {
         date: date
       })
     },
 
     async post_doctor_select(doctorId) {
-      return await http.post('/doctor/select', {
+      return await http.post('/registration/select', {
         doctorId: doctorId
       })
     },
 
-    async post_appointment_form() {
-      return await http.post('/appointment/form', {
+    async post_registration_form(userId, doctorId, time) {
+      return await http.post('/registration/form', {
+        userId: userId,
+        doctorId: doctorId,
+        time: time,
+      })
+    },
 
+    async post_registration_pay(orderId) {
+      return await http.post('/registration/pay', {
+        orderId: orderId,
       })
     },
 

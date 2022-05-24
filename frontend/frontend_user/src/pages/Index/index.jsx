@@ -1,5 +1,5 @@
 import React, {Component, useState} from 'react';
-import {Typography, Breadcrumb, Button, Layout, Menu, message, Avatar, Dropdown} from 'antd'
+import {Typography, Breadcrumb, Button, Layout, Menu, message, Avatar, Dropdown, Space} from 'antd'
 
 import Footer from "../../components/Footer";
 import LeftMenu from "../../components/LeftMenu";
@@ -18,7 +18,7 @@ import OrderManage from "./../user/OrderManage"
 import Notice from "./../user/Notice"
 import Registration from "./../user/Registration"
 import IndexPage from "./../user/IndexPage"
-import {UserOutlined} from "@ant-design/icons";
+import Icon, {UserOutlined, BellOutlined} from "@ant-design/icons";
 
 // import {MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined} from "@ant-design/icons";
 
@@ -31,7 +31,40 @@ const items1 = ['1', '2', '3'].map((key) => ({
   }));
 export default class Index extends Component {
 
-    state = {currentPage:"", username:cookie.load('username'), ws:null,collapsed:false}
+    state = {currentPage:"", username:cookie.load('username'), ws:null,collapsed:false,
+    notice:(
+        <Menu 
+          items={[
+            {
+              key: '1',
+              label: (
+                <div style={{padding:10}}>
+                    <h6>预约成功</h6>
+                    <text>您已成功预约xx时间xx科室</text>
+                </div>
+              ),
+            },
+            {
+              key: '2',
+              label: (
+                <div style={{padding:10}}>
+                    <h6>缴费成功</h6>
+                    <text>您已成功缴费xx元</text>
+                </div>
+              ),
+            },
+            {
+              key: '3',
+              label: (
+                <div style={{padding:10}}>
+                    <h6>预约成功</h6>
+                    <text>您已成功预约xx时间xx科室</text>
+                </div>
+              ),
+            },
+          ]}
+        />
+      )}
 
     constructor (props) {
         super (props);
@@ -93,6 +126,14 @@ export default class Index extends Component {
                             <img src={logo} alt={logo} width={18} />医疗诊断系统</div>
                     </div>
                     {/*<Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} />*/}
+                    <Dropdown overlay={this.state.notice} >
+                        <a onClick={(e) => e.preventDefault()}>
+                        <Space>
+                            <BellOutlined style={{color:"white"}}/>
+                            <text style={{color:"white"}}>系统通知</text>
+                        </Space>
+                        </a>
+                    </Dropdown>
                     <Button type="primary" id="exitBtn" onClick = {this.handleLoginOut}>退出登录</Button>
                 </Header>
                 <Layout>

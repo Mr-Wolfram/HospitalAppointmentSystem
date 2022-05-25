@@ -17,7 +17,7 @@ const { Header, Content, Sider } = Layout;
 
 
 function Userinfo(){
-    
+
     const[phoneStyle, setphoneStyle] = useState('');
     const[phonehelp, setphonehelp] = useState('')
     const handlephonenum = e => {
@@ -61,7 +61,7 @@ function Userinfo(){
         </Form.Item>
     </div>
     );
-    
+
 
 
     const [isModalVisible_phone, setIsModalVisible_phone] = useState(false);
@@ -72,7 +72,7 @@ function Userinfo(){
     };
 
     const handleOk = () => {
-        if(modalstate == 0){ 
+        if(modalstate == 0){
             setmodalcontent(<div><Input style={{ width: 200, textAlign: 'center' }} placeholder="请输入验证码" /></div>);
             setmodalstate(1);
         }
@@ -85,7 +85,7 @@ function Userinfo(){
     const handleCancel = () => {
         setIsModalVisible_phone(false);
     };
-    
+
 
     function Setinfo(pn,idnum,uname,ag,em){
         setphonenum(pn);
@@ -140,11 +140,11 @@ function Userinfo(){
                     <Descriptions.Item label="头像"><Avatar size={64} icon={<UserOutlined />} /></Descriptions.Item>
                     <Descriptions.Item label="用户名">{username}</Descriptions.Item>
                     <Descriptions.Item label="身份证号">{IDnum}</Descriptions.Item>
-                    <Descriptions.Item label={<div class="labeldiv"><text>手机号</text><Button onClick={phone_rebind}>换绑</Button></div>}>{phonenum}</Descriptions.Item>
-                    <Descriptions.Item label={<div class="labeldiv"><text>邮箱</text><Button>换绑</Button></div>}>{email}</Descriptions.Item>
+                    <Descriptions.Item label={<div class="labeldiv"><p>手机号</p><Button onClick={phone_rebind}>换绑</Button></div>}>{phonenum}</Descriptions.Item>
+                    <Descriptions.Item label={<div class="labeldiv"><p>邮箱</p><Button>换绑</Button></div>}>{email}</Descriptions.Item>
                     <Descriptions.Item label="年龄">{age}</Descriptions.Item>
                     <Descriptions.Item label="收藏医生">
-                        
+
                     </Descriptions.Item>
                 </Descriptions>
                 <Modal title="手机换绑" visible={isModalVisible_phone} onOk={handleOk} onCancel={handleCancel} okText="验证" cancelText="取消" >
@@ -169,7 +169,7 @@ function Userinfo(){
                 <div>{Getcontent()}</div>
             </div>
         </div>
-        
+
     );
 }
 

@@ -169,7 +169,7 @@ class Login extends Component {
 
                 <div className='right'>
                     <h6 className='title'>用户登录</h6>
-                    <text onClick={this.login_method}>切换登录方式</text>
+                    <div onClick={this.login_method}>切换登录方式</div>
                     <hr className='line'/>
                     <Form
                         name="normal_login"

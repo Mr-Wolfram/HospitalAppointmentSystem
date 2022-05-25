@@ -130,7 +130,7 @@ function OrderManage () {
 
                     <br />
                     </Row>
-                    <Button style={{position:"absolute",right:"40%",top:"16%",width:140,height:50,fontSize:24,backgroundColor:"#1890ff",color:"white"}}
+                    <Button style={{position:"absolute",right:"40%",top:"19%",width:100,height:30,fontSize:16,backgroundColor:"#1890ff",color:"white"}}
                         onClick={()=>{
                         getOrder(
                             cookie.load("user_id"),select_order_id,select_doctor,select_status,
@@ -140,7 +140,7 @@ function OrderManage () {
                     >
                         筛选查询
                     </Button>
-                    <Button style={{position:"absolute",right:"25%",top:"16%",width:140,height:50,fontSize:24,backgroundColor:"#1890ff",color:"white"}}
+                    <Button style={{position:"absolute",right:"30%",top:"19%",width:100,height:30,fontSize:16,backgroundColor:"#1890ff",color:"white"}}
                             onClick={()=>{
                                 getOrder(
                                     cookie.load("user_id"),"","","",

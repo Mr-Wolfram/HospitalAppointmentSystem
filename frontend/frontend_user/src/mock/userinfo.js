@@ -12,6 +12,10 @@ export default [
             const generateData = () => {
                 let unit={
                     phonenumber:"13500000000",
+                    IDnum:"35111111111111111",
+                    username:"张三",
+                    age:"18",
+                    email:"123333@qq.com",
                     user_id:user_id,
                 }
                 return_list.push(unit);

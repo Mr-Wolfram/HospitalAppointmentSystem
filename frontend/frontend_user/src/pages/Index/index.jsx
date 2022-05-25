@@ -1,5 +1,5 @@
 import React, {Component, useState} from 'react';
-import {Typography, Breadcrumb, Button, Layout, Menu, message, Avatar, Dropdown} from 'antd'
+import {Typography, Breadcrumb, Button, Layout, Menu, message, Avatar, Dropdown, Space} from 'antd'
 
 import Footer from "../../components/Footer";
 import LeftMenu from "../../components/LeftMenu";
@@ -18,7 +18,7 @@ import OrderManage from "./../user/OrderManage"
 import Notice from "./../user/Notice"
 import Registration from "./../user/Registration"
 import IndexPage from "./../user/IndexPage"
-import {UserOutlined} from "@ant-design/icons";
+import Icon, {UserOutlined, BellOutlined} from "@ant-design/icons";
 
 // import {MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined} from "@ant-design/icons";
 
@@ -31,14 +31,47 @@ const items1 = ['1', '2', '3'].map((key) => ({
   }));
 export default class Index extends Component {
 
-    state = {currentPage:"", username:cookie.load('username'), ws:null,collapsed:false}
+    state = {currentPage:"", username:cookie.load('username'), ws:null,collapsed:false,
+    notice:(
+        <Menu
+          items={[
+            {
+              key: '1',
+              label: (
+                <div style={{padding:10}}>
+                    <h6>预约成功</h6>
+                    <p>您已成功预约xx时间xx科室</p>
+                </div>
+              ),
+            },
+            {
+              key: '2',
+              label: (
+                <div style={{padding:10}}>
+                    <h6>缴费成功</h6>
+                    <p>您已成功缴费xx元</p>
+                </div>
+              ),
+            },
+            {
+              key: '3',
+              label: (
+                <div style={{padding:10}}>
+                    <h6>预约成功</h6>
+                    <p>您已成功预约xx时间xx科室</p>
+                </div>
+              ),
+            },
+          ]}
+        />
+      )}
 
     constructor (props) {
         super (props);
         const username = cookie.load('username');
-        // if(username === undefined) {
-        //     window.location.href = '/login'
-        // }
+        if(username === undefined) {
+            window.location.href = '/login'
+        }
 
     }
     handleLoginOut = () => {
@@ -92,7 +125,15 @@ export default class Index extends Component {
                         <div style={{position:"absolute",width:130,top:0,left:40,height:10,fontSize:17}}>
                             <img src={logo} alt={logo} width={18} />医疗诊断系统</div>
                     </div>
-                    {/*<Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items1} />*/}
+                    <div style={{position:"absolute",width:130,top:10,right:200,height:20,}} >
+                    <Dropdown overlay={this.state.notice}   >
+                        <a onClick={(e) => e.preventDefault()}>
+                        <Space>
+                            <BellOutlined style={{color:"white",fontSize:25}}/>
+                        </Space>
+                        </a>
+                    </Dropdown>
+                    </div>
                     <Button type="primary" id="exitBtn" onClick = {this.handleLoginOut}>退出登录</Button>
                 </Header>
                 <Layout>

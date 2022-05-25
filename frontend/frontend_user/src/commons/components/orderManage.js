@@ -6,7 +6,7 @@ export default {
             user_id:user_id,
             order_id:order_id,
             doctor_name: doctor_name,
-            payment_state:status,
+            status:status,
             department:department,
             start_date:start_date,
             end_date:end_date

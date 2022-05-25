@@ -47,6 +47,13 @@
     text-align: center;
     line-height: 100%;
 }
+#login_phone{
+    display: inline-block;
+    float: right;
+    text-align: center;
+    margin-right: 30px;
+    line-height: 100%;
+}
 
 .myBtn{
     display: flex;

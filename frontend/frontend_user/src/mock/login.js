@@ -63,6 +63,25 @@ export default [
                 }
             }
         }
+    },
+    {
+        url: '\/user/login_phone\*',
+        type: 'post',
+        response:config=>{
+            let params=JSON.parse(config.body);
+            let phone=params.phone;
+            let idcode=params.idcode;
+
+            // console.log("register info phone",params);
+            return {
+                code:200,
+                data:{
+                    "status":"success",
+                    "username":"xiaoma",
+                    "user_id":"001001"
+                }
+            }
+        }
     }
 ]
 

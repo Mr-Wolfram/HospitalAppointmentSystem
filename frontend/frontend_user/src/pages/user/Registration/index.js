@@ -22,22 +22,17 @@ class Registration extends React.Component {
       userId: undefined,
       doctorId: undefined,
       timeTableVisible: false,
-      confirmLoading: false,
-      modalText: '??',
-      time: undefined,
-      payVisible: false,
       doctorData: [],
       treeData: [],
       doctorMap: new Map(),
-      numberOfQueue: [],
-      QRcodeUrl: undefined,
-      orderId: undefined,
     };
   }
 
   componentWillMount() {
+    // cookie.save('user_id', 'u1234')
+    // cookie.save('username', 'lyczju')
     this.setState({userId: cookie.load('user_id')})
-    let date = new Date()
+    let date = moment().format('d')
     api.post_doctor_info(date)
     .then(r => {
       console.log("post doctor info");
@@ -66,7 +61,6 @@ class Registration extends React.Component {
       // console.log(r.data.data.doctorData);
     });
     // console.log(this.state.doctorData, this.state.treeData);
-
   };
 
   searchOnChange = value => {
@@ -74,73 +68,8 @@ class Registration extends React.Component {
     this.setState({ doctorId: value });
   };
 
-  tmpArray=["姓名","科室","主治症状","个人简介"];
-
-
   showSearchModal = () => {
     this.setState({ timeTableVisible: true });
-  };
-
-  handleSearchModalOk = () => {
-    if(this.state.time === undefined) {
-      message.error('未选择时间！');
-    }
-    else {
-      this.setState({ modalText: 'The modal will be closed after two seconds' });
-      this.setState({ confirmLoading: true });
-      api.post_registration_form(this.state.userId, this.state.doctorId, this.state.time)
-      .then(r => {
-        console.log("post registration form");
-        if(r.data.data.submitSuccess === true) {
-          this.showPayModal();
-          // this.setState({ timeTableVisible: false });
-          this.setState({
-            confirmLoading: false,
-            QRcodeUrl: r.data.data.QRcodeUrl,
-            orderId: r.data.data.orderId,
-          });
-        }
-        else {
-          message.error("当前排队人数已满！");
-          this.handleSearchModalCancel();
-          this.showSearchModal();
-        }
-      });
-    }
-    // console.log(this.state.time)
-    // this.setState({ timeTableVisible: false });
-  };
-
-  handleSearchModalCancel = () => {
-    this.setState({ timeTableVisible: false });
-  };
-
-  selectOnChange = value => {
-    console.log(value)
-    this.setState({ time: value.target.value });
-  }
-
-  showPayModal = () => {
-    this.setState({ payVisible: true });
-  };
-
-  handlePayModalOk = () => {
-    api.post_registration_pay(this.state.orderId)
-    .then(r => {
-      console.log("post registration pay");
-      this.setState({ payVisible: false, timeTableVisible: false });
-      if(r.data.data.paySuccess === true) {
-        message.success('支付成功！');
-      }
-      else {
-        message.error('支付失败!');
-      }
-    })
-  };
-
-  handlePayModalCancel = () => {
-    this.setState({ payVisible: false, timeTableVisible: false });
-    message.error('支付失败!');
   };
 
   chooseOnChange = value => {
@@ -151,9 +80,6 @@ class Registration extends React.Component {
 
 
   render() {
-    // setTimeout(()=>{
-    //   this.setState({doctorId:"d0001"})
-    // },10000)
     return (
       <>
         <Space direction='vertical' size='middle'>
@@ -187,65 +113,14 @@ class Registration extends React.Component {
           doctorId={this.state.doctorId}
           doctorMap={this.state.doctorMap}
           doctorData={this.state.doctorData}
-          changeTimeTableInvisible={()=>{
+          changeTimeTableInvisible={() => {
             this.setState({timeTableVisible: false});
           }}
         />
-
-        {/* <Modal
-          title='预约挂号'
-          visible={this.state.timeTableVisible}
-          onOk={this.handleSearchModalOk}
-          confirmLoading={this.state.confirmLoading}
-          onCancel={this.handleSearchModalCancel}
-          okText='确定'
-          cancelText='取消'
-        >
-          <span style={{marginLeft: '30px'}}>
-            {this.tmpArray.map(r=>this.generateIntroComponent(r))}
-          </span>
-          <Radio.Group defaultValue='0' buttonStyle='solid' onChange={this.selectOnChange} style={{marginLeft: '30px', marginTop: '10px'}}>
-            <Space size={[20, 20]} wrap>
-            {this.state.numberOfQueue.map((item, index) => {
-              let startTime = 0;
-                if(index < 4) {
-                  startTime = index + 8;
-                }
-                else {
-                  startTime = index + 10;
-                }
-                if(item === 0) {
-                  return (
-                    <Radio.Button value={startTime} style={{width: '120px', height: '60px'}} disabled><span>{startTime}:00-{startTime + 1}:00<br/>当前空余{item}人</span></Radio.Button>
-                  )
-                }
-                else {
-                  return (
-                    <Radio.Button value={startTime} style={{width: '120px', height: '60px'}}><span>{startTime}:00-{startTime + 1}:00<br/>当前空余{item}人</span></Radio.Button>
-                  )
-                }
-              })}
-            </Space>
-          </Radio.Group>
-        </Modal> */}
-        <Modal
-          title='挂号费支付'
-          visible={this.state.payVisible}
-          onOk={this.handlePayModalOk}
-          onCancel={this.handlePayModalCancel}
-          okText='确定'
-          cancelText='取消'>
-          <p>预约医生: {this.state.doctorMap.get(this.state.doctorId)?this.state.doctorMap.get(this.state.doctorId).name:""}</p>
-          <p>预约时间: {this.state.time}:00-{Number(this.state.time) + 1}:00</p>
-          <img src={this.state.QRcodeUrl} alt='QRcode' style={{marginLeft: '35px'}}></img>
-        </Modal>
 
       </>
     );
   }
 }
-
-// const root = ReactDOM.createRoot(document.getElementById('root'));
-// root.render(<Registration />);
 
 export default Registration;

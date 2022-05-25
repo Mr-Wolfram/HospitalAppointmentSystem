@@ -7,7 +7,7 @@ import {StarFilled, StarOutlined} from "@ant-design/icons";
       title: '订单号',
       dataIndex: 'order_id',
       key: 'order_id',
-  },,
+  },
       {
     title: '科室',
     dataIndex: 'department',
@@ -54,6 +54,9 @@ function TableCard(props)  {
         return (
             <div >
                 <Table dataSource={props.orderList.map((d,idx)=>{
+                    // console.log("d.time",d.time);
+                    let thisTime=new Date(d.time);
+                        // console.log("d.time",thisTime);
                     return {
                         key: idx,
                         department: d.department,
@@ -67,26 +70,29 @@ function TableCard(props)  {
                             </Button>
                             <Modal title="订单详情" visible={IsModalOpen[idx]} onOk={()=>setIsModalVisible(false,idx)}
                                    onCancel={()=>setIsModalVisible(false,idx)}>
-                                <p>患者姓名:{d.user_name}</p>
+                                <p>用户姓名:{d.user_name}</p>
                                 <p>医生姓名:{d.doctor_name}</p>
                                 <p>科室:{d.department}</p>
-                                {tmpArr.map(r=>{
-                                    if(icoStatus[idx]){return <StarOutlined onClick={(e) =>{
-                                        console.log("dsd")
-                                        let newArr=icoStatus;
-                                        newArr[idx]=!icoStatus[idx];
-                                        setCollect(newArr);
-                                    }} />}
-                                    else {
-                                        return <StarFilled onClick={(e) =>{
-                                            console.log("dsdcds")
-                                            let newArr=icoStatus;
-                                            newArr[idx]=!icoStatus[idx];
-                                            setCollect(newArr);
-                                            console.log(newArr);
-                                        }} />
-                                    }
-                                })}
+                                <p>预约日期:{thisTime.getFullYear() + '-' + (thisTime.getMonth() + 1) + '-' + thisTime.getDate()}</p>
+                                <p>预约时间:{thisTime.getHours() + ':' + thisTime.getMinutes() + ':' + thisTime.getSeconds()}</p>
+                                <p>挂号费:{d.payment?d.payment:"6.00"}</p>
+                                {/*{tmpArr.map(r=>{*/}
+                                {/*    if(icoStatus[idx]){return <StarOutlined onClick={(e) =>{*/}
+                                {/*        // console.log("dsd")*/}
+                                {/*        let newArr=icoStatus;*/}
+                                {/*        newArr[idx]=!icoStatus[idx];*/}
+                                {/*        setCollect(newArr);*/}
+                                {/*    }} />}*/}
+                                {/*    else {*/}
+                                {/*        return <StarFilled onClick={(e) =>{*/}
+                                {/*            // console.log("dsdcds")*/}
+                                {/*            let newArr=icoStatus;*/}
+                                {/*            newArr[idx]=!icoStatus[idx];*/}
+                                {/*            setCollect(newArr);*/}
+                                {/*            // console.log(newArr);*/}
+                                {/*        }} />*/}
+                                {/*    }*/}
+                                {/*})}*/}
                             </Modal>
                         </div>
                     }

@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import axios from "axios";
 import { Form, Input, Button, Checkbox, message} from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import {UserOutlined, LockOutlined, PhoneOutlined, CodeOutlined} from '@ant-design/icons';
 import cookie from 'react-cookies'
 import './index.css'
 import {Link} from "react-router-dom";
 import loginPicture from "./../../images/loginPicture.jpg"
 
-class Login extends Component {
+class LoginPhone extends Component {
 
     //防止修改url访问
     componentWillMount () {
@@ -53,15 +53,15 @@ class Login extends Component {
     handleSubmit = () => {
         let that = this
         if (that.state.username === '' && that.state.password === '') return
-        axios.post('/user/login_pwd', {
-            username: this.state.username,
-            password: this.state.password
+        axios.post('/user/login_phone', {
+            phone: this.state.username,
+            idcode: this.state.password
         })
             .then(function (response) {
                 const data = response.data
                 const result = data.data.status
                 if (result === 'success'){
-                    cookie.save('username', that.state.username, { path: '/' });
+                    cookie.save('username', data.data.username, { path: '/' });
                     cookie.save('loginSuccess', true, { path: '/' });
                     cookie.save('user_id',data.data.user_id)
                     // cookie.save('email', data.email, {path:'/'});
@@ -83,7 +83,6 @@ class Login extends Component {
 
 
 
-
     render () {
         return (
             <div className='myForm'>
@@ -91,7 +90,6 @@ class Login extends Component {
 
                 <div className='right'>
                     <h6 className='title'>用户登录</h6>
-                    {/*<div onClick={this.login_method}>切换登录方式</div>*/}
                     <hr className='line'/>
                     <Form
                         name="normal_login"
@@ -101,38 +99,39 @@ class Login extends Component {
                         }}
                     >
                         <Form.Item
-                            name="username"
+                            name="phone"
                             rules={[
                                 {
                                     required: true,
-                                    message: '请输入您的用户名',
+                                    message: '请输入您的手机号',
                                     trigger: 'blur'
                                 },
                                 {
-                                    min: 6,
-                                    max: 18,
-                                    message: '用户名长度应为6-18个字符',
-                                    trigger: 'blur'
+                                    pattern:/^1[3456789]\d{9}$/,
+                                    message:'请输入正确的手机格式'
                                 }
                             ]}
                         >
-                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="用户名" onChange={this.handleUsername}/>
+                            <Input prefix={<PhoneOutlined className="site-form-item-icon" />} placeholder="手机号" onChange={this.handleUsername}/>
                         </Form.Item>
                         <Form.Item
-                            name="password"
+                            name="idcode"
                             rules={[
                                 {
-                                    required: true,
-                                    message: '请输入您的密码！',
+                                    pattern:/^\d{6}$/,
+                                    message:'请输入正确的验证码',
+                                    trigger: 'blur'
                                 },
                             ]}
                         >
-                            <Input.Password
-                                prefix={<LockOutlined className="site-form-item-icon"/>}
-                                type="password"
-                                placeholder="密码"
+                            <Input
+                                prefix={<CodeOutlined  className="site-form-item-icon"/>}
+                                // type="password"
+                                style={{width:"60%"}}
+                                placeholder="验证码"
                                 onChange={this.handlePassword}
                             />
+                            <Button  className="login-form-button" onClick={()=>{message.success("验证码为123456",4)}}>获取验证码</Button>
                         </Form.Item>
                         <Form.Item >
                             <Form.Item name="remember" noStyle>
@@ -141,8 +140,8 @@ class Login extends Component {
                             <Link className="login-form-forgot" to="/forgetPwd" id="forgetPassword">
                                 忘记密码？
                             </Link>
-                            <Link className="login-form-forgot" to="/login_phone" id="login_phone">
-                                手机登录
+                            <Link className="login-form-forgot" to="/login" id="login_phone">
+                                用户名登录
                             </Link>
                         </Form.Item>
 
@@ -164,4 +163,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default LoginPhone;

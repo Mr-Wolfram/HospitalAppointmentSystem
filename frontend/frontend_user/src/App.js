@@ -10,6 +10,7 @@ import ForgetPwd from "./pages/ForgetPwd";
 // import LabelImg from "./pages/LabelImg";
 
 import './App.css'
+import LoginPhone from "./pages/Login/LoginPhone";
 
 class App extends Component {
     state = {
@@ -20,7 +21,7 @@ class App extends Component {
     componentDidMount () {
         const success = cookie.load('loginSuccess')
         if (success !== undefined) {
-            message.success('登陆成功。欢迎您，' + this.state.username, 10)
+            message.success('登陆成功。欢迎您，' + this.state.username, 2)
                 .then(value => console.log(value), reason => console.log(reason))
             cookie.remove('loginSuccess',{ path: '/' })
         }
@@ -35,6 +36,7 @@ class App extends Component {
                 <Switch>
                     <Route path="/index" component={Index} />
                     <Route path="/login" component={Login} />
+                    <Route path="/login_phone" component={LoginPhone} />
                     <Route path="/register" component={Register} />
                     <Route path="/forgetPwd" component={ForgetPwd} />
 

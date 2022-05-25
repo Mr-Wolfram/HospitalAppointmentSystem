@@ -10,6 +10,7 @@ import ForgetPwd from "./pages/ForgetPwd";
 // import LabelImg from "./pages/LabelImg";
 
 import './App.css'
+import LoginPhone from "./pages/Login/LoginPhone";
 
 class App extends Component {
     state = {
@@ -35,6 +36,7 @@ class App extends Component {
                 <Switch>
                     <Route path="/index" component={Index} />
                     <Route path="/login" component={Login} />
+                    <Route path="/login_phone" component={LoginPhone} />
                     <Route path="/register" component={Register} />
                     <Route path="/forgetPwd" component={ForgetPwd} />
 

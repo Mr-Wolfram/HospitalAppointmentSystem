@@ -11,19 +11,19 @@ const Option = Select.Option;
 const department_list=["放疗科","呼吸内科","消化内科","神经内科","心血管内科",
     "普通外科","神经外科","心胸外科","泌尿外科","儿科综合","小儿内科","小儿外科",
     "新生儿科","中医全科","中医内科","中医外科","针灸按摩科","中医骨伤科","肝病科",
-    "艾滋病科","寄生虫科","放疗科","肿瘤综合科","骨肿瘤科","耳鼻喉科","眼科","口腔科"
+    "艾滋病科","寄生虫科","放疗科","肿瘤综合科","骨肿瘤科","耳鼻喉科","眼科","口腔科","骨科"
 ]
 function OrderManage () {
     const [orderList,setOrderList]=useState([]);
-    const [select_department,setSelect_department]=useState("选择科室");//
-    const [select_doctor,setSelect_doctor]=useState("输入医生名字")
+    const [select_department,setSelect_department]=useState("");//
+    const [select_doctor,setSelect_doctor]=useState("")
     const [select_order_id,setSelect_order_id]=useState("")
     const [select_status,setSelect_status]=useState("")
     const [select_start_time,setSelect_start_time]=useState("")
     const [select_end_time,setSelect_end_time]=useState("")
     useEffect(()=>{
         order_api.get_query_order(
-            "032324","","","TRADE_SUCCESS","神经内科","2022-01-01 00:00:00","2022-05-13 00:00:00"
+            cookie.load("user_id"),"","","","","",""
         ).then(r=>{
                 console.log("order query",r.data);
                 setOrderList(r.data.data)
@@ -74,8 +74,8 @@ function OrderManage () {
                         </Col>
                         <Col span={16}>
                             <InputGroup compact>
-                                <Input style={{ width: '50px' }} defaultValue="zd" />
-                                <Input style={{ width: '300px' }} placeholder={"请输入订单号后半段"} onChange={e=>setSelect_order_id("zd"+e.target.value)} />
+                                {/*<Input style={{ width: '50px' }} defaultValue="zd" />*/}
+                                <Input style={{ width: '300px' }} placeholder={"请输入订单号"} onChange={e=>setSelect_order_id(e.target.value)} />
                             </InputGroup>
                         </Col>
 
@@ -102,14 +102,14 @@ function OrderManage () {
                         </Select>
                     </InputGroup>
                     <br />
-                        <InputGroup compact>
-                            {/* <Input style={{ width: '50%' }} defaultValue="input content" /> */}
-                            <Button >日期选择</Button>
-                            <DatePicker onChange={(r)=>{
-                                setSelect_start_time(r);
-                                setSelect_end_time(r);
-                            }} />
-                        </InputGroup>
+                        {/*<InputGroup compact>*/}
+                        {/*    /!* <Input style={{ width: '50%' }} defaultValue="input content" /> *!/*/}
+                        {/*    <Button >日期选择</Button>*/}
+                        {/*    <DatePicker onChange={(r)=>{*/}
+                        {/*        setSelect_start_time(r);*/}
+                        {/*        setSelect_end_time(r);*/}
+                        {/*    }} />*/}
+                        {/*</InputGroup>*/}
                         <br />
                     <InputGroup compact>
                         <Select defaultValue="1">
@@ -130,7 +130,8 @@ function OrderManage () {
 
                     <br />
                     </Row>
-                    <Button  onClick={()=>{
+                    <Button style={{position:"absolute",right:"40%",top:"16%",width:140,height:50,fontSize:24,backgroundColor:"#1890ff",color:"white"}}
+                        onClick={()=>{
                         getOrder(
                             cookie.load("user_id"),select_order_id,select_doctor,select_status,
                             select_department,select_start_time,select_end_time
@@ -138,6 +139,16 @@ function OrderManage () {
                     }}
                     >
                         筛选查询
+                    </Button>
+                    <Button style={{position:"absolute",right:"25%",top:"16%",width:140,height:50,fontSize:24,backgroundColor:"#1890ff",color:"white"}}
+                            onClick={()=>{
+                                getOrder(
+                                    cookie.load("user_id"),"","","",
+                                    "","",""
+                                )
+                            }}
+                    >
+                        清空条件
                     </Button>
 
                         {/* <InputGroup compact>

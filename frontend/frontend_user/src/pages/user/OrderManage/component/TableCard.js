@@ -56,7 +56,7 @@ function TableCard(props)  {
                 <Table dataSource={props.orderList.map((d,idx)=>{
                     // console.log("d.time",d.time);
                     let thisTime=new Date(d.time);
-                        console.log("d.time",thisTime);
+                        // console.log("d.time",thisTime);
                     return {
                         key: idx,
                         department: d.department,

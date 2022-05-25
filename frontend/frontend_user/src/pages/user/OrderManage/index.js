@@ -1,6 +1,6 @@
 import React, {Component, useEffect, useState} from 'react';
 import api from "./../../../commons/index"
-import { Input, Col,Row, Button,Select, DatePicker, AutoComplete, Cascader } from 'antd';
+import { Input,Form, Col,Row, Button,Select, DatePicker, AutoComplete, Cascader } from 'antd';
 import TableCard from './component/TableCard';
 import order_api from "./../../../commons/components/orderManage"
 import cookie from "react-cookies";
@@ -54,15 +54,33 @@ function OrderManage () {
 
                         </Col>
                         <Col span={10}>
+                            {/*<Form.Item*/}
+                            {/*    name="doctor_name"*/}
+                            {/*    rules={[*/}
+                            {/*        {*/}
+                            {/*            required: true,*/}
+                            {/*            message: '请输入医生名字',*/}
+                            {/*            trigger: 'blur'*/}
+                            {/*        },*/}
+                            {/*        {*/}
+                            {/*            min: 2,*/}
+                            {/*            max: 10,*/}
+                            {/*            message: '医生名长度应为2-10个字符',*/}
+                            {/*            trigger: 'blur'*/}
+                            {/*        }*/}
+                            {/*    ]}*/}
+                            {/*>*/}
                             <Input style={{ width: '80wh' }} onChange={(event)=>{
-                                console.log("input event",event.target.value);
+                                // console.log("input event",event.target.value);
                                 if(event && event.target && event.target.value){
                                     let value = event.target.value;
                                     setSelect_doctor(value)
                                 }
                             }}
+                                   showCount maxLength={10} minLength={2}
                                    placeholder={"医生名字"}
                             />
+                            {/*</Form.Item>*/}
                         </Col>
                     </Row>
                     <Row gutter= {[16,24]}>
@@ -75,7 +93,9 @@ function OrderManage () {
                         <Col span={16}>
                             <InputGroup compact>
                                 {/*<Input style={{ width: '50px' }} defaultValue="zd" />*/}
-                                <Input style={{ width: '300px' }} placeholder={"请输入订单号"} onChange={e=>setSelect_order_id(e.target.value)} />
+                                <Input style={{ width: '300px' }}
+                                       allowClear
+                                       placeholder={"请输入订单号"} onChange={e=>setSelect_order_id(e.target.value.replace(/\W/g,''))} />
                             </InputGroup>
                         </Col>
 
@@ -94,7 +114,7 @@ function OrderManage () {
                     <br />
 
                     <InputGroup compact>
-                        <Select defaultValue="状态选择" onChange={(r)=>setSelect_status(r)}>
+                        <Select defaultValue="状态选择" value={select_status===""?"状态选择":select_status} onChange={(r)=>setSelect_status(r)}>
                             <Option value="TRADE_SUCCESS">支付成功</Option>
                             <Option value="TRADE_FINISHED">就诊完成</Option>
                             <Option value="WAIT_BUYER_PAY">待支付</Option>
@@ -142,6 +162,12 @@ function OrderManage () {
                     </Button>
                     <Button style={{position:"absolute",right:"30%",top:"19%",width:100,height:30,fontSize:16,backgroundColor:"#1890ff",color:"white"}}
                             onClick={()=>{
+                                setSelect_department("");
+                                setSelect_doctor("");
+                                setSelect_end_time("");
+                                setSelect_status("");
+                                setSelect_start_time("")
+                                setSelect_order_id("")
                                 getOrder(
                                     cookie.load("user_id"),"","","",
                                     "","",""

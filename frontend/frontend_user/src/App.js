@@ -21,7 +21,7 @@ class App extends Component {
     componentDidMount () {
         const success = cookie.load('loginSuccess')
         if (success !== undefined) {
-            message.success('登陆成功。欢迎您，' + this.state.username, 10)
+            message.success('登陆成功。欢迎您，' + this.state.username, 2)
                 .then(value => console.log(value), reason => console.log(reason))
             cookie.remove('loginSuccess',{ path: '/' })
         }

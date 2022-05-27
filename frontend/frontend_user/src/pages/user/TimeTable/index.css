@@ -1,0 +1,13 @@
+@import '~antd/dist/antd.css';
+
+
+.week{
+    font-weight:bold;
+    font-size:200%;
+}
+
+
+.table{
+    border-style:solid;
+    width: 90%;
+}

@@ -1,0 +1,23 @@
+
+.sys_messages{
+    margin-top: 20px;
+}
+
+.content{
+    margin: 20px;
+}
+
+
+
+.Notice{
+    margin: 10px;
+    margin-bottom: 20px;
+    border: 2px;
+    height: 80px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 5px 5px 2px #d4d4d4;
+    padding: 20px;
+    vertical-align: middle;
+}
+

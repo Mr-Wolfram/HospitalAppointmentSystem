@@ -60,6 +60,7 @@ class Login extends Component {
             .then(function (response) {
                 const data = response.data
                 const result = data.data.status
+                console.log("data=",data);
                 if (result === 'success'){
                     cookie.save('username', that.state.username, { path: '/' });
                     cookie.save('loginSuccess', true, { path: '/' });

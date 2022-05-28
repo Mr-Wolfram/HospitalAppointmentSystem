@@ -1,6 +1,6 @@
 export default [
     {
-        url:'/api/user/log',
+        url:'\/api\/user\/log\$',
         type:'post',
         response: config =>{
             return {

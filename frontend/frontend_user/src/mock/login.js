@@ -82,7 +82,7 @@ export default [
             let username=params.username;
             let password=params.password;
 
-            // console.log("register info phone",params);
+            console.log("register info phone",params);
             return {
                 code:200,
                 data:{

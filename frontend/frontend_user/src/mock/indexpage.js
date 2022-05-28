@@ -1,6 +1,6 @@
 export default [
     {
-        url:'/user/query_action',
+        url:'\/api\/user\/log\$',
         type:'post',
         response: config =>{
             return {
@@ -15,7 +15,7 @@ export default [
         }
     },
     {
-        url:'/user/query_health_info',
+        url:'/api/user/health/tips',
         type:'post',
         response: config =>{
             return{

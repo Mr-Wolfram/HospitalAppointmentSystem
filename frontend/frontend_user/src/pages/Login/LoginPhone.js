@@ -7,6 +7,7 @@ import './index.css'
 import {Link} from "react-router-dom";
 import loginPicture from "./../../images/loginPicture.jpg"
 
+
 class LoginPhone extends Component {
 
     //防止修改url访问
@@ -31,6 +32,7 @@ class LoginPhone extends Component {
         username: '',
         password: '',
         phone:'',
+        idcode:'',
         login:"username",
         // render_login:this.login_by_username
     }
@@ -49,26 +51,52 @@ class LoginPhone extends Component {
         this.setState({password: e.target.value})
     }
 
+    handleIDcode = e => {
+        this.setState({idcode: e.target.value})
+    }
+
     //处理表单请求
     handleSubmit = () => {
         let that = this
-        if (that.state.username === '' && that.state.password === '') return
-        axios.post('/api//user/login/idcode', {
-            phone: this.state.username,
-            idcode: this.state.password
+        let pnum = this.state.phone
+        let idc = this.state.idcode
+        if (that.state.phone === '' && that.state.password === '') return
+
+        axios.post('/api/user/check/phone', {
+            phone: this.state.phone
         })
             .then(function (response) {
                 const data = response.data
-                const result = data.data.status
-                if (result === 'success'){
-                    cookie.save('username', data.data.username, { path: '/' });
-                    cookie.save('loginSuccess', true, { path: '/' });
-                    cookie.save('user_id',data.data.user_id)
-                    // cookie.save('email', data.email, {path:'/'});
-                    window.location.href = '/index';
+                const result = data.data.IsExist
+                if (result == false){
+                    message.warning('手机号未绑定', 2);
+                    console.log("手机号未绑定")
                 }
                 else{
-                    message.warning('账号或密码错误', 2)
+                    axios.post('/api/user/login/idcode', {
+                        phone: pnum,
+                        idcode: idc
+                    })
+                        .then(function (response) {
+                            const data = response.data
+                            const result = data.data.status
+                            const username = data.data.username
+                            console.log("data=",data);
+                            if (result === 'success'){
+                                cookie.save('phone', that.state.phone, { path: '/' });
+                                cookie.save('username', username, { path: '/' });
+                                cookie.save('loginSuccess', true, { path: '/' });
+                                cookie.save('user_id',data.data.user_id)
+                                // cookie.save('email', data.email, {path:'/'});
+                                window.location.href = '/index';
+                            }
+                            else{
+                                message.warning('验证码错误', 2)
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
                 }
             })
             .catch(function (error) {
@@ -112,7 +140,7 @@ class LoginPhone extends Component {
                                 }
                             ]}
                         >
-                            <Input prefix={<PhoneOutlined className="site-form-item-icon" />} placeholder="手机号" onChange={this.handleUsername}/>
+                            <Input prefix={<PhoneOutlined className="site-form-item-icon" />} placeholder="手机号" onChange={this.handlePhone}/>
                         </Form.Item>
                         <Form.Item
                             name="idcode"
@@ -129,7 +157,7 @@ class LoginPhone extends Component {
                                 // type="password"
                                 style={{width:"60%"}}
                                 placeholder="验证码"
-                                onChange={this.handlePassword}
+                                onChange={this.handleIDcode}
                             />
                             <Button  className="login-form-button" onClick={()=>{message.success("验证码为123456",4)}}>获取验证码</Button>
                         </Form.Item>

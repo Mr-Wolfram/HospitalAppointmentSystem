@@ -7,11 +7,13 @@ import './index.css'
 import {Link} from "react-router-dom";
 import loginPicture from "./../../images/loginPicture.jpg"
 
+
 class Login extends Component {
 
     //防止修改url访问
     componentWillMount () {
         const username = cookie.load('username');
+        const phone = cookie.load('phone');
         const change = cookie.load('changeSuccess');
         if (username !== undefined) window.location.href = '/index';
         if(change !== undefined){
@@ -52,29 +54,51 @@ class Login extends Component {
     //处理表单请求
     handleSubmit = () => {
         let that = this
+        let uname = this.state.username
+        let pwd = this.state.password
         if (that.state.username === '' && that.state.password === '') return
-        axios.post('/api/user/login/pwd', {
-            username: this.state.username,
-            password: this.state.password
+
+        axios.post('/api/user/check/name', {
+            username: this.state.username
         })
             .then(function (response) {
                 const data = response.data
-                const result = data.data.status
-                console.log("data=",data);
-                if (result === 'success'){
-                    cookie.save('username', that.state.username, { path: '/' });
-                    cookie.save('loginSuccess', true, { path: '/' });
-                    cookie.save('user_id',data.data.user_id)
-                    // cookie.save('email', data.email, {path:'/'});
-                    window.location.href = '/index';
+                const result = data.data.IsExist
+                if (result == false){
+                    message.warning('用户不存在', 2);
+                    console.log("用户不存在")
                 }
                 else{
-                    message.warning('账号或密码错误', 2)
+                    axios.post('/api/user/login/pwd', {
+                        username: uname,
+                        password: pwd
+                    })
+                        .then(function (response) {
+                            const data = response.data
+                            const result = data.data.status
+                            console.log("data=",data);
+                            if (result === 'success'){
+                                cookie.save('username', that.state.username, { path: '/' });
+                                cookie.save('loginSuccess', true, { path: '/' });
+                                cookie.save('user_id',data.data.user_id)
+                                // cookie.save('email', data.email, {path:'/'});
+                                window.location.href = '/index';
+                            }
+                            else{
+                                message.warning('账号或密码错误', 2)
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
                 }
             })
             .catch(function (error) {
                 console.log(error);
             });
+        
+        
+        
     }
 
     //跳转注册界面

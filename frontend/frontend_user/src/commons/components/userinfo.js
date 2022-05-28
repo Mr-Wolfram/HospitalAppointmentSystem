@@ -11,4 +11,10 @@ export default {
             user_id:user_id,
         })
     },
+    async set_avatar(user_id,url) {
+        return await http.post('/api/user/avatar', {
+            user_id:user_id,
+            url:url
+        })
+    },
 }

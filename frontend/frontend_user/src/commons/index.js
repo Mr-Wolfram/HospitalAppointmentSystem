@@ -13,19 +13,19 @@ export default {
     },
     // add  here
     async post_doctor_info(date) {
-      return await http.post('/registration/info', {
+      return await http.post('/api/user/registration/info', {
         date: date
       })
     },
 
     async post_doctor_select(doctorId) {
-      return await http.post('/registration/select', {
+      return await http.post('/api/user/registration/select', {
         doctorId: doctorId
       })
     },
 
     async post_registration_form(userId, doctorId, time) {
-      return await http.post('/registration/form', {
+      return await http.post('/api/user/registration/form', {
         userId: userId,
         doctorId: doctorId,
         time: time,
@@ -33,9 +33,23 @@ export default {
     },
 
     async post_registration_pay(orderId) {
-      return await http.post('/registration/pay', {
+      return await http.post('/api/user/registration/pay', {
         orderId: orderId,
       })
+    },
+    async order_revoke(orderId,userId) {
+        return await http.post('/api/user/order/revoke', {
+            order_id: orderId,
+            user_id:userId //注意是userId还是user_id
+        })
+    },
+    async order_create(orderId,userId,department,doctorId) {
+        return await http.post('/api/user/order/create', {
+            order_id: orderId,
+            user_id:userId, //注意是userId还是user_id
+            department:department,
+            doctor_id:doctorId
+        })
     },
 
 }

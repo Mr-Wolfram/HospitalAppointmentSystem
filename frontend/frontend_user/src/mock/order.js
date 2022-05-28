@@ -9,7 +9,7 @@ import cookie from "react-cookies";
 
 export default [
     {
-        url: '\/user\/order_query/\*',
+        url: '\/api\/user\/order\/query/\*',
         type: 'post',
 
         response: config => {
@@ -187,12 +187,39 @@ export default [
                 data: return_list
             }
         }
-    },{
-        url: '\/user\/order_delete/\*',
+    },
+
+    {
+        url: '\/api\/user\/order\/comment\*',
         type: 'post',
 
         response: config => {
+            return {
+                code:200,
+                data:{
+                    status:"success"
+                }
+            }
+        }
+    },
+    {
+        url: '\/api\/user\/order\/info\*',
+        type: 'post',
 
+        response: config => {
+            return {
+                code:200,
+                data:{
+                    order_id:"zd01201030232",
+                    user_id:"233454",
+                    user_name:"zhang si",
+                    doctor_name:"zhang san",
+                    doctor_id:"0123",
+                    department:"神经内科",
+                    time:"2022-03-23 12:03:23",
+                    status:"TRADE_FINISHED",//订单的状态有:"WAIT_BUYER_PAY","TRADE_CLOSED","TRADE_SUCCESS","TRADE_FINISHED",其中"WAIT_BUYER_PAY"和"TRADE_SUCCESS"时可以撤销的
+                }
+            }
         }
     }
 ]

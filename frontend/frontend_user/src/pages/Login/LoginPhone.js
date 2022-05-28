@@ -53,7 +53,7 @@ class LoginPhone extends Component {
     handleSubmit = () => {
         let that = this
         if (that.state.username === '' && that.state.password === '') return
-        axios.post('/user/login_phone', {
+        axios.post('/api//user/login/idcode', {
             phone: this.state.username,
             idcode: this.state.password
         })

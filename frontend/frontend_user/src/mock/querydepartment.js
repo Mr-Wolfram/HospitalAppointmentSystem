@@ -2,13 +2,13 @@ import Mock from 'mockjs'
 
 export default [
     {
-        url:'/user/query_deparment',
+        url:'/api/user/department/list',
         type:'get',
         response:()=>{
             return {
                 code:200,
                 data:{
-                    
+
                         "内科":{
                             "呼吸内科":{
                                 "主任":"呼吸内科11",
@@ -31,7 +31,7 @@ export default [
                                 "主治医师":["心血管内科3","心血管内科4"]
                             }
                         },
-                    
+
                         "外科":{
                             "普通外科":{
                                 "主任":"普通外科1",
@@ -59,7 +59,7 @@ export default [
                                 "主治医师":["林建华"]
                             }
                         },
-                    
+
                         "儿科":{
                             "儿科综合":{
                                 "主任":"儿科综合1",
@@ -82,7 +82,7 @@ export default [
                                 "主治医师":["新生儿科3","新生儿科4"]
                             }
                         },
-                    
+
                         "中医科":{
                             "中医全科":{
                                 "主任":"中医全科1",
@@ -110,7 +110,7 @@ export default [
                                 "主治医师":["中医骨伤科3","中医骨伤科4"]
                             }
                         },
-                    
+
                         "传染科":{
                             "肝病科":{
                                 "主任":"肝病科1",
@@ -128,7 +128,7 @@ export default [
                                 "主治医师":["寄生虫科3","寄生虫科4"]
                             }
                         },
-                    
+
                         "肿瘤科":{
                             "放疗科":{
                                 "主任":"放疗科1",
@@ -146,7 +146,7 @@ export default [
                                 "主治医师":["骨肿瘤科3","骨肿瘤科4"]
                             }
                         },
-                    
+
                         "五官科":{
                             "耳鼻喉科":{
                                 "主任":"张华",
@@ -164,7 +164,7 @@ export default [
                                 "主治医师":["口腔科3","口腔科4"]
                             }
                         }
-                    
+
                 }
             }
         }
@@ -210,14 +210,14 @@ export default [
                             }
                         }
                     }
-                
+
             }
         }
 
     },
     */
     {
-        url:'/user/query_department',
+        url:'/api/user/department/query',
         type:'post',
         response: config =>{
             let params=JSON.parse(config.body).params;
@@ -258,7 +258,7 @@ export default [
                             }
                         }
                     }
-                
+
             }
         }
     },
@@ -287,39 +287,39 @@ export default [
                         }
                     ]
                  }
-                
+
             }
         }
 
     },
     */
     {
-        url:'/user/query_doctor',
+        url:'/api/user/doctor/query',
         type:'post',
         response: config =>{
             let params=JSON.parse(config.body).params;
-            console.log("用来获取医生信息的参数是:",params.doctor_name,params.depart_name);
+            console.log("用来获取医生信息的参数是:",params.doctor,params.depart);
             return {
                 data:{
                     "number":2,
                     "doctor_list":[
                         {
                              "id": 1000001,
-                             "name": params.doctor_name,
-                             "department":params.depart_name,
+                             "name": params.doctor,
+                             "department":params.depart,
                              "age":35,
-                             "intro":params.doctor_name+"毕业于浙江大学医学系，擅长荨麻疹等等疾病的治疗，曾获得浙江省名医称号。"
+                             "intro":params.doctor+"毕业于浙江大学医学系，擅长荨麻疹等等疾病的治疗，曾获得浙江省名医称号。"
                         },
                         {
                              "id": 1000043,
-                             "name": params.doctor_name,
-                             "department":params.depart_name,
+                             "name": params.doctor,
+                             "department":params.depart,
                              "age":42,
-                             "intro":params.doctor_name+"毕业于浙江大学医学系，擅长骨科手术，是本医院最有名望的骨科专家。"
+                             "intro":params.doctor+"毕业于浙江大学医学系，擅长骨科手术，是本医院最有名望的骨科专家。"
                         }
                     ]
                  }
-                
+
             }
         }
     },
@@ -360,17 +360,17 @@ export default [
                         }
                     }
                 }
-                
+
             }
         }
     },
     */
     {
-        url: '/user/query_schedule',
+        url: '/api/user/schedule/query',
         type: 'post',
         response: config =>{
             let params=JSON.parse(config.body).params;
-            console.log("值班表查询的参数是:",params.weekdays,params.departments);
+            console.log("值班表查询的参数是:",params.weekdays,params.department);
             return {
                 data:{
                     "data_info":params.weekdays,
@@ -403,7 +403,7 @@ export default [
                         }
                     }
                 }
-                
+
             }
         }
     }

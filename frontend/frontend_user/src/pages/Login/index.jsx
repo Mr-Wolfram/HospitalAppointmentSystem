@@ -53,7 +53,7 @@ class Login extends Component {
     handleSubmit = () => {
         let that = this
         if (that.state.username === '' && that.state.password === '') return
-        axios.post('/user/login_pwd', {
+        axios.post('/api/user/login/pwd', {
             username: this.state.username,
             password: this.state.password
         })

@@ -37,15 +37,16 @@ function ConfirmModal(props) {
   return (
     <div>
       <Modal
+        width={500}
         title='挂号订单确认'
         visible={props.visible}
         onOk={handleConfirmModalOK}
         // confirmLoading={this.state.confirmLoading}
         onCancel={handleConfirmModalCancel}
-        okText='确定'
+        okText='提交预约'
         cancelText='取消'
       >
-        <span style={{ marginLeft: '50px' }}>
+        <span style={{ marginLeft: '50px', marginBottom: '52px', lineHeight: '50px' }}>
           用户姓名: {cookie.load("username")}<br/>
           医生姓名: {props.doctorMap.get(props.doctorId) ? props.doctorMap.get(props.doctorId).name : ""}<br/>
           医生科室: {props.doctorMap.get(props.doctorId) ? props.doctorMap.get(props.doctorId).department : ""}<br/>

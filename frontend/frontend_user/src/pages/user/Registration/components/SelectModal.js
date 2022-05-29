@@ -64,6 +64,7 @@ function SelectModal(props) {
   return (
     <div>
       <Modal
+        width={500}
         title="挂号预约"
         visible={props.timeTableVisible}
         onOk={handleSearchModalOK}
@@ -71,7 +72,7 @@ function SelectModal(props) {
         okText="确认"
         cancelText="取消"
       >
-        <span style={{ marginLeft: '30px' }}>
+        <span style={{ marginLeft: '30px', lineHeight: '30px' }}>
           {tmpArray.map(r => generateIntroComponent(r))}
         </span>
         <Radio.Group defaultValue='0' buttonStyle='solid' onChange={(event) => {

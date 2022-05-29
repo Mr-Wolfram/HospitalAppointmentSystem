@@ -6,7 +6,28 @@
     font-family:"Times New Roman";
 }
 
-.table{
+.table{ 
+    background-color:#ffffff;
     border-style:solid;
-    width: 90%;
+    border-color: #000000;
+    width: 80%;
+}
+
+.seg{
+    border-style:solid;
+    border-color: #ffffff;
+
+}
+
+
+.top{
+    font-size:130%;
+}
+
+.mid{
+    font-size:120%;
+}
+
+.down{
+    font-size:110%;
 }

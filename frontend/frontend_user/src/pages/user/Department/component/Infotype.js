@@ -1,9 +1,12 @@
 import '../index.css';
 import React from 'react';
-import { Segmented } from 'antd';
+import { Row, Segmented,Tabs  } from 'antd';
 import api from "./../../../../commons/components/querydeparment"
 
 import Showtype from './Showtype';
+
+
+const { TabPane } = Tabs;
 
 class Infotype extends React.Component{
     constructor(props){
@@ -77,6 +80,10 @@ class Infotype extends React.Component{
         );
     }
 
+    changeshow1(name){
+        console.log(name);
+    }
+
 
 
     render(){
@@ -89,9 +96,28 @@ class Infotype extends React.Component{
 
         return (
             <div>
-                <Segmented size="middle" options={['简介','人员','时间表']} onChange={value=>this.changeshow(value)}/>
+                {/*
+                <Row >
+                    <Segmented className='seg' size="middle" options={['简介','人员','时间表']} onChange={value=>this.changeshow(value)}/>
+                </Row>
+                */}
+                <Row style={{'margin':'0cm 0cm 0cm 4cm'}}>
+                <Tabs className='down' defaultActiveKey="1" onChange={value=>this.changeshow(value)}>
+                    <TabPane tab="简介" key="简介">
+                     
+                    </TabPane>
+                    <TabPane tab="人员" key="人员">
+                      
+                    </TabPane>
+                    <TabPane tab="时间表" key="时间表">
+                      
+                    </TabPane>
+                </Tabs>
+                </Row>
                 <p></p>
-                <Showtype personinfo={people} departmentinfo={department_detailinfo} showtype={this.state.type}></Showtype>
+                <Row  justify='center'>
+                    <Showtype personinfo={people} departmentinfo={department_detailinfo} showtype={this.state.type}></Showtype>
+                </Row>
             </div>
         )
     }

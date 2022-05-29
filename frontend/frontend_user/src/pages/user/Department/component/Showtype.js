@@ -151,7 +151,7 @@ class Showtype extends React.Component{
             //return <p>简介</p>
             return (
                 <>
-                <Descriptions className='table' size='small' title={''} column={1} bordered={true}>
+                <Descriptions className='table' contentStyle={{'textAlign':'center'}} labelStyle={{'width':'10%','textAlign':'center'}} size='middle' title={''} column={1} bordered={true}>
                     <Descriptions.Item label="科室名称">{departmentinfo.name}</Descriptions.Item>
                     <Descriptions.Item label="简介">{departmentinfo.intro}</Descriptions.Item>
                     <Descriptions.Item label="医生">
@@ -169,7 +169,7 @@ class Showtype extends React.Component{
             //return <p>人员</p>
             return (
                 <>
-                <Descriptions className='table' size='small' title={''} column={1} bordered>
+                <Descriptions className='table' contentStyle={{'textAlign':'center'}} labelStyle={{'width':'10%','textAlign':'center'}} size='small' title={''} column={1} bordered>
                     <Descriptions.Item label="主任">
                         {
                             this.getbutton(doctorinfo["主任"])
@@ -195,7 +195,7 @@ class Showtype extends React.Component{
             //return <p>时间表</p>
             return (
                 <>
-                <Descriptions className='table' size='small' title={''} column={2} bordered>
+                <Descriptions contentStyle={{'textAlign':'center'}} labelStyle={{'width':'10%','textAlign':'center'}} className='table' size='small' title={''} column={2} bordered>
                             <Descriptions.Item label="周一上午">{this.getbutton(departmentinfo.schedule.周一.上午)}</Descriptions.Item>
                             <Descriptions.Item label="周一下午">{this.getbutton(departmentinfo.schedule.周一.下午)}</Descriptions.Item>
                             <Descriptions.Item label="周二上午">{this.getbutton(departmentinfo.schedule.周二.上午)}</Descriptions.Item>

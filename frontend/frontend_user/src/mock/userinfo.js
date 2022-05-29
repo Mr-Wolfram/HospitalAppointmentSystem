@@ -60,5 +60,16 @@ export default [
                 code:200,
             }
         }
+    },
+    {
+        url: '\/api\/user\/doctor\/addcollect\*',
+        type: 'post',
+
+        response: config => {
+            return {
+                code:200,
+                status:"success"
+            }
+        }
     }
 ]

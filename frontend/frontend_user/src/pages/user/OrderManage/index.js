@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from 'react';
+import React, {Component, useEffect, useRef, useState} from 'react';
 import api from "./../../../commons/index"
 import { Input,Form, Col,Row, Button,Select, DatePicker, AutoComplete, Cascader } from 'antd';
 import TableCard from './component/TableCard';
@@ -21,12 +21,25 @@ function OrderManage () {
     const [select_status,setSelect_status]=useState("")
     const [select_start_time,setSelect_start_time]=useState("")
     const [select_end_time,setSelect_end_time]=useState("")
+    const doctor_input_ref=useRef();
     useEffect(()=>{
         order_api.get_query_order(
             cookie.load("user_id"),"","","","","",""
         ).then(r=>{
                 console.log("order query",r.data);
-                setOrderList(r.data.data)
+                let retData=r.data.data.map(i=>{
+                    if(i.status==="WAIT_BUYER_PAY"){
+                        let nowTime=new Date();
+                        let thatTime=new Date(i.time);
+                        if(nowTime-thatTime>=15*60){
+                            console.log("nowTime-thatTime",nowTime,thatTime,nowTime-thatTime);
+                            i.status="TRADE_CLOSED";
+                        }
+                    }
+                    return i;
+                })
+
+                setOrderList(retData)
             }
         )
     },[])
@@ -37,13 +50,28 @@ function OrderManage () {
             }
         )
     }
-        return (
+
+    function onSearchSelectDepart(param) {
+        console.log("onSearchSelectDepart",param)
+    }
+
+    return (
             <div >
                 <div>
                 <div>
                     <Row gutter= {[16,24]}>
                         <Col span={5}>
-                            <Select defaultValue="选择科室" onChange={(r)=>setSelect_department(r)}>
+                            <Select
+                                    showSearch
+                                    style={{width:100}}
+                                    onSearch={onSearchSelectDepart}
+                                    placeholder="选择科室"
+                                    value={select_department===""?"选择科室":""}
+                                    onChange={(r)=>setSelect_department(r)}
+                                    optionFilterProp="children"
+                                    filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
+                            >
+
                                 {department_list.map(r=>{
                                     return <Option key={r} value={r}>{r}</Option>
                                 })}
@@ -70,13 +98,16 @@ function OrderManage () {
                             {/*        }*/}
                             {/*    ]}*/}
                             {/*>*/}
-                            <Input style={{ width: '80wh' }} onChange={(event)=>{
+                            <Input
+                                ref={doctor_input_ref}
+                                style={{ width: '80wh' }} onChange={(event)=>{
                                 // console.log("input event",event.target.value);
                                 if(event && event.target && event.target.value){
                                     let value = event.target.value;
                                     setSelect_doctor(value)
                                 }
                             }}
+                                value={select_doctor}
                                    showCount maxLength={10} minLength={2}
                                    placeholder={"医生名字"}
                             />
@@ -95,6 +126,7 @@ function OrderManage () {
                                 {/*<Input style={{ width: '50px' }} defaultValue="zd" />*/}
                                 <Input style={{ width: '300px' }}
                                        allowClear
+                                       value={select_order_id}
                                        placeholder={"请输入订单号"} onChange={e=>setSelect_order_id(e.target.value.replace(/\W/g,''))} />
                             </InputGroup>
                         </Col>
@@ -132,14 +164,17 @@ function OrderManage () {
                         {/*</InputGroup>*/}
                         <br />
                     <InputGroup compact>
-                        <Select defaultValue="1">
-                            <Option value="1">Between</Option>
-                            {/*<Option value="2">Except</Option>*/}
-                        </Select>
-                        <DatePicker onChange={(r)=>{
+
+                        <DatePicker
+                            placeholder={"start"}
+                            value={select_start_time}
+                            onChange={(r)=>{
                             setSelect_start_time(r);
                         }} />
-                        <DatePicker onChange={(r)=>{
+                        <DatePicker
+                            placeholder={"end"}
+                            value={select_end_time}
+                            onChange={(r)=>{
                             setSelect_end_time(r);
                         }} />
                         {/*<Input style={{ width: 100, textAlign: 'center' }} placeholder="Minimum" />*/}
@@ -168,6 +203,9 @@ function OrderManage () {
                                 setSelect_status("");
                                 setSelect_start_time("")
                                 setSelect_order_id("")
+
+                                // doctor_input_ref.current.input.value=''
+                                console.log(doctor_input_ref.current)
                                 getOrder(
                                     cookie.load("user_id"),"","","",
                                     "","",""

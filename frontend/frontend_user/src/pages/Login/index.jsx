@@ -6,6 +6,8 @@ import cookie from 'react-cookies'
 import './index.css'
 import {Link} from "react-router-dom";
 import loginPicture from "./../../images/loginPicture.jpg"
+import ReactSimpleVerify from 'react-simple-verify'
+import 'react-simple-verify/dist/react-simple-verify.css'
 
 
 class Login extends Component {
@@ -34,6 +36,7 @@ class Login extends Component {
         password: '',
         phone:'',
         login:"username",
+        slideconfirm:false,
         // render_login:this.login_by_username
     }
 
@@ -51,13 +54,21 @@ class Login extends Component {
         this.setState({password: e.target.value})
     }
 
+    slidesuccess = () => {
+        this.setState({slideconfirm: true})
+    }
+
     //处理表单请求
     handleSubmit = () => {
         let that = this
         let uname = this.state.username
         let pwd = this.state.password
+        
         if (that.state.username === '' && that.state.password === '') return
-
+        if (this.state.slideconfirm == false) {
+            message.warning('请进行滑块验证');
+            return;
+        }
         axios.post('/api/user/check/name', {
             username: this.state.username
         })
@@ -170,8 +181,9 @@ class Login extends Component {
                                 手机登录
                             </Link>
                         </Form.Item>
-
-                        <Form.Item id='buttons'>
+                        <ReactSimpleVerify ref="verify" success={this.slidesuccess} />
+                        <div className='space'></div>
+                        <Form.Item id='buttons' >
                             <div className='myBtn'>
                                 <Button type="primary" htmlType="submit" className="login-form-button"
                                         onClick = {this.handleSubmit}>
@@ -183,6 +195,7 @@ class Login extends Component {
                             </div>
                         </Form.Item>
                     </Form>
+                    
                 </div>
             </div>
         );

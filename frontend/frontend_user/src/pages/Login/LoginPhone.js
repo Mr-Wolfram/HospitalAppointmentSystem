@@ -6,7 +6,8 @@ import cookie from 'react-cookies'
 import './index.css'
 import {Link} from "react-router-dom";
 import loginPicture from "./../../images/loginPicture.jpg"
-
+import ReactSimpleVerify from 'react-simple-verify'
+import 'react-simple-verify/dist/react-simple-verify.css'
 
 class LoginPhone extends Component {
 
@@ -33,6 +34,7 @@ class LoginPhone extends Component {
         password: '',
         phone:'',
         idcode:'',
+        slideconfirm:false,
         login:"username",
         // render_login:this.login_by_username
     }
@@ -55,12 +57,21 @@ class LoginPhone extends Component {
         this.setState({idcode: e.target.value})
     }
 
+    slidesuccess = () => {
+        this.setState({slideconfirm: true})
+    }
+
     //处理表单请求
     handleSubmit = () => {
         let that = this
         let pnum = this.state.phone
         let idc = this.state.idcode
+        
         if (that.state.phone === '' && that.state.password === '') return
+        if (this.state.slideconfirm == false) {
+            message.warning('请进行滑块验证');
+            return;
+        }
 
         axios.post('/api/user/check/phone', {
             phone: this.state.phone
@@ -159,7 +170,7 @@ class LoginPhone extends Component {
                                 placeholder="验证码"
                                 onChange={this.handleIDcode}
                             />
-                            <Button  className="login-form-button" onClick={()=>{message.success("验证码为123456",4)}}>获取验证码</Button>
+                            <Button  className="login-idcode-button" onClick={()=>{message.success("验证码为123456",4)}}>获取验证码</Button>
                         </Form.Item>
                         <Form.Item >
                             <Form.Item name="remember" noStyle>
@@ -172,7 +183,8 @@ class LoginPhone extends Component {
                                 用户名登录
                             </Link>
                         </Form.Item>
-
+                        <ReactSimpleVerify ref="verify" success={this.slidesuccess} />
+                        <div className='space' ></div>
                         <Form.Item id='buttons'>
                             <div className='myBtn'>
                                 <Button type="primary" htmlType="submit" className="login-form-button"

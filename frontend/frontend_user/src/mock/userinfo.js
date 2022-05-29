@@ -62,6 +62,18 @@ export default [
         }
     },
     {
+        
+        url: '\/api\/user\/doctor\/addcollect\*',
+        type: 'post',
+
+        response: config => {
+            return {
+                code:200,
+                status:"success"
+            }
+        }
+    },
+    {
         url: '\/api\/user\/doctor\/collectlist/\*',
         type: 'get',
 
@@ -80,5 +92,6 @@ export default [
                 }]
             }
         }
-    },
+    } 
+    
 ]

@@ -106,6 +106,7 @@ export default [
         code: 200,
         data: {
           submitSuccess: true,
+          remarks: 'WAIT_BUYER_PAY',
           QRcodeUrl: QRcodeUrl,
           orderId: 'o1122334455',
         }
@@ -125,6 +126,7 @@ export default [
         code: 200,
         data: {
           paySuccess: true,
+          remarks: 'TRADE_SUCCESS',
         }
       }
     }
@@ -138,7 +140,7 @@ export default [
         return {
           code:200,
           data:{
-            IsSuccess:false,//有效订单在未就诊完成的时候可以撤回
+            isSuccess:false,//有效订单在未就诊完成的时候可以撤回
             remarks:"TRADE_FINISHED"//订单的状态有:"WAIT_BUYER_PAY","TRADE_CLOSED","TRADE_SUCCESS","TRADE_FINISHED",其中"WAIT_BUYER_PAY"和"TRADE_SUCCESS"时可以撤销的
           }
         }

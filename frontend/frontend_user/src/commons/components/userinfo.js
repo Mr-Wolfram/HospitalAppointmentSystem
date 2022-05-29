@@ -22,4 +22,10 @@ export default {
             user_id:user_id,
         })
     },
+    async collect_doctor(user_id,doctor_id) {
+        return await http.post('/api/user/doctor/addcollect', {
+            user_id:user_id,
+            doctor_id:doctor_id
+        })
+    },
 }

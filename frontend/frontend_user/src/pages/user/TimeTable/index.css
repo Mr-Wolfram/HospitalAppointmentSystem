@@ -3,11 +3,13 @@
 
 .week{
     font-weight:bold;
-    font-size:200%;
+    font-size:150%;
 }
 
 
-.table{
+.table1{
     border-style:solid;
+    background-color: #ffffff;
+    border-color: #ffffff;
     width: 90%;
 }

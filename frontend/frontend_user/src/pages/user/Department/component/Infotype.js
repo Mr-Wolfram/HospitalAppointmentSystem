@@ -116,7 +116,7 @@ class Infotype extends React.Component{
                 </Row>
                 <p></p>
                 <Row  justify='center'>
-                    <Showtype personinfo={people} departmentinfo={department_detailinfo} showtype={this.state.type}></Showtype>
+                    <Showtype name={this.props.name} personinfo={people} departmentinfo={department_detailinfo} showtype={this.state.type}></Showtype>
                 </Row>
             </div>
         )

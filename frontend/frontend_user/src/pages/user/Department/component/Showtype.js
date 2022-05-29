@@ -25,7 +25,7 @@ class Showtype extends React.Component{
     }
 
     componentDidMount(){
-        api.postdoctorinfo(this.state.person).then(r=>{
+        api.postdoctorinfo(this.state.person,this.props.departmentinfo.name).then(r=>{
             this.setState(
                 {
                     data:r.data.data
@@ -152,7 +152,7 @@ class Showtype extends React.Component{
             return (
                 <>
                 <Descriptions className='table' contentStyle={{'textAlign':'center'}} labelStyle={{'width':'10%','textAlign':'center'}} size='middle' title={''} column={1} bordered={true}>
-                    <Descriptions.Item label="科室名称">{departmentinfo.name}</Descriptions.Item>
+                    <Descriptions.Item label="科室名称">{this.props.name}</Descriptions.Item>
                     <Descriptions.Item label="简介">{departmentinfo.intro}</Descriptions.Item>
                     <Descriptions.Item label="医生">
                         {

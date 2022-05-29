@@ -15,6 +15,7 @@ class Department extends React.Component {
         this.state = {
             num:1,
             num1:1,
+            name:'呼吸内科',
             data:{"name":"1"},
             data1:{
                 "name":"",
@@ -46,7 +47,8 @@ class Department extends React.Component {
         api.postdepartinfo("呼吸内科").then(r=>{
             this.setState(
                 {
-                    data1:r.data.data
+                    data1:r.data.data,
+                    name:'呼吸内科'
                 }
             );
         });
@@ -69,7 +71,7 @@ class Department extends React.Component {
         this.setState(
             {
                 num:l,
-                num1:1
+                num1:1,
             }
         );
         //console.log(depart_struct[depart_general_name[l-1]]);
@@ -81,7 +83,8 @@ class Department extends React.Component {
         api.postdepartinfo(depart_detail_name[0]).then(r=>{
             this.setState(
                 {
-                    data1:r.data.data
+                    data1:r.data.data,
+                    name:depart_detail_name[0]
                 }
             );
         });
@@ -103,7 +106,8 @@ class Department extends React.Component {
         } 
         this.setState(
             {
-                num1:l
+                num1:l,
+                name:name
             }
         );
         api.postdepartinfo(name).then(r=>{
@@ -146,7 +150,7 @@ class Department extends React.Component {
                 </Row>
                 */}
                 <Row style={{'margin':'0cm 0cm 0cm 4cm'}}>
-                    <Tabs defaultActiveKey="1" onChange={value=>this.changeshow(value)}>{
+                    <Tabs defaultActiveKey={depart_general_name[0]} onChange={value=>this.changeshow(value)}>{
                         depart_general_name.map(Item=>{
                             return <TabPane tab={<div className='top'>{Item}</div>} key={Item}></TabPane>
                         })
@@ -161,7 +165,7 @@ class Department extends React.Component {
                 </Row>
                 */}
                 <Row style={{'margin':'0cm 0cm 0cm 4cm'}}>
-                    <Tabs defaultActiveKey="1" onChange={value=>this.changeshow1(value)}>{
+                    <Tabs defaultActiveKey={depart_name[0]} activeKey={depart_name[this.state.num1-1]} onChange={value=>this.changeshow1(value)}>{
                         depart_name.map(Item=>{
                             return <TabPane tab={<div className='mid'>{Item}</div>} key={Item}></TabPane>
                         })
@@ -171,7 +175,7 @@ class Department extends React.Component {
 
 
                 <p></p>
-                <Infotype data1={this.state.data1} data={depart_struct[depart_general_name[this.state.num-1]][depart_name[this.state.num1-1]]} depart={depart_name[this.state.num1-1]}></Infotype>
+                <Infotype name={this.state.name} data1={this.state.data1} data={depart_struct[depart_general_name[this.state.num-1]][depart_name[this.state.num1-1]]} depart={depart_name[this.state.num1-1]}></Infotype>
             </div>
         )
 

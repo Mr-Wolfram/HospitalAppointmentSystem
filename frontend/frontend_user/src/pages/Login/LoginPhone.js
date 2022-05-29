@@ -6,6 +6,8 @@ import cookie from 'react-cookies'
 import './index.css'
 import {Link} from "react-router-dom";
 import loginPicture from "./../../images/loginPicture.jpg"
+import ReactSimpleVerify from 'react-simple-verify'
+import 'react-simple-verify/dist/react-simple-verify.css'
 
 class LoginPhone extends Component {
 
@@ -31,6 +33,8 @@ class LoginPhone extends Component {
         username: '',
         password: '',
         phone:'',
+        idcode:'',
+        slideconfirm:false,
         login:"username",
         // render_login:this.login_by_username
     }
@@ -49,26 +53,61 @@ class LoginPhone extends Component {
         this.setState({password: e.target.value})
     }
 
+    handleIDcode = e => {
+        this.setState({idcode: e.target.value})
+    }
+
+    slidesuccess = () => {
+        this.setState({slideconfirm: true})
+    }
+
     //处理表单请求
     handleSubmit = () => {
         let that = this
-        if (that.state.username === '' && that.state.password === '') return
-        axios.post('/user/login_phone', {
-            phone: this.state.username,
-            idcode: this.state.password
+        let pnum = this.state.phone
+        let idc = this.state.idcode
+        
+        if (that.state.phone === '' && that.state.password === '') return
+        if (this.state.slideconfirm == false) {
+            message.warning('请进行滑块验证');
+            return;
+        }
+
+        axios.post('/api/user/check/phone', {
+            phone: this.state.phone
         })
             .then(function (response) {
                 const data = response.data
-                const result = data.data.status
-                if (result === 'success'){
-                    cookie.save('username', data.data.username, { path: '/' });
-                    cookie.save('loginSuccess', true, { path: '/' });
-                    cookie.save('user_id',data.data.user_id)
-                    // cookie.save('email', data.email, {path:'/'});
-                    window.location.href = '/index';
+                const result = data.data.IsExist
+                if (result == false){
+                    message.warning('手机号未绑定', 2);
+                    console.log("手机号未绑定")
                 }
                 else{
-                    message.warning('账号或密码错误', 2)
+                    axios.post('/api/user/login/idcode', {
+                        phone: pnum,
+                        idcode: idc
+                    })
+                        .then(function (response) {
+                            const data = response.data
+                            const result = data.data.status
+                            const username = data.data.username
+                            console.log("data=",data);
+                            if (result === 'success'){
+                                cookie.save('phone', that.state.phone, { path: '/' });
+                                cookie.save('username', username, { path: '/' });
+                                cookie.save('loginSuccess', true, { path: '/' });
+                                cookie.save('user_id',data.data.user_id)
+                                // cookie.save('email', data.email, {path:'/'});
+                                window.location.href = '/index';
+                            }
+                            else{
+                                message.warning('验证码错误', 2)
+                            }
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
                 }
             })
             .catch(function (error) {
@@ -112,7 +151,7 @@ class LoginPhone extends Component {
                                 }
                             ]}
                         >
-                            <Input prefix={<PhoneOutlined className="site-form-item-icon" />} placeholder="手机号" onChange={this.handleUsername}/>
+                            <Input prefix={<PhoneOutlined className="site-form-item-icon" />} placeholder="手机号" onChange={this.handlePhone}/>
                         </Form.Item>
                         <Form.Item
                             name="idcode"
@@ -129,9 +168,9 @@ class LoginPhone extends Component {
                                 // type="password"
                                 style={{width:"60%"}}
                                 placeholder="验证码"
-                                onChange={this.handlePassword}
+                                onChange={this.handleIDcode}
                             />
-                            <Button  className="login-form-button" onClick={()=>{message.success("验证码为123456",4)}}>获取验证码</Button>
+                            <Button  className="login-idcode-button" onClick={()=>{message.success("验证码为123456",4)}}>获取验证码</Button>
                         </Form.Item>
                         <Form.Item >
                             <Form.Item name="remember" noStyle>
@@ -144,7 +183,8 @@ class LoginPhone extends Component {
                                 用户名登录
                             </Link>
                         </Form.Item>
-
+                        <ReactSimpleVerify ref="verify" success={this.slidesuccess} />
+                        <div className='space' ></div>
                         <Form.Item id='buttons'>
                             <div className='myBtn'>
                                 <Button type="primary" htmlType="submit" className="login-form-button"

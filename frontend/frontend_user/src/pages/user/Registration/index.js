@@ -13,6 +13,7 @@ import api from "./../../../commons/index"
 import cookie from 'react-cookies'
 import SelectModal from './components/SelectModal'
 
+
 moment.locale('zh-cn');
 
 class Registration extends React.Component {

@@ -12,17 +12,11 @@ class TimeTable extends React.Component{
             size: "default",
             general: "内科",
             depart:[],
-            day:["1"],
+            day:[""],
             isShow:false,
             data:{"name":"1"},
             data1:{
-                "data_info":["2022-04-18_1","2022-04-20_3"],
-                "周一":{
-                   
-                },
-                "周三":{
-                    
-                }
+                "data_info":[]
             }
         }
     }

@@ -2,7 +2,7 @@ import http from '../request.js'
 
 export default{
     async getdepartstruct(param){
-        return await http.get('/user/query_deparment',{
+        return await http.get('/api/user/department/list',{
           param:param
         })
     },
@@ -15,7 +15,7 @@ export default{
     */
 
     async postdepartinfo(depart_name){
-      return await http.post('/user/query_department',{
+      return await http.post('/api/user/department/query',{
         depart_name:depart_name
       })
     },
@@ -29,9 +29,9 @@ export default{
     */
 
     async postdoctorinfo(doctor_name,depart_name){
-      return await http.post('/user/query_doctor',{
-        doctor_name:doctor_name,
-        depart_name:depart_name
+      return await http.post('/api/user/doctor/query',{
+        doctor:doctor_name,
+        depart:depart_name
       })
     },
 
@@ -42,11 +42,11 @@ export default{
       })
     },
     */
-    
+
     async postqueryschdule(weekdays,departments){
-      return await http.post('/user/query_schedule',{
+      return await http.post('/api/user/schedule/query',{
         weekdays:weekdays,
-        departments:departments,
+        department:departments,
       })
     }
 }

@@ -48,7 +48,7 @@ class Register extends Component {
         //延时1s，增加动画效果
         let id = setTimeout(() => {
             let that = this
-            axios.post('/user/check/name', {
+            axios.post('/api/user/check/name', {
                 username
             })
                 .then(function (response) {
@@ -83,7 +83,7 @@ class Register extends Component {
         clearTimeout(this.state.id2) // 防抖
         let id = setTimeout(() => {
             let that = this
-            axios.post('/user/check/phone', {
+            axios.post('/api/user/check/phone', {
                 phone
             })
                 .then(function (response) {
@@ -125,7 +125,7 @@ class Register extends Component {
         //判断提交数据格式的合法性
         if (username === '' || password === '' || phone === '' || !reg1.test(username) || !reg2.test(phone) ||
             !reg3.test(password) || this.verifyPwd !== password || this.state.nameRepeated || this.state.phoneRepeated) return
-        axios.post('/user/register', {
+        axios.post('/api/user/register', {
             username,
             password,
             phone

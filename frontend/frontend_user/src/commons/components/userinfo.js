@@ -17,4 +17,9 @@ export default {
             url:url
         })
     },
+    async collect_doctor_list(user_id) {
+        return await http.get('/api/user/doctor/collectlist', {
+            user_id:user_id,
+        })
+    },
 }

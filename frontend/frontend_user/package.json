@@ -34,6 +34,7 @@
     "react-cookies": "^0.1.1",
     "react-css-variables": "^2.0.1",
     "react-dom": "^16.14.0",
+    "react-error-overlay": "^6.0.9",
     "react-image-annotate": "^1.7.1",
     "react-map-gl": "^6.1.16",
     "react-router-dom": "^5.2.0",

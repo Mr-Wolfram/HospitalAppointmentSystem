@@ -60,5 +60,25 @@ export default [
                 code:200,
             }
         }
-    }
+    },
+    {
+        url: '\/api\/user\/doctor\/collectlist/\*',
+        type: 'get',
+
+        response: config => {
+            return {
+                code:200,
+                data:[{
+                    doctor_name:"张三",
+                    doctor_info:"耳鼻喉科主任，30年从医经验。"
+                },{
+                    doctor_name:"李四",
+                    doctor_info:"骨科主任，20年从医经验。"
+                },{
+                    doctor_name:"王五",
+                    doctor_info:"妇科主任，25年从医经验。"
+                }]
+            }
+        }
+    },
 ]

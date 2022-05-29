@@ -77,15 +77,16 @@ function PayModal(props) {
         <Countdown
           style={{marginLeft: '170px'}}
           title='支付时间'
-          value={Date.now() + 10 * 1000}
+          value={Date.now() + 15 * 60 * 1000}
           onFinish={handlePayModalTimeout}
         />
         <img
           className='QRCode'
           src={props.QRcodeUrl}
           alt='QRcode'
-          style={{marginLeft: '120px', marginBottom: '10px', height: '200px', width: '200px'}}
+          style={{marginLeft: '120px', height: '200px', width: '200px'}}
         ></img>
+        <p style={{marginLeft: '180px', marginTop: '5px', marginBottom: '0px', fontSize: '150%'}}>￥5.00</p>
       </Modal>
     </div>
   )

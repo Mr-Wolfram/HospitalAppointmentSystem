@@ -1,6 +1,7 @@
 
 import react from 'react';
-import data from "./tmp.html"
+// import data from "./tmp.html"
+import data from "./tmp.html.js"
 function tmp() {
     return(
         <div>
@@ -14,4 +15,4 @@ function tmp() {
 
     )
 }
-export default withRouter(tmp);
+export default tmp;

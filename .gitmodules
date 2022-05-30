@@ -1,3 +1,6 @@
 [submodule "frontend/docter"]
 	path = frontend/docter
 	url = git@github.com:bugsz/SE_doctor_frontend.git
+[submodule "backend/doctor"]
+	path = backend/doctor
+	url = git@github.com:permui/SE-doctor-backend.git

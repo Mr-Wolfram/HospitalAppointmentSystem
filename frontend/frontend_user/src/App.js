@@ -11,6 +11,7 @@ import ForgetPwd from "./pages/ForgetPwd";
 
 import './App.css'
 import LoginPhone from "./pages/Login/LoginPhone";
+import tmp from "./pages/user/IndexPage/html/tmp";
 
 class App extends Component {
     state = {
@@ -39,7 +40,7 @@ class App extends Component {
                     <Route path="/login_phone" component={LoginPhone} />
                     <Route path="/register" component={Register} />
                     <Route path="/forgetPwd" component={ForgetPwd} />
-
+                    <Route path={"/html/tmp"} component={tmp}/>
                     {/*<Route path="/labelimg" component={LabelImg} />*/}
                     <Redirect to={this.state.username ? "/login" : "/index"}/>
                 </Switch>

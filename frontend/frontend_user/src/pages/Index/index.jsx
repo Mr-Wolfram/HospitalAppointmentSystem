@@ -161,7 +161,7 @@ export default class Index extends Component {
                                 <Route exact path={"/index/ordermanage"} component={OrderManage}/>
                                 <Route exact path={"/index/notice"} component={Notice}/>
                                 <Route exact path={"/index/registration"} component={Registration}/>
-                                <Route exact path={"/index/html/tmp"} component={tmp}/>
+
                             </Switch>
                             {/*<Footer/>*/}
                         </Content>

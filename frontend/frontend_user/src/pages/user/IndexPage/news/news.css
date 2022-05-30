@@ -1,0 +1,16 @@
+.divider-type{
+    line-height: 10px;
+}
+.img-type{
+    width:1500;
+    border-radius: 20px;
+}
+.text-type{
+    font-size: 20px;
+    border-width: 5px;
+
+}
+.border-type{
+    border-width: 5px;
+    border-color: black;
+}

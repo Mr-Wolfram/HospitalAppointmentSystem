@@ -151,117 +151,120 @@ class Register extends Component {
 
     render () {
         return (
-            <div className='myForm'>
-                <img src='./images/registerPicture.jpg' className='leftPicture' alt='leftPicture'/>
-                <div className='right'>
-                    <h4 className='title'>用户注册</h4>
-                    <hr className='line'/>
-                    <Form
-                        className="trueForm"
-                        initialValues={{
-                            remember: true,
-                        }}
-                    >
-                        <Form.Item
-                            name="username"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: '请输入您的用户名',
-                                    trigger: 'blur'
-                                },
-                                {
-                                    min: 6,
-                                    max: 12,
-                                    message: '用户名长度应为6-12个字符',
-                                    trigger: 'blur'
-                                }
-                            ]}
-                            validateStatus={this.state.nameStyle}
-                            hasFeedback
-                            help={this.state.nameHelp}
+            <div className={'background'}>
+                <div className='myForm'>
+                    <img src='./images/registerPicture.jpg' className='leftPicture' alt='leftPicture'/>
+                    <div className='right'>
+                        <h4 className='title'>用户注册</h4>
+                        <hr className='line'/>
+                        <Form
+                            className="trueForm"
+                            initialValues={{
+                                remember: true,
+                            }}
                         >
-                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="用户名" onChange={this.handleUsername}/>
-                        </Form.Item>
+                            <Form.Item
+                                name="username"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '请输入您的用户名',
+                                        trigger: 'blur'
+                                    },
+                                    {
+                                        min: 6,
+                                        max: 12,
+                                        message: '用户名长度应为6-12个字符',
+                                        trigger: 'blur'
+                                    }
+                                ]}
+                                validateStatus={this.state.nameStyle}
+                                hasFeedback
+                                help={this.state.nameHelp}
+                            >
+                                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="用户名" onChange={this.handleUsername}/>
+                            </Form.Item>
 
-                        <Form.Item
-                            name="phone"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: '请输入您的手机号',
-                                    trigger: 'blur'
-                                },
-                                {
-                                    pattern:/^1[3456789]\d{9}$/,
-                                    message:'请输入正确的手机格式'
-                                }
-                            ]}
-                            validateStatus={this.state.phoneStyle}
-                            hasFeedback
-                            help={this.state.phoneHelp}
-                        >
-                            <Input prefix={<PhoneOutlined className="site-form-item-icon" />} placeholder="手机号" onChange={this.handlePhone}/>
-                        </Form.Item>
+                            <Form.Item
+                                name="phone"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '请输入您的手机号',
+                                        trigger: 'blur'
+                                    },
+                                    {
+                                        pattern:/^1[3456789]\d{9}$/,
+                                        message:'请输入正确的手机格式'
+                                    }
+                                ]}
+                                validateStatus={this.state.phoneStyle}
+                                hasFeedback
+                                help={this.state.phoneHelp}
+                            >
+                                <Input prefix={<PhoneOutlined className="site-form-item-icon" />} placeholder="手机号" onChange={this.handlePhone}/>
+                            </Form.Item>
 
-                        <Form.Item
-                            name="password"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: '请输入您的密码',
-                                },
-                                {
-                                    min: 6,
-                                    max: 24,
-                                    message: '密码长度应为8-16个字符',
-                                    trigger: 'blur'
-                                },
-                                {
-                                    pattern:/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/,
-                                    message: '密码应包含数字和字母'
-                                }
-                            ]}
-                        >
-                            <Input.Password
-                                prefix={<LockOutlined className="site-form-item-icon"/>}
-                                type="password"
-                                placeholder="密码"
-                                onChange={this.handlePassword}
-                            />
-                        </Form.Item>
+                            <Form.Item
+                                name="password"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '请输入您的密码',
+                                    },
+                                    {
+                                        min: 6,
+                                        max: 24,
+                                        message: '密码长度应为8-16个字符',
+                                        trigger: 'blur'
+                                    },
+                                    {
+                                        pattern:/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/,
+                                        message: '密码应包含数字和字母'
+                                    }
+                                ]}
+                            >
+                                <Input.Password
+                                    prefix={<LockOutlined className="site-form-item-icon"/>}
+                                    type="password"
+                                    placeholder="密码"
+                                    onChange={this.handlePassword}
+                                />
+                            </Form.Item>
 
-                        <Form.Item
-                            name="password2"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: '请再次确认密码',
-                                },
-                                {
-                                    validator: this.repeatPwd
-                                }
-                            ]}
-                        >
-                            <Input.Password
-                                prefix={<LockOutlined className="site-form-item-icon"/>}
-                                type="password"
-                                placeholder="确认密码"
-                                onChange={e => this.verifyPwd = e.target.value}
-                            />
-                        </Form.Item>
+                            <Form.Item
+                                name="password2"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '请再次确认密码',
+                                    },
+                                    {
+                                        validator: this.repeatPwd
+                                    }
+                                ]}
+                            >
+                                <Input.Password
+                                    prefix={<LockOutlined className="site-form-item-icon"/>}
+                                    type="password"
+                                    placeholder="确认密码"
+                                    onChange={e => this.verifyPwd = e.target.value}
+                                />
+                            </Form.Item>
 
 
-                        <Form.Item id='buttons'>
-                            <div className='myBtn'>
-                                <Button type="primary" htmlType="submit" className="login-form-button" onClick={this.handleSubmit}>
-                                    注册
-                                </Button>
-                            </div>
-                        </Form.Item>
-                    </Form>
+                            <Form.Item id='buttons'>
+                                <div className='myBtn'>
+                                    <Button type="primary" htmlType="submit" className="login-form-button" onClick={this.handleSubmit}>
+                                        注册
+                                    </Button>
+                                </div>
+                            </Form.Item>
+                        </Form>
+                    </div>
                 </div>
             </div>
+
         );
     }
 }

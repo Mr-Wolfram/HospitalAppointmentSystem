@@ -1,5 +1,5 @@
 body {
-  background: url("./images/background.jpg") no-repeat fixed;
+  /*background: url("./images/background.jpg") no-repeat fixed;*/
   background-size: 100% 100%;
   min-width: 40rem;
   margin: 0;
@@ -10,6 +10,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
   padding: 0;
 
+}
+.background{
+  background: url("./images/background.jpg") no-repeat fixed;
+  background-size: 100% 100%;
+  width: 100vw;
+  height: 100vh;
+  /*background-color: #00B7FF;*/
 }
 .ant-descriptions-item-content {
   /*color: white;*/

@@ -20,7 +20,7 @@ import user_info_api from "./../../../commons/components/userinfo"
 import './index.css'
 
 import {Route, Switch} from "react-router-dom";
-import News1 from './component/News1'
+// import News1 from './component/News1'
 
 const Search = Input.Search;
 const InputGroup = Input.Group;
@@ -125,7 +125,7 @@ class IndexPage extends Component {
 
     updateAction = () =>{
         user_action_api.post_useraction("123")
-        .then( ret =>{ 
+        .then( ret =>{
             console.log("debug",ret.data.data)
             console.log("action",this.state.userAction)
             this.setState({userAction:ret.data.data
@@ -146,7 +146,7 @@ class IndexPage extends Component {
     render () {
         return (
             <div >
-                
+
                 <div>
                     <Row gutter={30} >
                         <Col span={10}>
@@ -206,7 +206,7 @@ class IndexPage extends Component {
                             <Row gutter={18}>
                                 <Col span={3}>
                                 <Row>
-                                    <Avatar size={128} icon={<UserOutlined />} src={this.state.user_avatar_src} className='avatar-type'/>  
+                                    <Avatar size={128} icon={<UserOutlined />} src={this.state.user_avatar_src} className='avatar-type'/>
                                 </Row>
                                 <Row>
                                     <p className='welcome-info'>Welcome, {this.state.user_name}!</p>
@@ -266,7 +266,7 @@ class IndexPage extends Component {
                                     <Row>
                                         <Button type="primary" onClick={this.updateAction} >更新</Button>
                                     </Row>
-                                    
+
                                     {/*<Popover content={content} title="Title">*/}
                                     {/*    <Button type="primary">Hover me</Button>*/}
                                     {/*</Popover>*/}

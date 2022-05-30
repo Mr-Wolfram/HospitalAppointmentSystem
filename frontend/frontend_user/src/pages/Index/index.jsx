@@ -10,7 +10,7 @@ import cookie from "react-cookies";
 import {Route, Switch} from "react-router-dom";
 import axios from "axios";
 import logo from "../../images/logo.png"
-
+import tmp from "./../user/IndexPage/html/tmp"
 import Department from "./../user/Department"
 import TimeTable from "./../user/TimeTable"
 
@@ -161,6 +161,7 @@ export default class Index extends Component {
                                 <Route exact path={"/index/ordermanage"} component={OrderManage}/>
                                 <Route exact path={"/index/notice"} component={Notice}/>
                                 <Route exact path={"/index/registration"} component={Registration}/>
+                                <Route exact path={"/html/tmp"} component={tmp}/>
                             </Switch>
                             {/*<Footer/>*/}
                         </Content>

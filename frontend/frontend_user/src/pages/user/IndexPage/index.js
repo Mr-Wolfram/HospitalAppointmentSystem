@@ -32,25 +32,25 @@ const data = [
         title: "媒体报道",
         srcimg:<CommentOutlined />,
         dis:"奋战30天采样160万人次！248位浙一援沪核酸采样医疗一队队员，欢迎回家！",
-        src:"https://www.baidu.com"
+        src:"/news/news00001"
     },
     {
         title: '党群工作',
         srcimg: <MailOutlined />,
-        dis:"第二党支部:召开202年度党员领导干部民主生活",
-        src:"https://www.zju.edu.cn/593/list.htm"
+        dis:"第二党支部召开2020年度党员领导干部民主生活会",
+        src:"/news/news00002"
     },
     {
         title: '查询热线',
         srcimg: <HeartOutlined />,
         dis:"核酸检查在线查询",
-        src:"http://www.zy91.com/tzht.jhtml"
+        src:"/news/news00003"
     },
     {
         title: '通知公告',
         srcimg:<SoundOutlined />,
         dis:"关于全国卫生系统先进集体先进工作者推荐对象公示的通告",
-        src:"http://www.zy91.com/ggtz/index.jhtml"
+        src:"/news/news00003"
     },
 ];
 const IconText = ({ icon, text }) => (<span>
@@ -101,6 +101,20 @@ class IndexPage extends Component {
         // })
         // this.state.user_name=this.state.userInfoTotal.username
         // console.log("userinfo",this.state.userInfoTotal)
+        user_info_api.get_avatar("1").then(
+           ret=>{
+               this.setState({
+                   user_avatar_src:ret.data.data[0].url,
+               })
+           }
+        )
+        user_info_api.get_userinfo("1").then(
+            ret=>{
+                this.setState({
+                    user_name:ret.data.data[0].username
+                })
+            }
+        )
     }
 
     state = {
@@ -206,10 +220,12 @@ class IndexPage extends Component {
                             <Row gutter={18}>
                                 <Col span={3}>
                                 <Row>
-                                    <Avatar size={128} icon={<UserOutlined />} src={this.state.user_avatar_src} className='avatar-type'/>
+                                    <a href='/index/userinfo'>
+                                        <Avatar size={128} icon={<UserOutlined />} src={this.state.user_avatar_src} className='avatar-type'/>
+                                    </a>
                                 </Row>
-                                <Row>
-                                    <p className='welcome-info'>Welcome, {this.state.user_name}!</p>
+                                <Row className='welcome-info'>
+                                    <p >Welcome, {this.state.user_name}!</p>
                                 </Row>
                                 </Col>
                                 <Col span={7} offset={0}>

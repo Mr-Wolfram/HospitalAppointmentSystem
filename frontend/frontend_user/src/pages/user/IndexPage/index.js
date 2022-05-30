@@ -8,14 +8,19 @@ import {
     HeartOutlined, MailOutlined, ConsoleSqlOutlined
 } from '@ant-design/icons';
 import ProList from '@ant-design/pro-list';
-import {Input, Tag, Button, Select, InputNumber, DatePicker, AutoComplete, Cascader, Carousel} from 'antd';
+import {Input, Tag, Button, Select, InputNumber, DatePicker, AutoComplete, Cascader, Carousel, Layout} from 'antd';
 import { Timeline } from 'antd';
 import { ClockCircleOutlined } from '@ant-design/icons';
 import { Statistic, Card, Row, Col } from 'antd';
-import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
+import { ArrowUpOutlined, ArrowDownOutlined, UserOutlined } from '@ant-design/icons';
 import { Popover } from 'antd';
 import { List, Avatar } from 'antd';
-import user_api from "./../../../commons/components/indexPage"
+import user_action_api from "./../../../commons/components/indexPage"
+import user_info_api from "./../../../commons/components/userinfo"
+import './index.css'
+
+import {Route, Switch} from "react-router-dom";
+import News1 from './component/News1'
 
 const Search = Input.Search;
 const InputGroup = Input.Group;
@@ -27,7 +32,7 @@ const data = [
         title: "媒体报道",
         srcimg:<CommentOutlined />,
         dis:"奋战30天采样160万人次！248位浙一援沪核酸采样医疗一队队员，欢迎回家！",
-        src:"http://www.zy91.com/xwzx/index.jhtml"
+        src:"https://www.baidu.com"
     },
     {
         title: '党群工作',
@@ -87,6 +92,17 @@ const dataSource = [
 ];
 const imgH=550;
 class IndexPage extends Component {
+    constructor(props){
+        super(props);
+        // user_info_api.get_userinfo("123")
+        // .then(ret =>{
+        //     this.setState({userInfoTotal:ret.data.data
+        //     })
+        // })
+        // this.state.user_name=this.state.userInfoTotal.username
+        // console.log("userinfo",this.state.userInfoTotal)
+    }
+
     state = {
         dataSource: [],
         healthInfo:[
@@ -101,27 +117,36 @@ class IndexPage extends Component {
             {timestamp:"2022-04-03 20:10",description:"订单创建成功 等待缴费"},
             {timestamp:"2022-04-03 23:01",description:"订单缴费成功"}
         ],
+        userInfoTotal:{},
+        user_avatar_src:"https://joeschmoe.io/api/v1/random",
+        user_name:"User001"
 
     }
+
     updateAction = () =>{
-        user_api.post_useraction("123")
+        user_action_api.post_useraction("123")
         .then( ret =>{ 
             console.log("debug",ret.data.data)
             console.log("action",this.state.userAction)
             this.setState({userAction:ret.data.data
             })
         })
-        user_api.post_userhealthinfo("123")
+        user_action_api.post_userhealthinfo("123")
         .then( ret =>{
             this.setState({
                 healthInfo:ret.data.data
             })
         })
     }
+    openNewWindow = (src) =>{
+        console.log("src",src)
+        window.open(src,"_blank")
+    }
 
     render () {
         return (
             <div >
+                
                 <div>
                     <Row gutter={30} >
                         <Col span={10}>
@@ -162,10 +187,10 @@ class IndexPage extends Component {
                                 dataSource={data}
                                 style={{backgroundColor:'#ffffff',padding:10}}
                                 renderItem={item => (
-                                    <List.Item>
+                                    <List.Item onClick={this.openNewWindow.bind(this,item.src)}>
                                         <List.Item.Meta
                                             avatar={item.srcimg}
-                                            title={<a href={item.src}>{item.title}</a>}
+                                            title={<a>{item.title}</a>}
                                             description={item.dis}
                                         />
                                     </List.Item>
@@ -176,14 +201,19 @@ class IndexPage extends Component {
                 </div>
                 <br/>
                 <div>
+                        <div>
 
-
-                        <div
-                            // className="site-statistic-demo-card"
-                        >
                             <Row gutter={18}>
-                                <Col span={9} offset={1}>
-                                    <Timeline>
+                                <Col span={3}>
+                                <Row>
+                                    <Avatar size={128} icon={<UserOutlined />} src={this.state.user_avatar_src} className='avatar-type'/>  
+                                </Row>
+                                <Row>
+                                    <p className='welcome-info'>Welcome, {this.state.user_name}!</p>
+                                </Row>
+                                </Col>
+                                <Col span={7} offset={0}>
+                                    <Timeline >
                                         <Timeline.Item>
                                         {this.state.userAction[0].timestamp} {this.state.userAction[0].description}
                                         </Timeline.Item>
@@ -223,16 +253,20 @@ class IndexPage extends Component {
                                     </Card>
                                 </Col>
                                 <Col span={2}>
-                                    <Popover content={(<div>
-                                        <p>综合 {this.state.healthInfo[0].total}</p>
-                                        <p>血氧 {this.state.healthInfo[1].pulse_oximeter}</p>
-                                        <p>睡眠 {this.state.healthInfo[2].sleep_quality}</p>
-                                        <p>心率 {this.state.healthInfo[3].heart_rate}</p>
-                                        </div>)} title="所有指标">
-                                        <Button type="primary" style={{marginBottom:30}}>其他</Button>
-
-                                    </Popover>
-                                    <Button type="primary" onClick={this.updateAction} >更新</Button>
+                                    <Row>
+                                        <Popover content={(<div>
+                                            <p>综合 {this.state.healthInfo[0].total}</p>
+                                            <p>血氧 {this.state.healthInfo[1].pulse_oximeter}</p>
+                                            <p>睡眠 {this.state.healthInfo[2].sleep_quality}</p>
+                                            <p>心率 {this.state.healthInfo[3].heart_rate}</p>
+                                            </div>)} title="所有指标">
+                                            <Button type="primary" style={{marginBottom:30}}>其他</Button>
+                                        </Popover>
+                                    </Row>
+                                    <Row>
+                                        <Button type="primary" onClick={this.updateAction} >更新</Button>
+                                    </Row>
+                                    
                                     {/*<Popover content={content} title="Title">*/}
                                     {/*    <Button type="primary">Hover me</Button>*/}
                                     {/*</Popover>*/}

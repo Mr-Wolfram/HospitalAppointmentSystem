@@ -11,6 +11,13 @@ body {
   padding: 0;
 
 }
+.background{
+  background: url("./images/background.jpg") no-repeat fixed;
+  background-size: 100% 100%;
+  width: 100vw;
+  height: 100vh;
+  /*background-color: #00B7FF;*/
+}
 .ant-descriptions-item-content {
   /*color: white;*/
   /* background: #f5e18d !important; */

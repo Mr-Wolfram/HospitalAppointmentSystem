@@ -66,7 +66,7 @@ class LoginPhone extends Component {
         let that = this
         let pnum = this.state.phone
         let idc = this.state.idcode
-        
+
         if (that.state.phone === '' && that.state.password === '') return
         if (this.state.slideconfirm == false) {
             message.warning('请进行滑块验证');
@@ -124,81 +124,84 @@ class LoginPhone extends Component {
 
     render () {
         return (
-            <div className='myForm'>
-                <img src={'./images/loginPicture.jpg'} alt={'loginPicture'} className='leftPicture'/>
+            <div className={'background'}>
+                <div className='myForm'>
+                    <img src={'./images/loginPicture.jpg'} alt={'loginPicture'} className='leftPicture'/>
 
-                <div className='right'>
-                    <h6 className='title'>用户登录</h6>
-                    <hr className='line'/>
-                    <Form
-                        name="normal_login"
-                        className="trueForm"
-                        initialValues={{
-                            remember: true,
-                        }}
-                    >
-                        <Form.Item
-                            name="phone"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: '请输入您的手机号',
-                                    trigger: 'blur'
-                                },
-                                {
-                                    pattern:/^1[3456789]\d{9}$/,
-                                    message:'请输入正确的手机格式'
-                                }
-                            ]}
+                    <div className='right'>
+                        <h6 className='title'>用户登录</h6>
+                        <hr className='line'/>
+                        <Form
+                            name="normal_login"
+                            className="trueForm"
+                            initialValues={{
+                                remember: true,
+                            }}
                         >
-                            <Input prefix={<PhoneOutlined className="site-form-item-icon" />} placeholder="手机号" onChange={this.handlePhone}/>
-                        </Form.Item>
-                        <Form.Item
-                            name="idcode"
-                            rules={[
-                                {
-                                    pattern:/^\d{6}$/,
-                                    message:'请输入正确的验证码',
-                                    trigger: 'blur'
-                                },
-                            ]}
-                        >
-                            <Input
-                                prefix={<CodeOutlined  className="site-form-item-icon"/>}
-                                // type="password"
-                                style={{width:"60%"}}
-                                placeholder="验证码"
-                                onChange={this.handleIDcode}
-                            />
-                            <Button  className="login-idcode-button" onClick={()=>{message.success("验证码为123456",4)}}>获取验证码</Button>
-                        </Form.Item>
-                        <Form.Item >
-                            <Form.Item name="remember" noStyle>
-                                <Checkbox>记住我</Checkbox>
+                            <Form.Item
+                                name="phone"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '请输入您的手机号',
+                                        trigger: 'blur'
+                                    },
+                                    {
+                                        pattern:/^1[3456789]\d{9}$/,
+                                        message:'请输入正确的手机格式'
+                                    }
+                                ]}
+                            >
+                                <Input prefix={<PhoneOutlined className="site-form-item-icon" />} placeholder="手机号" onChange={this.handlePhone}/>
                             </Form.Item>
-                            <Link className="login-form-forgot" to="/forgetPwd" id="forgetPassword">
-                                忘记密码？
-                            </Link>
-                            <Link className="login-form-forgot" to="/login" id="login_phone">
-                                用户名登录
-                            </Link>
-                        </Form.Item>
-                        <ReactSimpleVerify ref="verify" success={this.slidesuccess} />
-                        <div className='space' ></div>
-                        <Form.Item id='buttons'>
-                            <div className='myBtn'>
-                                <Button type="primary" htmlType="submit" className="login-form-button"
-                                        onClick = {this.handleSubmit}>
-                                    登录
-                                </Button>
-                                <Button type="primary" className="login-form-button" onClick = {this.goRegister}>
-                                    注册
-                                </Button>
-                            </div>
-                        </Form.Item>
-                    </Form>
+                            <Form.Item
+                                name="idcode"
+                                rules={[
+                                    {
+                                        pattern:/^\d{6}$/,
+                                        message:'请输入正确的验证码',
+                                        trigger: 'blur'
+                                    },
+                                ]}
+                            >
+                                <Input
+                                    prefix={<CodeOutlined  className="site-form-item-icon"/>}
+                                    // type="password"
+                                    style={{width:"60%"}}
+                                    placeholder="验证码"
+                                    onChange={this.handleIDcode}
+                                />
+                                <Button  className="login-idcode-button" onClick={()=>{message.success("验证码为123456",4)}}>获取验证码</Button>
+                            </Form.Item>
+                            <Form.Item >
+                                <Form.Item name="remember" noStyle>
+                                    <Checkbox>记住我</Checkbox>
+                                </Form.Item>
+                                <Link className="login-form-forgot" to="/forgetPwd" id="forgetPassword">
+                                    忘记密码？
+                                </Link>
+                                <Link className="login-form-forgot" to="/login" id="login_phone">
+                                    用户名登录
+                                </Link>
+                            </Form.Item>
+                            <ReactSimpleVerify ref="verify" success={this.slidesuccess} />
+                            <div className='space' ></div>
+                            <Form.Item id='buttons'>
+                                <div className='myBtn'>
+                                    <Button type="primary" htmlType="submit" className="login-form-button"
+                                            onClick = {this.handleSubmit}>
+                                        登录
+                                    </Button>
+                                    <Button type="primary" className="login-form-button" onClick = {this.goRegister}>
+                                        注册
+                                    </Button>
+                                </div>
+                            </Form.Item>
+                        </Form>
+                    </div>
                 </div>
             </div>
+
         );
     }
 }

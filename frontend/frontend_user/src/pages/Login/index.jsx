@@ -63,7 +63,7 @@ class Login extends Component {
         let that = this
         let uname = this.state.username
         let pwd = this.state.password
-        
+
         if (that.state.username === '' && that.state.password === '') return
         if (this.state.slideconfirm == false) {
             message.warning('请进行滑块验证');
@@ -107,9 +107,9 @@ class Login extends Component {
             .catch(function (error) {
                 console.log(error);
             });
-        
-        
-        
+
+
+
     }
 
     //跳转注册界面
@@ -122,82 +122,85 @@ class Login extends Component {
 
     render () {
         return (
-            <div className='myForm'>
-                <img src={'./images/loginPicture.jpg'} alt={'loginPicture'} className='leftPicture'/>
+            <div className={"background"} >
+                <div className='myForm'>
+                    <img src={'./images/loginPicture.jpg'} alt={'loginPicture'} className='leftPicture'/>
 
-                <div className='right'>
-                    <h6 className='title'>用户登录</h6>
-                    {/*<div onClick={this.login_method}>切换登录方式</div>*/}
-                    <hr className='line'/>
-                    <Form
-                        name="normal_login"
-                        className="trueForm"
-                        initialValues={{
-                            remember: true,
-                        }}
-                    >
-                        <Form.Item
-                            name="username"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: '请输入您的用户名',
-                                    trigger: 'blur'
-                                },
-                                {
-                                    min: 6,
-                                    max: 18,
-                                    message: '用户名长度应为6-18个字符',
-                                    trigger: 'blur'
-                                }
-                            ]}
+                    <div className='right'>
+                        <h6 className='title'>用户登录</h6>
+                        {/*<div onClick={this.login_method}>切换登录方式</div>*/}
+                        <hr className='line'/>
+                        <Form
+                            name="normal_login"
+                            className="trueForm"
+                            initialValues={{
+                                remember: true,
+                            }}
                         >
-                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="用户名" onChange={this.handleUsername}/>
-                        </Form.Item>
-                        <Form.Item
-                            name="password"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: '请输入您的密码！',
-                                },
-                            ]}
-                        >
-                            <Input.Password
-                                prefix={<LockOutlined className="site-form-item-icon"/>}
-                                type="password"
-                                placeholder="密码"
-                                onChange={this.handlePassword}
-                            />
-                        </Form.Item>
-                        <Form.Item >
-                            <Form.Item name="remember" noStyle>
-                                <Checkbox>记住我</Checkbox>
+                            <Form.Item
+                                name="username"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '请输入您的用户名',
+                                        trigger: 'blur'
+                                    },
+                                    {
+                                        min: 6,
+                                        max: 18,
+                                        message: '用户名长度应为6-18个字符',
+                                        trigger: 'blur'
+                                    }
+                                ]}
+                            >
+                                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="用户名" onChange={this.handleUsername}/>
                             </Form.Item>
-                            <Link className="login-form-forgot" to="/forgetPwd" id="forgetPassword">
-                                忘记密码？
-                            </Link>
-                            <Link className="login-form-forgot" to="/login_phone" id="login_phone">
-                                手机登录
-                            </Link>
-                        </Form.Item>
-                        <ReactSimpleVerify ref="verify" success={this.slidesuccess} />
-                        <div className='space'></div>
-                        <Form.Item id='buttons' >
-                            <div className='myBtn'>
-                                <Button type="primary" htmlType="submit" className="login-form-button"
-                                        onClick = {this.handleSubmit}>
-                                    登录
-                                </Button>
-                                <Button type="primary" className="login-form-button" onClick = {this.goRegister}>
-                                    注册
-                                </Button>
-                            </div>
-                        </Form.Item>
-                    </Form>
-                    
+                            <Form.Item
+                                name="password"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '请输入您的密码！',
+                                    },
+                                ]}
+                            >
+                                <Input.Password
+                                    prefix={<LockOutlined className="site-form-item-icon"/>}
+                                    type="password"
+                                    placeholder="密码"
+                                    onChange={this.handlePassword}
+                                />
+                            </Form.Item>
+                            <Form.Item >
+                                <Form.Item name="remember" noStyle>
+                                    <Checkbox>记住我</Checkbox>
+                                </Form.Item>
+                                <Link className="login-form-forgot" to="/forgetPwd" id="forgetPassword">
+                                    忘记密码？
+                                </Link>
+                                <Link className="login-form-forgot" to="/login_phone" id="login_phone">
+                                    手机登录
+                                </Link>
+                            </Form.Item>
+                            <ReactSimpleVerify ref="verify" success={this.slidesuccess} />
+                            <div className='space'></div>
+                            <Form.Item id='buttons' >
+                                <div className='myBtn'>
+                                    <Button type="primary" htmlType="submit" className="login-form-button"
+                                            onClick = {this.handleSubmit}>
+                                        登录
+                                    </Button>
+                                    <Button type="primary" className="login-form-button" onClick = {this.goRegister}>
+                                        注册
+                                    </Button>
+                                </div>
+                            </Form.Item>
+                        </Form>
+
+                    </div>
                 </div>
             </div>
+
         );
     }
 }

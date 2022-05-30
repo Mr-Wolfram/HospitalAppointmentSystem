@@ -6,4 +6,4 @@ const adminisSchema = m.Schema({
     password: String,
 });
 
-module.exports = m.model("adminis", adminisSchema);
+module.exports = m.model("admin", adminisSchema);

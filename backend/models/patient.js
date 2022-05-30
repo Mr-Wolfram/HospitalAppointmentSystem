@@ -6,7 +6,8 @@ const patientSchema = mongoose.Schema({
     name: String,
     email: String,
     phone: String,
-    password: String
+    password: String,
+    age: Number,
 });
 
-module.exports = mongoose.Model('patient', patientSchema);
+module.exports = mongoose.model('patient', patientSchema);

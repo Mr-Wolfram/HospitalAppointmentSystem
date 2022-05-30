@@ -1,17 +1,17 @@
 version: "3.9"
 
 services:
-  web:
-    restart: on-failure
-    build: .
-    ports:
-      - "3018:3000"
-    command: >
-      sh -c "npm start"
-    environment:
-      ME_CONFIG_MONGODB_USERNAME: ReadWriter
-      ME_CONFIG_MONGODB_PASSWORD: ReadWriter
-      ME_CONFIG_MONGODB_URL: mongodb://mongo:27017/test
+  # web:
+  #   restart: on-failure
+  #   build: .
+  #   ports:
+  #     - "3018:3000"
+  #   command: >
+  #     sh -c "npm start"
+  #   environment:
+  #     ME_CONFIG_MONGODB_USERNAME: ReadWriter
+  #     ME_CONFIG_MONGODB_PASSWORD: ReadWriter
+  #     ME_CONFIG_MONGODB_URL: mongodb://mongo:27017/test
       
   mongo:
     image: mongo

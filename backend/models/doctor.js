@@ -8,7 +8,8 @@ const doctorSchema = m.Schema({
     dept_id: String,
     position: String,
     password: String,
-    intro: String
+    intro: String,
+    photo: String, // photo link
 });
 
 module.exports = m.model('doctor', doctorSchema);

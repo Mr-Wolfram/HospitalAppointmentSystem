@@ -4,3 +4,6 @@
 [submodule "backend/doctor"]
 	path = backend/doctor
 	url = git@github.com:permui/SE-doctor-backend.git
+[submodule "backend/user"]
+	path = backend/user
+	url = https://github.com/yzhblind/ZJU-SE-backend-patient

@@ -6,6 +6,7 @@ import cookie from 'react-cookies'
 import './index.css'
 import {Link} from "react-router-dom";
 import loginPicture from "./../../images/loginPicture.jpg"
+import login_api from "./../../commons/components/login"
 import ReactSimpleVerify from 'react-simple-verify'
 import 'react-simple-verify/dist/react-simple-verify.css'
 
@@ -73,9 +74,10 @@ class LoginPhone extends Component {
             return;
         }
 
-        axios.post('/api/user/check/phone', {
-            phone: this.state.phone
-        })
+        // axios.post('/api/user/check/phone', {
+        //     phone: this.state.phone
+        // })
+        login_api.checkphone(this.state.phone)
             .then(function (response) {
                 const data = response.data
                 const result = data.data.IsExist
@@ -84,10 +86,11 @@ class LoginPhone extends Component {
                     console.log("手机号未绑定")
                 }
                 else{
-                    axios.post('/api/user/login/idcode', {
-                        phone: pnum,
-                        idcode: idc
-                    })
+                    // axios.post('/api/user/login/idcode', {
+                    //     phone: pnum,
+                    //     idcode: idc
+                    // })
+                    login_api.checkidcode(pnum,idc)
                         .then(function (response) {
                             const data = response.data
                             const result = data.data.status

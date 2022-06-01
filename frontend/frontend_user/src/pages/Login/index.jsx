@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 import loginPicture from "./../../images/loginPicture.jpg"
 import ReactSimpleVerify from 'react-simple-verify'
 import 'react-simple-verify/dist/react-simple-verify.css'
+import login_api from "./../../commons/components/login"
 
 
 class Login extends Component {
@@ -69,9 +70,10 @@ class Login extends Component {
             message.warning('请进行滑块验证');
             return;
         }
-        axios.post('/api/user/check/name', {
-            username: this.state.username
-        })
+        // axios.post('/api/user/check/name', {
+        //     username: this.state.username
+        // })
+        login_api.checkname(this.state.name)
             .then(function (response) {
                 const data = response.data
                 const result = data.data.IsExist
@@ -80,10 +82,11 @@ class Login extends Component {
                     console.log("用户不存在")
                 }
                 else{
-                    axios.post('/api/user/login/pwd', {
-                        username: uname,
-                        password: pwd
-                    })
+                    // axios.post('/api/user/login/pwd', {
+                    //     username: uname,
+                    //     password: pwd
+                    // })
+                    login_api.checkpwd(uname,pwd)
                         .then(function (response) {
                             const data = response.data
                             const result = data.data.status

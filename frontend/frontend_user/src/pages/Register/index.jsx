@@ -3,6 +3,7 @@ import { Form, Input, Button, message} from 'antd';
 import {UserOutlined, LockOutlined, MailOutlined, PhoneOutlined} from '@ant-design/icons';
 import axios from "axios";
 import cookie from 'react-cookies'
+import login_api from "./../../commons/components/login"
 
 
 class Register extends Component {
@@ -48,9 +49,10 @@ class Register extends Component {
         //延时1s，增加动画效果
         let id = setTimeout(() => {
             let that = this
-            axios.post('/api/user/check/name', {
-                username
-            })
+            // axios.post('/api/user/check/name', {
+            //     username
+            // })
+            login_api.checkname(username)
                 .then(function (response) {
                     const data = response.data
                     const result = data.data.IsExist
@@ -83,9 +85,10 @@ class Register extends Component {
         clearTimeout(this.state.id2) // 防抖
         let id = setTimeout(() => {
             let that = this
-            axios.post('/api/user/check/phone', {
-                phone
-            })
+            // axios.post('/api/user/check/phone', {
+            //     phone
+            // })
+            login_api.checkphone(phone)
                 .then(function (response) {
                     const data = response.data
                     const result = data.data.IsExist
@@ -125,11 +128,12 @@ class Register extends Component {
         //判断提交数据格式的合法性
         if (username === '' || password === '' || phone === '' || !reg1.test(username) || !reg2.test(phone) ||
             !reg3.test(password) || this.verifyPwd !== password || this.state.nameRepeated || this.state.phoneRepeated) return
-        axios.post('/api/user/register', {
-            username,
-            password,
-            phone
-        })
+        // axios.post('/api/user/register', {
+        //     username,
+        //     password,
+        //     phone
+        // })
+        login_api.register(username,password,phone)
             .then(function (response) {
                 const data = response.data
                 const result = data.data.status

@@ -6,10 +6,10 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom';
 
 // mock开关，设置是否引入文件
-const mock = true
-if (mock) {
-  require('./mock/index') 
-}
+// const mock = true
+// if (mock) {
+//   require('./mock/index')
+// }
 
 ReactDOM.render(
       <BrowserRouter>

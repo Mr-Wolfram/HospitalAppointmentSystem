@@ -81,5 +81,6 @@
     "prop-types": "^15.7.2",
     "use-event-callback": "^0.1.0",
     "x2js": "^3.4.2"
-  }
+  },
+  "proxy": "http://localhost:8080"
 }

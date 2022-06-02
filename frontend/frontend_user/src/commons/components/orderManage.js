@@ -2,7 +2,7 @@ import http from '../request.js'
 
 export default {
     async get_query_order(user_id,order_id,doctor_name,status,department,start_date,end_date) {
-        return await http.post('/api/user/order/query', {
+        return await http.get('/api/user/order/query', {
             user_id:user_id,
             order_id:order_id,
             doctor_name: doctor_name,

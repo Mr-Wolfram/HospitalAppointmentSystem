@@ -80,8 +80,8 @@ class LoginPhone extends Component {
         login_api.checkphone(this.state.phone)
             .then(function (response) {
                 const data = response.data
-                const result = data.data.IsExist
-                if (result == false){
+                const result = data.status
+                if (result != 'success'){
                     message.warning('手机号未绑定', 2);
                     console.log("手机号未绑定")
                 }
@@ -93,7 +93,7 @@ class LoginPhone extends Component {
                     login_api.checkidcode(pnum,idc)
                         .then(function (response) {
                             const data = response.data
-                            const result = data.data.status
+                            const result = data.status
                             const username = data.data.username
                             console.log("data=",data);
                             if (result === 'success'){

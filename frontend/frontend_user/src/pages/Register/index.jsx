@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Form, Input, Button, message} from 'antd';
-import {UserOutlined, LockOutlined, MailOutlined, PhoneOutlined} from '@ant-design/icons';
+import {UserOutlined, LockOutlined, MailOutlined, PhoneOutlined, CodeOutlined} from '@ant-design/icons';
 import axios from "axios";
 import cookie from 'react-cookies'
 import login_api from "./../../commons/components/login"
@@ -18,7 +18,8 @@ class Register extends Component {
         nameHelp:null,
         phoneHelp:null,
         id1:undefined,
-        id2:undefined
+        id2:undefined,
+        idcode:''
     }
 
     //用户登陆的情况下不允许注册
@@ -55,9 +56,9 @@ class Register extends Component {
             login_api.checkname(username)
                 .then(function (response) {
                     const data = response.data
-                    const result = data.data.IsExist
+                    const result = data.data.isExist
                     // console.log(data,result);
-                    if (result === 'true'){
+                    if (result === true){
                         that.setState({nameRepeated:true, nameStyle:'error', nameHelp:'该用户名已存在'})
                     }
                     else{
@@ -91,9 +92,9 @@ class Register extends Component {
             login_api.checkphone(phone)
                 .then(function (response) {
                     const data = response.data
-                    const result = data.data.IsExist
+                    const result = data.data.isExist
                     // console.log(data,result);
-                    if (result === 'true'){
+                    if (result === true){
                         that.setState({phoneRepeated:true, phoneStyle:'error', phoneHelp:'该手机号已被注册'})
                     }
                     else{
@@ -118,6 +119,10 @@ class Register extends Component {
         this.setState({password: e.target.value})
     }
 
+    handleIDcode = e => {
+        this.setState({idcode: e.target.value})
+    }
+
     //提交表单
     handleSubmit = () => {
         let that = this
@@ -133,6 +138,10 @@ class Register extends Component {
         //     password,
         //     phone
         // })
+        if (this.state.idcode != '123456'){
+            message.warning('验证码错误!')
+            return;
+        }
         login_api.register(username,password,phone)
             .then(function (response) {
                 const data = response.data
@@ -255,7 +264,26 @@ class Register extends Component {
                                     onChange={e => this.verifyPwd = e.target.value}
                                 />
                             </Form.Item>
-
+                            
+                            <Form.Item
+                                name="idcode"
+                                rules={[
+                                    {
+                                        pattern:/^\d{6}$/,
+                                        message:'请输入正确的验证码',
+                                        trigger: 'blur'
+                                    },
+                                ]}
+                            >
+                                <Input
+                                    prefix={<CodeOutlined  className="site-form-item-icon"/>}
+                                    // type="password"
+                                    style={{width:"60%"}}
+                                    placeholder="验证码"
+                                    onChange={this.handleIDcode}
+                                />
+                                <Button  className="login-idcode-button" onClick={()=>{message.success("验证码为123456",4)}}>获取验证码</Button>
+                            </Form.Item>
 
                             <Form.Item id='buttons'>
                                 <div className='myBtn'>

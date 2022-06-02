@@ -76,8 +76,8 @@ class Login extends Component {
         login_api.checkname(this.state.name)
             .then(function (response) {
                 const data = response.data
-                const result = data.data.IsExist
-                if (result == false){
+                const result = data.status
+                if (result != 'success'){
                     message.warning('用户不存在', 2);
                     console.log("用户不存在")
                 }
@@ -89,7 +89,7 @@ class Login extends Component {
                     login_api.checkpwd(uname,pwd)
                         .then(function (response) {
                             const data = response.data
-                            const result = data.data.status
+                            const result = data.status
                             console.log("data=",data);
                             if (result === 'success'){
                                 cookie.save('username', that.state.username, { path: '/' });

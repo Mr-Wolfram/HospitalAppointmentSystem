@@ -19,6 +19,7 @@ const { Header, Content, Sider } = Layout;
 // }
 
 const { TextArea } = Input;
+const user_id = cookie.load('user_id')
 
 function Userinfo(){
 
@@ -317,7 +318,7 @@ function Userinfo(){
         if (gender_changed == 0)  message.warning('请选择性别！')
         else if (age_changed == 0) message.warning('请输入年龄！')
         else {
-          userinfo_api.set_userinfo("1",gender_changed,age_changed,hereditary_changed,pastill_changed,height_changed,weight_changed).then(
+          userinfo_api.set_userinfo(user_id,gender_changed,age_changed,hereditary_changed,pastill_changed,height_changed,weight_changed).then(
               r=>{
                   console.log(r.data.data[0])
               }
@@ -411,8 +412,9 @@ function Userinfo(){
 
     function Getcontent(){
         
+        console.log(user_id)
         useEffect(()=>{
-            userinfo_api.get_userinfo("1").then(
+            userinfo_api.get_userinfo(user_id).then(
                 r=>{
                     Setinfo(r.data.data[0].phonenumber,
                         r.data.data[0].username, r.data.data[0].age, r.data.data[0].email,
@@ -420,13 +422,13 @@ function Userinfo(){
                         r.data.data[0].height, r.data.data[0].weight);
                 }
             )
-            userinfo_api.collect_doctor_list("1").then(
+            userinfo_api.collect_doctor_list(user_id).then(
                 r=>{
                   setdoctors(r.data.data)
                   
                 }
             )
-            userinfo_api.get_avatar("1").then(
+            userinfo_api.get_avatar(user_id).then(
               r=>{setuserAvatar(r.data.data[0].url)}
             )
         })

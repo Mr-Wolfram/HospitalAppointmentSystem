@@ -18,6 +18,7 @@ import { List, Avatar } from 'antd';
 import user_action_api from "./../../../commons/components/indexPage"
 import user_info_api from "./../../../commons/components/userinfo"
 import './index.css'
+import cookie from 'react-cookies'
 
 import {Route, Switch} from "react-router-dom";
 // import News1 from './component/News1'
@@ -25,7 +26,7 @@ import {Route, Switch} from "react-router-dom";
 const Search = Input.Search;
 const InputGroup = Input.Group;
 const Option = Select.Option;
-
+const user_id = cookie.load('user_id')
 
 const data = [
     {
@@ -101,14 +102,14 @@ class IndexPage extends Component {
         // })
         // this.state.user_name=this.state.userInfoTotal.username
         // console.log("userinfo",this.state.userInfoTotal)
-        user_info_api.get_avatar("1").then(
+        user_info_api.get_avatar(user_id).then(
            ret=>{
                this.setState({
                    user_avatar_src:ret.data.data[0].url,
                })
            }
         )
-        user_info_api.get_userinfo("1").then(
+        user_info_api.get_userinfo(user_id).then(
             ret=>{
                 this.setState({
                     user_name:ret.data.data[0].username

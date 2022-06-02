@@ -7,7 +7,7 @@ export default {
         })
     },
     async checkpwd(username,password) {
-        return await http.get('/api/user/login/pwd', {
+        return await http.post('/api/user/login/pwd', {
             username:username,
             password:password
         })
@@ -18,7 +18,7 @@ export default {
         })
     },
     async checkidcode(phone,idcode) {
-        return await http.get('/api/user/login/idcode', {
+        return await http.post('/api/user/login/idcode', {
             phone:phone,
             idcode:idcode
         })

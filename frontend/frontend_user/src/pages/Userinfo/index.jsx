@@ -8,7 +8,9 @@ import userinfo_api from "./../../commons/components/userinfo"
 import { ConsoleSqlOutlined, UserOutlined, PlusOutlined, LoadingOutlined } from '@ant-design/icons';
 import src from 'react-map-gl';
 import FormItem from 'antd/lib/form/FormItem';
+import cookie from 'react-cookies'
 const { Header, Content, Sider } = Layout;
+
 
 // function Changephone(){
 //         userinfo_api.get_userinfo("1").then(r=>
@@ -108,16 +110,15 @@ function Userinfo(){
 
     const[phoneStyle, setphoneStyle] = useState('');
     const[phonehelp, setphonehelp] = useState('')
+    const[changephone, setchangephone] = useState("")
     const handlephonenum = e => {
-        const username = e.target.value
-        const reg = /[0-9A-Za-z]{6,12}$/
-        //判断格式
-        if (username.length < 6 || !reg.test(username)) {
-            setphoneStyle('warning');
-            setphonehelp('用户名应为6-12个英文字符或数字');
-            console.log(phoneStyle,phonehelp);
-            return
-        }
+      console.log("phonechange:",e.target.value)
+        setchangephone(e.target.value)
+    }
+    const[changeemail, setchangeemail] = useState("")
+    const handleemail = e => {
+      console.log("email:",e.target.value)
+        setchangeemail(e.target.value)
     }
 
     const[cnt,setcnt] = useState(0);
@@ -130,19 +131,17 @@ function Userinfo(){
     const[doctors,setdoctors] = useState([]);
     const[modalcontent,setmodalcontent] = useState(
         <div><Form.Item
-            name="username"
+            name="phone"
             rules={[
                 {
                     required: true,
-                    message: '请输入您的用户名',
+                    message: '请输入手机号',
                     trigger: 'blur'
                 },
                 {
-                    min: 6,
-                    max: 12,
-                    message: '用户名长度应为6-12个字符',
-                    trigger: 'blur'
-                }
+                  pattern:/^1[3456789]\d{9}$/,
+                  message:'请输入正确的手机格式'
+              }
             ]}
             validateStatus={phoneStyle}
             hasFeedback
@@ -151,6 +150,28 @@ function Userinfo(){
         </Form.Item>
     </div>
     );
+
+    const[modalcontent_email,setmodalcontent_email] = useState(
+      <div><Form.Item
+          name="email"
+          rules={[
+              {
+                  required: true,
+                  message: '请输入邮箱',
+                  trigger: 'blur'
+              },
+              {
+                pattern:/^1[3456789]\d{9}$/,
+                message:'请输入正确的邮箱格式'
+            }
+          ]}
+          validateStatus={phoneStyle}
+          hasFeedback
+          help={phonehelp}
+          ><Input placeholder="请输入新的邮箱" onChange={handleemail}/>
+      </Form.Item>
+  </div>
+  );
 
     const [isModalVisible_head, setIsModalVisible_head] = useState(false);
     const sethead = () => {
@@ -173,12 +194,33 @@ function Userinfo(){
     };
 
     const handleOk = () => {
+      const user_id = cookie.load('user_id')
         if(modalstate == 0){
             setmodalcontent(<div><Input style={{ width: 200, textAlign: 'center' }} placeholder="请输入验证码" /></div>);
             setmodalstate(1);
         }
         else if(modalstate == 1){
             setmodalstate(0);
+            setmodalcontent(<div><Form.Item
+              name="phone"
+              rules={[
+                  {
+                      required: true,
+                      message: '请输入手机号',
+                      trigger: 'blur'
+                  },
+                  {
+                    pattern:/^1[3456789]\d{9}$/,
+                    message:'请输入正确的手机格式'
+                }
+              ]}
+              validateStatus={phoneStyle}
+              hasFeedback
+              help={phonehelp}
+              ><Input placeholder="请输入新的手机号" onChange={handlephonenum}/>
+          </Form.Item>
+      </div>)
+            userinfo_api.set_phone(user_id,changephone)
             setIsModalVisible_phone(false);
         }
     };
@@ -186,6 +228,51 @@ function Userinfo(){
     const handleCancel = () => {
         setIsModalVisible_phone(false);
     };
+
+    /*emmail */
+    const [isModalVisible_email, setIsModalVisible_email] = useState(false);
+    const [modalstate_email, setmodalstate_email] = useState(0);
+
+    const email_rebind = () => {
+        setIsModalVisible_email(true);
+    };
+
+    const handleOk_email = () => {
+      const user_id = cookie.load('user_id')
+        if(modalstate_email == 0){
+            setmodalcontent_email(<div><Input style={{ width: 200, textAlign: 'center' }} placeholder="请输入验证码" /></div>);
+            setmodalstate_email(1);
+        }
+        else if(modalstate_email == 1){
+            setmodalstate_email(0);
+            setmodalcontent_email(<div><Form.Item
+              name="email"
+              rules={[
+                  {
+                      required: true,
+                      message: '请输入邮箱',
+                      trigger: 'blur'
+                  },
+                  {
+                    pattern:/^1[3456789]\d{9}$/,
+                    message:'请输入正确的邮箱格式'
+                }
+              ]}
+              validateStatus={phoneStyle}
+              hasFeedback
+              help={phonehelp}
+              ><Input placeholder="请输入新的邮箱" onChange={handleemail}/>
+          </Form.Item>
+      </div>)
+            userinfo_api.set_email(user_id,changeemail)
+            setIsModalVisible_email(false);
+        }
+    };
+
+    const handleCancel_email = () => {
+        setIsModalVisible_email(false);
+    };
+    /* */
 
     function Setinfo(pn,uname,ag,em,gen,her,pas,h,w){
         setphonenum(pn);
@@ -372,7 +459,7 @@ function Userinfo(){
                     <Descriptions.Item label={<div class="labeldiv"><p>头像</p><Button onClick={sethead}>更换</Button></div>}><Avatar size={64} icon={<UserOutlined /> } src={userAvatar}/></Descriptions.Item>
                     <Descriptions.Item label="用户名">{username}</Descriptions.Item>
                     <Descriptions.Item label={<div class="labeldiv"><p>手机号</p><Button onClick={phone_rebind}>换绑</Button></div>}>{phonenum}</Descriptions.Item>
-                    <Descriptions.Item label={<div class="labeldiv"><p>邮箱</p><Button>换绑</Button></div>}>{email}</Descriptions.Item>
+                    <Descriptions.Item label={<div class="labeldiv"><p>邮箱</p><Button onClick={email_rebind}>换绑</Button></div>}>{email}</Descriptions.Item>
                     <Descriptions.Item label="年龄">{age}</Descriptions.Item>
                     <Descriptions.Item label="性别">{gender}</Descriptions.Item>
                     <Descriptions.Item label="身高">{height}</Descriptions.Item>
@@ -385,6 +472,9 @@ function Userinfo(){
                 </Descriptions>
                 <Modal title="手机换绑" visible={isModalVisible_phone} onOk={handleOk} onCancel={handleCancel} okText="验证" cancelText="取消" >
                     {modalcontent}
+                </Modal>
+                <Modal title="邮箱换绑" visible={isModalVisible_email} onOk={handleOk_email} onCancel={handleCancel_email} okText="验证" cancelText="取消" >
+                    {modalcontent_email}
                 </Modal>
                 <Modal title="更换头像" visible={isModalVisible_head} onOk={handleOk_head} onCancel={handleCancel_head} okText="确认" cancelText="取消" >
                     <Setimg/>

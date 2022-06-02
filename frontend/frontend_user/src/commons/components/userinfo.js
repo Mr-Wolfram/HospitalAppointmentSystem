@@ -2,7 +2,7 @@ import http from '../request.js'
 
 export default {
     async get_userinfo(user_id) {
-        return await http.post('/api/user/info', {
+        return await http.get('/api/user/info', {
             user_id:user_id,
         })
     },
@@ -36,6 +36,18 @@ export default {
         return await http.post('/api/user/doctor/addcollect', {
             user_id:user_id,
             doctor_id:doctor_id
+        })
+    },
+    async set_phone(user_id,phone) {
+        return await http.post('/api/user/info/setphone', {
+            user_id:user_id,
+            phone:phone
+        })
+    },
+    async set_email(user_id,email) {
+        return await http.post('/api/user/info/setemail', {
+            user_id:user_id,
+            email:email
         })
     },
 }

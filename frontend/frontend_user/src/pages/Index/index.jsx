@@ -13,7 +13,7 @@ import logo from "../../images/logo.png"
 import tmp from "./../user/IndexPage/html/tmp"
 import Department from "./../user/Department"
 import TimeTable from "./../user/TimeTable"
-
+import userinfo_api from "./../../commons/components/userinfo"
 import OrderManage from "./../user/OrderManage"
 import Notice from "./../user/Notice"
 import Registration from "./../user/Registration"
@@ -33,37 +33,16 @@ export default class Index extends Component {
 
     state = {currentPage:"", username:cookie.load('username'), ws:null,collapsed:false,
     notice:(
-        <Menu
-          items={[
-            {
-              key: '1',
-              label: (
-                <div style={{padding:10}}>
-                    <h6>预约成功</h6>
-                    <p>您已成功预约xx时间xx科室</p>
-                </div>
-              ),
-            },
-            {
-              key: '2',
-              label: (
-                <div style={{padding:10}}>
-                    <h6>缴费成功</h6>
-                    <p>您已成功缴费xx元</p>
-                </div>
-              ),
-            },
-            {
-              key: '3',
-              label: (
-                <div style={{padding:10}}>
-                    <h6>预约成功</h6>
-                    <p>您已成功预约xx时间xx科室</p>
-                </div>
-              ),
-            },
-          ]}
-        />
+        <div>
+            <div style={{padding:10,backgroundColor:'white'}}>
+                <h6>预约成功</h6>
+                <p>您已成功预约xx时间xx科室</p>
+            </div>
+            <div style={{padding:10,backgroundColor:'white'}}>
+                <h6>缴费成功</h6>
+                <p>您已成功缴费xx元</p>
+            </div>
+        </div>
       )}
 
     constructor (props) {
@@ -74,6 +53,32 @@ export default class Index extends Component {
         }
 
     }
+
+    Notice = () => {
+        const user_id = cookie.load('user_id');
+        // userinfo_api.get_notice(user_id).then(
+        //     r=>{
+        //         r.data.map(Item=>{
+        //             return (<div style={{padding:10,backgroundColor:'white'}}>
+        //                 <h6>Item.title</h6>
+        //                 <p>Item.content</p>
+        //             </div>
+        //             )
+        //         })
+        //     }
+        // )
+        return(<div>
+            <div style={{padding:10,backgroundColor:'white'}}>
+                <h6>预约成功</h6>
+                <p>您已成功预约xx时间xx科室</p>
+            </div>
+            <div style={{padding:10,backgroundColor:'white'}}>
+                <h6>缴费成功</h6>
+                <p>您已成功缴费xx元</p>
+            </div>
+        </div>)
+    }
+
     handleLoginOut = () => {
         cookie.remove('username', { path: '/' })
         cookie.remove('loginSuccess', { path: '/' })
@@ -126,7 +131,7 @@ export default class Index extends Component {
                             <img src={logo} alt={logo} width={18} />医疗诊断系统</div>
                     </div>
                     <div style={{position:"absolute",width:130,top:10,right:200,height:20,}} >
-                    <Dropdown overlay={this.state.notice}   >
+                    <Dropdown overlay={this.Notice}   >
                         <a onClick={(e) => e.preventDefault()}>
                         <Space>
                             <BellOutlined style={{color:"white",fontSize:25}}/>

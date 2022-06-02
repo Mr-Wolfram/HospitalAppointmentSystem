@@ -101,6 +101,7 @@ class LoginPhone extends Component {
                                 cookie.save('username', username, { path: '/' });
                                 cookie.save('loginSuccess', true, { path: '/' });
                                 cookie.save('user_id',data.data.user_id)
+                                cookie.save('token',data.data.token,{path:'/'})
                                 // cookie.save('email', data.email, {path:'/'});
                                 window.location.href = '/index';
                             }

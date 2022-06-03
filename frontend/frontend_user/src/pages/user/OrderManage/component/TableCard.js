@@ -1,6 +1,6 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {Form, Rate, Table} from "antd"
-import { Modal, Button,message,Input } from 'antd';
+import { Modal, Button,message,Input,Typography, Switch } from 'antd';
 import {StarFilled, StarOutlined} from "@ant-design/icons";
 import api from "./../../../../commons/index"
 import userapi from "./../../../../commons/components/userinfo"
@@ -9,6 +9,7 @@ import orderapi from "./../../../../commons/components/orderManage"
 import cookie from "react-cookies";
 import moment from "moment";
 const { TextArea } = Input;
+const { Paragraph, Text } = Typography;
   const columns = [{
       title: '订单号',
       dataIndex: 'order_id',
@@ -47,7 +48,8 @@ function TableCard(props)  {
         const tmpArr=[0];
 
         const [IsModalOpen,setIsModalOpen]=useState(new Array(props.orderList.length));
-        const [icoStatus,setCollect]=useState(new Array(props.orderList.length));
+        const [defaultComments,setDefaultComments]=useState("");
+
         function setIsModalVisible(bool,idx){
             if(bool===true){
                 let newArray=IsModalOpen.map(r=>false);
@@ -60,12 +62,6 @@ function TableCard(props)  {
             }
         }
 
-    function onChangeComment(r) {
-            console.log("comment=",r)
-        orderapi.post_order_comment(cookie.load("user_id"),r.user.introduction).then(
-            message.success("评论成功")
-        )
-    }
 
     return (
             <div >
@@ -91,12 +87,16 @@ function TableCard(props)  {
                                    }}
                                    onOk={()=>setIsModalVisible(false,idx)}
                                    onCancel={()=>setIsModalVisible(false,idx)}>
-                                <span style={{ marginLeft: '50px', marginBottom: '32px', lineHeight: '30px',fontSize:20}}>
+                                <span style={{ marginLeft: '0px', marginBottom: '32px', lineHeight: '30px',fontSize:20}}>
                                     <p>用户姓名:&nbsp;&nbsp;&nbsp;{d.user_name}</p>
                                     <p>医生姓名:&nbsp;&nbsp;&nbsp;{d.doctor_name}
                                         <Button onClick={()=>{
-                                            userapi.collect_doctor(cookie.load("user_name",d.doctor_id)).then(r=>{
-                                                message.warning("收藏成功",r.data)
+                                            userapi.collect_doctor(cookie.load("user_id"),d.doctor_id).then(r=>{
+                                                if(r.data.status==='success'){
+                                                    message.success("收藏成功")
+                                                }else{
+                                                    message.warning("收藏失败")
+                                                }
                                             })
                                         }}
                                                 style={{position:"relative",top:5,left:10,backgroundColor:"#d5d7d7",borderRadius:3,borderColor:"white",height:30}}
@@ -128,18 +128,64 @@ function TableCard(props)  {
                                 </Button>
                                     </p>
                                 </span>
-                                <Form onFinish={onChangeComment}>
-                                    <Form.Item name="rate" label="Rate">
-                                        <Rate />
-                                    </Form.Item>
-                                    <Form.Item name={['user', 'introduction']} label="订单评论">
-                                        <Input.TextArea rows={4} showCount maxLength={100}
-                                                            />
+                                <Form
+
+
+                                    onFinish={(res)=>{
+                                    orderapi.post_order_comment(d.order_id,res.user.introduction).then(
+                                        (r)=>{
+                                            if(r.data.status==='success'){
+                                                message.success("评论成功")
+                                            }else{
+                                                message.warning("评论失败")
+                                            }
+                                        }
+
+                                    )
+
+                                }
+
+                                }>
+                                    {/*<Form.Item name="rate" label="Rate"*/}
+                                    {/*>*/}
+                                    {/*    <Rate />*/}
+                                    {/*</Form.Item>*/}
+                                    <Form.Item style={{fontSize:20}} name={['user', 'introduction']} label={<p style={{fontSize:20}}>"订单评论"</p>}
+
+                                    >
+                                        {/*<Paragraph >{defaultComments}*/}
+                                        {/*</Paragraph>*/}
+                                        {defaultComments===""||defaultComments==="nothing to say"?
+                                            <Input.TextArea rows={4} showCount maxLength={100}
+                                                            defaultValue={() => {
+                                                                let ret = ""
+                                                                orderapi.get_order_comment(d.order_id).then(
+                                                                    r => {
+                                                                        if (r.data.status === 'success') {
+                                                                            console.log("comments", r.data.data);
+                                                                            ret = r.data.data.comment;
+                                                                            setDefaultComments(ret);
+                                                                        } else {
+                                                                            ret = "";
+                                                                        }
+                                                                    })
+
+                                                                return ret
+                                                            }
+                                                            }
+                                            />
+                                            : <span>{defaultComments}</span>
+                                        }
+
+
                                     </Form.Item>
                                     <Form.Item >
-                                        <Button type="primary" htmlType="submit" >
-                                            Submit
-                                        </Button>
+                                        {defaultComments === "" || defaultComments === "nothing to say" ?
+                                            <Button type="primary" htmlType="submit">
+                                                Submit
+                                            </Button>
+                                            : <div/>
+                                        }
                                     </Form.Item>
                                 </Form>
 

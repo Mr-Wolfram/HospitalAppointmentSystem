@@ -18,6 +18,11 @@ export default {
             content: content
         })
     },
+    async get_order_comment(order_id,content) {
+        return await http.get('/api/user/order/getcomment', {
+            order_id: order_id
+        })
+    },
     async get_order_info(order_id){
             return await http.post('/api/user/order/info', {
                 order_id: order_id,

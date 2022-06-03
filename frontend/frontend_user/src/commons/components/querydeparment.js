@@ -14,8 +14,8 @@ export default{
     },
     */
 
-    async postdepartinfo(depart_name){
-      return await http.post('/api/user/department/query',{
+    async getdepartinfo(depart_name){
+      return await http.get('/api/user/department/query',{
         depart_name:depart_name
       })
     },
@@ -28,9 +28,9 @@ export default{
     },
     */
 
-    async postdoctorinfo(doctor_name,depart_name){
-      return await http.post('/api/user/doctor/query',{
-        doctor:doctor_name,
+    async getdoctorinfo(doctor_name,depart_name){
+      return await http.get('/api/user/doctor/query',{
+        name:doctor_name,
         depart:depart_name
       })
     },

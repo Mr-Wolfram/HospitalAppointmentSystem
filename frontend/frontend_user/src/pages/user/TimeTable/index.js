@@ -10,7 +10,8 @@ class TimeTable extends React.Component{
         super(props);
         this.state={
             size: "default",
-            general: "内科",
+            general: "",
+            d:require('./data/big_depart_json.json'),
             depart:[],
             day:[""],
             isShow:false,
@@ -38,6 +39,7 @@ class TimeTable extends React.Component{
             }
         );
         api.postqueryschdule(this.state.day,this.state.depart).then(r=>{
+            console.log(r.data.data);
             this.setState(
                 {
                     data1:r.data.data
@@ -66,7 +68,7 @@ class TimeTable extends React.Component{
     }
 
     handleChange(value){
-        console.log(`Selected: ${value}`);
+        //console.log(`Selected: ${value}`);
         //console.log(typeof(value));
         this.setState(
             {
@@ -87,7 +89,7 @@ class TimeTable extends React.Component{
         week.push(<Option key="周六">周六</Option>);
         week.push(<Option key="周日">周日</Option>);
 
-        let Data=this.state.data;
+        let Data=this.state.d;
         let depart_general = [];
         for(let i in Data){
             depart_general.push(<Option key={i}>{i}</Option>);
@@ -95,7 +97,7 @@ class TimeTable extends React.Component{
 
         const depart_detail = [];
         for(let i in Data[this.state.general]){
-            depart_detail.push(<Option key={i}>{i}</Option>);
+            depart_detail.push(<Option key={Data[this.state.general][i]}>{Data[this.state.general][i]}</Option>);
         }
         
         return (
@@ -121,7 +123,7 @@ class TimeTable extends React.Component{
                 <Select
                     mode="tags"
                     size={this.state.size}
-                    placeholder="请选择想要查询的日期（多选）（测试的时候先选两个就好）"
+                    placeholder="请选择想要查询的日期（多选）"
                     onChange={value=>this.handleday(value)}
                     style={{ width: '90%' }}
                 >

@@ -22,9 +22,9 @@ class Time extends React.Component{
             }
         };
     }
-
+    /*
     componentDidMount(){
-        api.postdoctorinfo(this.state.person,this.props.depart).then(r=>{
+        api.getdoctorinfo(this.state.person,this.props.depart).then(r=>{
             this.setState(
                 {
                     data:r.data.data
@@ -32,7 +32,7 @@ class Time extends React.Component{
             );
         });
     }
-
+    */
 
     showModal(name){
         this.setState(
@@ -41,7 +41,7 @@ class Time extends React.Component{
                 person: name,
             }
         );
-        api.postdoctorinfo(name,this.props.depart).then(r=>{
+        api.getdoctorinfo(name,this.props.depart).then(r=>{
             this.setState(
                 {
                     data:r.data.data

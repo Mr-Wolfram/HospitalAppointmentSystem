@@ -412,14 +412,17 @@ function Userinfo(){
 
     function Getcontent(){
         
-        console.log(user_id)
+        console.log("token",cookie.load('token'))
         useEffect(()=>{
             userinfo_api.get_userinfo(user_id).then(
                 r=>{
-                    Setinfo(r.data.data[0].phonenumber,
-                        r.data.data[0].username, r.data.data[0].age, r.data.data[0].email,
-                        r.data.data[0].gender, r.data.data[0].hereditary, r.data.data[0].pastill,
-                        r.data.data[0].height, r.data.data[0].weight);
+                    // Setinfo(r.data.data[0].phonenumber,
+                    //     r.data.data[0].username, r.data.data[0].age, r.data.data[0].email,
+                    //     r.data.data[0].gender, r.data.data[0].hereditary, r.data.data[0].pastill,
+                    //     r.data.data[0].height, r.data.data[0].weight
+                    //     );
+                    Setinfo(r.data.data.phone, r.data.data.username, 0, r.data.data.email, r.data.data.gender,
+                      0, 0, 0, 0)
                 }
             )
             userinfo_api.collect_doctor_list(user_id).then(

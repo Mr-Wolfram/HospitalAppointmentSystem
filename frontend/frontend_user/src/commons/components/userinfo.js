@@ -18,7 +18,7 @@ export default {
         })
     },
     async get_notice(user_id) {
-        return await http.post('/api/user/notice/query', {
+        return await http.get('/api/user/notice/query', {
             user_id:user_id,
         })
     },

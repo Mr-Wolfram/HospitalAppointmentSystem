@@ -15,11 +15,12 @@ axios.defaults.headers.common = {
 
 http.post = function(api, data) {
     return new Promise((resolve, reject) => {
+        console.log("token cookie:",cookie.load("token"));
         axios.post(api, {
             params: data,
             paramsSerializer: params => qs.stringify(params)
         },
-            { headers: {"Authorization" : `${cookie.load("token")===undefined?tokenDefault:cookie.load("token")}`} }
+            { headers: {"Authorization" : cookie.load("token")===undefined?tokenDefault:cookie.load("token")} }
             ).then((response) => {
             resolve(response)
         }).catch(function (error) {
@@ -30,11 +31,12 @@ http.post = function(api, data) {
 
 http.get = function(api, data) {
     return new Promise((resolve, reject) => {
+        console.log("token cookie:",cookie.load("token"));
         axios.get(api, {
             params: data,
             paramsSerializer: params => qs.stringify(params)
         },
-        { headers: {"Authorization" : `${cookie.load("token")===undefined?tokenDefault:cookie.load("token")}`} }
+        { headers: {"Authorization" : cookie.load("token")===undefined?tokenDefault:cookie.load("token")} }
         ).then((response) => {
             resolve(response)
         }).catch(function (error) {

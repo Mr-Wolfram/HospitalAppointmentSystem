@@ -32,18 +32,9 @@ const items1 = ['1', '2', '3'].map((key) => ({
 export default class Index extends Component {
 
     state = {currentPage:"", username:cookie.load('username'), ws:null,collapsed:false,
-    notice:(
-        <div>
-            <div style={{padding:10,backgroundColor:'white'}}>
-                <h6>预约成功</h6>
-                <p>您已成功预约xx时间xx科室</p>
-            </div>
-            <div style={{padding:10,backgroundColor:'white'}}>
-                <h6>缴费成功</h6>
-                <p>您已成功缴费xx元</p>
-            </div>
-        </div>
-      )}
+    
+    notice:[{title:"aa",content:"bb"},{title:"aa",content:"bb"}],
+    callnotice:0}
 
     constructor (props) {
         super (props);
@@ -51,32 +42,31 @@ export default class Index extends Component {
         if(username === undefined) {
             window.location.href = '/login'
         }
-
+        const user_id = cookie.load('user_id');
+        let that = this
+        userinfo_api.get_notice(user_id).then(
+            function(response){
+                that.setState({notice:response.data.data})
+            }
+        )
+        console.log("notice:",that.state.notice)
     }
 
     Notice = () => {
         const user_id = cookie.load('user_id');
-        // userinfo_api.get_notice(user_id).then(
-        //     r=>{
-        //         r.data.map(Item=>{
-        //             return (<div style={{padding:10,backgroundColor:'white'}}>
-        //                 <h6>Item.title</h6>
-        //                 <p>Item.content</p>
-        //             </div>
-        //             )
-        //         })
-        //     }
-        // )
-        return(<div>
-            <div style={{padding:10,backgroundColor:'white'}}>
-                <h6>预约成功</h6>
-                <p>您已成功预约xx时间xx科室</p>
-            </div>
-            <div style={{padding:10,backgroundColor:'white'}}>
-                <h6>缴费成功</h6>
-                <p>您已成功缴费xx元</p>
-            </div>
-        </div>)
+        return (
+            <>
+            {
+                this.state.notice.map(Item=>{
+                    return (<div style={{padding:10,backgroundColor:'white'}}>
+                        <h6>{Item.title}</h6>
+                        <p>{Item.content}</p>
+                    </div>
+                    )
+                })
+            }
+            </>
+        )
     }
 
     handleLoginOut = () => {

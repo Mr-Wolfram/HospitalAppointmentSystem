@@ -34,9 +34,9 @@ class Registration extends React.Component {
     // cookie.save('username', 'lyczju')
     this.setState({userId: cookie.load('user_id')})
     let date = moment().format('d')
-    api.post_doctor_info(date)
+    api.get_doctor_info(date)
     .then(r => {
-      console.log("post doctor info");
+      console.log("get doctor info");
       this.setState(
         {
           doctorData: r.data.data.doctorData,

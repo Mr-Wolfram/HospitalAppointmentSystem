@@ -13,9 +13,9 @@ function PayModal(props) {
   }, [props])
 
   function handlePayModalOK() {
-    api.post_registration_pay(props.orderId)
+    api.get_registration_pay(props.orderId)
     .then(r => {
-      if(r.data.data.paySuccess === true) {
+      if(r.data.pay === "pay_success") {
         let desc = '预约医生: ' + String(props.doctorMap.get(props.doctorId) ? props.doctorMap.get(props.doctorId).name : "") + '\n' +
                           '预约时间: ' +  props.time + ':00-' + String(Number(props.time) + 1) + ':00' + '\n' +
                           '请及时就诊！'
@@ -37,9 +37,9 @@ function PayModal(props) {
   }
 
   function handlePayModalRevoke() {
-    api.order_revoke()
+    api.order_revoke(props.orderId, cookie.load("user_id"))
     .then(r => {
-      if(r.data.data.remarks === 'TRADE_FINISHED') {
+      if(r.state === 'success') {
         message.info('预约已取消！')
       }
     })
@@ -49,9 +49,9 @@ function PayModal(props) {
 
   function handlePayModalTimeout() {
     if(props.visible === true) {
-      api.order_revoke()
+      api.order_revoke(props.orderId, cookie.load("user_id"))
       .then(r => {
-        if(r.data.data.remarks === 'TRADE_FINISHED') {
+        if(r.state === 'TRADE_FINISHED') {
           message.info('支付超时，预约已取消！')
         }
       })

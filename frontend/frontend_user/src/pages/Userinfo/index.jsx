@@ -70,6 +70,10 @@ function Userinfo(){
           
         };
 
+        function changeurl(file){
+          getBase64(file,(url)=>{return url})
+        }
+
         const params = {
           name: "avatar",
           headers: {"Authorization" : cookie.load('token')},
@@ -77,7 +81,7 @@ function Userinfo(){
           className:"avatar-uploader",
           showUploadList:false,
         };
-      
+        let a = "http://localhost:3000/api/user/info/avatar?user_id="+cookie.load('user_id')
       
         const uploadButton = (
           <div>
@@ -97,8 +101,8 @@ function Userinfo(){
             // listType="picture-card"
             // className="avatar-uploader"
             // showUploadList={false}
-            // action="http://localhost:3000/api/user/info/setavatar?user_id="
-            // data={{param:par}}
+             action={a}
+            data={file=>({usr_id:cookie.load('user_id'),pic_id:file})}
             // headers={{"Authorization" : cookie.load('token')}}
             {...params}
              beforeUpload={beforeUpload}
@@ -395,7 +399,7 @@ function Userinfo(){
         setIsModalVisible_doc(true);
         console.log(item)
         setshow_doc_name(item.doctor_name);
-        setshow_doc_info(item.doctor_info);
+        setshow_doc_info(item.intro);
     }
     const handleOk_doc = () => {
         setIsModalVisible_doc(false);
@@ -443,7 +447,7 @@ function Userinfo(){
             )
             userinfo_api.collect_doctor_list(user_id).then(
                 r=>{
-                  setdoctors(r.data.data.collects)
+                  setdoctors(r.data.data)
                   console.log(doctors)
                 }
             )

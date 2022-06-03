@@ -39,7 +39,8 @@ function PayModal(props) {
   function handlePayModalRevoke() {
     api.order_revoke(props.orderId, cookie.load("user_id"))
     .then(r => {
-      if(r.state === 'success') {
+      console.log(r)
+      if(r.data.status === 'success') {
         message.info('预约已取消！')
       }
     })
@@ -51,7 +52,7 @@ function PayModal(props) {
     if(props.visible === true) {
       api.order_revoke(props.orderId, cookie.load("user_id"))
       .then(r => {
-        if(r.state === 'TRADE_FINISHED') {
+        if(r.data.status === 'success') {
           message.info('支付超时，预约已取消！')
         }
       })

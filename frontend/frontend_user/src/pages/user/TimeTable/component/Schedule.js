@@ -17,7 +17,7 @@ class Schedule extends React.Component{
         return (
             <>
             {
-                <Descriptions labelStyle={{'width':'10%','textAlign':'center'}} className='table1' size='small' bordered={true} title={''} column={1}>
+                <Descriptions style={{ width: '82.5%'}} labelStyle={{'width':'10%','textAlign':'center'}} className='table1' size='small' bordered={true} title={''} column={1}>
                     {
                         depart.map(Item=>{
                             return (

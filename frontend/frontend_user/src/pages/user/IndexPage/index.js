@@ -104,15 +104,17 @@ class IndexPage extends Component {
         // console.log("userinfo",this.state.userInfoTotal)
         user_info_api.get_avatar(user_id).then(
            ret=>{
+               console.log("ret",ret)
                this.setState({
-                   user_avatar_src:ret.data.data[0].url,
+                   user_avatar_src:ret.data.data.url,
                })
            }
         )
         user_info_api.get_userinfo(user_id).then(
             ret=>{
+                console.log("ret",ret)
                 this.setState({
-                    user_name:ret.data.data[0].username
+                    user_name:ret.data.data.username
                 })
             }
         )

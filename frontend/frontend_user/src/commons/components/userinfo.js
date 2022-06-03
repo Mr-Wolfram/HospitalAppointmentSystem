@@ -8,7 +8,7 @@ export default {
         },cookie.load("token"))
     },
     async set_userinfo(user_id,gender,age,hereditary,pastill,height,weight) {
-        return await http.post('/api/user/set_info', {
+        return await http.post('/api/user/info/setinfo', {
             user_id:user_id,
             gender:gender,
             age:age,
@@ -24,9 +24,15 @@ export default {
         })
     },
     async get_avatar(user_id) {
-        return await http.get('/api/user/getavatar', {
+        return await http.get('/api/user/info/getavatar', {
             user_id:user_id,
-        },cookie.load("token"))
+        })
+    },
+    async set_avatar(user_id,pic_id) {
+        return await http.get('/api/user/info/setavatar', {
+            user_id:user_id,
+            pic_id:pic_id
+        })
     },
     async collect_doctor_list(user_id) {
         return await http.get('/api/user/doctor/collectlist', {

@@ -33,10 +33,12 @@ class Registration extends React.Component {
     // cookie.save('user_id', 'u1234')
     // cookie.save('username', 'lyczju')
     this.setState({userId: cookie.load('user_id')})
-    let date = moment().format('d')
+    // let date = moment().format('d')
+    let date = new Date('2022-06-06T03:35:43.860Z')
     api.get_doctor_info(date)
     .then(r => {
       console.log("get doctor info");
+      console.log(r.data.data.doctorData, r.data.data.treeData)
       this.setState(
         {
           doctorData: r.data.data.doctorData,
@@ -91,7 +93,7 @@ class Registration extends React.Component {
         <Space direction='vertical' size='middle'>
           <div>
             <TreeSelect
-              style={{ width: '80%' }}
+              style={{ width: '1000px' }}
               value={this.state.doctorId}
               dropdownStyle={{ maxHeight: 600, overflow: 'auto' }}
               treeData={this.state.treeData}

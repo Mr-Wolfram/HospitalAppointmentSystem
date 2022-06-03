@@ -61,7 +61,8 @@ function TableCard(props)  {
         }
 
     function onChangeComment(r) {
-        orderapi.post_order_comment(cookie.load("user_id"),r).then(
+            console.log("comment=",r)
+        orderapi.post_order_comment(cookie.load("user_id"),r.user.introduction).then(
             message.success("评论成功")
         )
     }
@@ -127,7 +128,7 @@ function TableCard(props)  {
                                 </Button>
                                     </p>
                                 </span>
-                                <Form>
+                                <Form onFinish={onChangeComment}>
                                     <Form.Item name="rate" label="Rate">
                                         <Rate />
                                     </Form.Item>
@@ -136,7 +137,7 @@ function TableCard(props)  {
                                                             />
                                     </Form.Item>
                                     <Form.Item >
-                                        <Button type="primary" htmlType="submit" onClick={onChangeComment}>
+                                        <Button type="primary" htmlType="submit" >
                                             Submit
                                         </Button>
                                     </Form.Item>

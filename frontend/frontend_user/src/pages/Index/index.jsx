@@ -61,6 +61,7 @@ export default class Index extends Component {
                     return (<div style={{padding:10,backgroundColor:'white'}}>
                         <h6>{Item.title}</h6>
                         <p>{Item.content}</p>
+                        <p>{Item.announcer}{" "}{Item.date}</p>
                     </div>
                     )
                 })

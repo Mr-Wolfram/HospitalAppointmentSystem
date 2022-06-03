@@ -45,7 +45,7 @@ function Userinfo(){
         return isJpgOrPng && isLt2M;
       };
 
-      const [userAvatar, setuserAvatar] = useState();
+      const [userAvatar, setuserAvatar] = useState("https://joeschmoe.io/api/v1/random");
 
       const Setimg = () => {
         const [loading, setLoading] = useState(false);
@@ -62,13 +62,22 @@ function Userinfo(){
             getBase64(info.file.originFileObj, (url) => {
               setLoading(false);
               setImageUrl(url);
-              console.log(info.file.response)
               setuserAvatar(url)
+              console.log(url)
             });
           }
 
           
         };
+
+        const params = {
+          name: "avatar",
+          headers: {"Authorization" : cookie.load('token')},
+          listType:"picture-card",
+          className:"avatar-uploader",
+          showUploadList:false,
+        };
+      
       
         const uploadButton = (
           <div>
@@ -84,13 +93,17 @@ function Userinfo(){
         );
         return (
           <Upload
-            name="avatar"
-            listType="picture-card"
-            className="avatar-uploader"
-            showUploadList={false}
-            action="https://localhost:3000/api/user/avatar"
-            beforeUpload={beforeUpload}
-            onChange={handleChange}
+            // name="avatar"
+            // listType="picture-card"
+            // className="avatar-uploader"
+            // showUploadList={false}
+            // action="http://localhost:3000/api/user/info/setavatar?user_id="
+            // data={{param:par}}
+            // headers={{"Authorization" : cookie.load('token')}}
+            {...params}
+             beforeUpload={beforeUpload}
+             onChange={handleChange}
+
           >
             {imageUrl ? (
               <img
@@ -320,7 +333,7 @@ function Userinfo(){
         else {
           userinfo_api.set_userinfo(user_id,gender_changed,age_changed,hereditary_changed,pastill_changed,height_changed,weight_changed).then(
               r=>{
-                  console.log(r.data.data[0])
+                  console.log(r.data)
               }
           )
           setIsModalVisible_altinfo(false);
@@ -409,33 +422,36 @@ function Userinfo(){
     }
 
     /*********/ 
+    const[getcont,setgetcont] = useState(false)
 
     function Getcontent(){
         
         console.log("token",cookie.load('token'))
-        useEffect(()=>{
+        //useEffect(()=>{
+        if(getcont == false){
+            setgetcont(true)
             userinfo_api.get_userinfo(user_id).then(
                 r=>{
-                    // Setinfo(r.data.data[0].phonenumber,
-                    //     r.data.data[0].username, r.data.data[0].age, r.data.data[0].email,
-                    //     r.data.data[0].gender, r.data.data[0].hereditary, r.data.data[0].pastill,
-                    //     r.data.data[0].height, r.data.data[0].weight
-                    //     );
-                    Setinfo(r.data.data.phone, r.data.data.username, 0, r.data.data.email, r.data.data.gender,
-                      0, 0, 0, 0)
+                    Setinfo(r.data.data.phone,
+                        r.data.data.username, r.data.data.age, r.data.data.email,
+                        r.data.data.gender, r.data.data.hereditary, r.data.data.pastill,
+                        r.data.data.height, r.data.data.weight
+                        );
+                    // Setinfo(r.data.data.phone, r.data.data.username, 0, r.data.data.email, r.data.data.gender,
+                    //   0, 0, 0, 0)
                 }
             )
             userinfo_api.collect_doctor_list(user_id).then(
                 r=>{
-                  setdoctors(r.data.data)
-                  
+                  setdoctors(r.data.data.collects)
+                  console.log(doctors)
                 }
             )
             userinfo_api.get_avatar(user_id).then(
-              r=>{setuserAvatar(r.data.data[0].url)}
+              r=>{setuserAvatar(r.data.data.url)}
             )
-        })
-
+        //})
+        }
         //if(doctors.length!=0) console.log(doctors[0].doctor_name)
 
         if(cnt == 1) return (

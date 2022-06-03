@@ -2,6 +2,7 @@ import './index.css';
 import React from 'react';
 import { Button } from 'antd';
 import { Select } from 'antd';
+import { Row } from 'antd';
 import Result from './component/Result';
 import api from './../../../commons/components/querydeparment'
 
@@ -118,34 +119,33 @@ class TimeTable extends React.Component{
             <>
                 
                 <br />
+                <Row>
                 <Select size={this.state.size} placeholder="请选择想要查询的大类（单选）"  onChange={value=>this.handleChange(value)} style={{ width: 200 }}>
                     {depart_general}
                 </Select>
-                <br />
-                <p />
-                <Select
-                    mode="multiple"
-                    size={this.state.size}
-                    placeholder="请选择想要查询的科室（多选）"
-                    onChange={value=>this.handledepart(value)}
-                    style={{ width: '90%' }}
-                >
-                    {depart_detail}
-                </Select>
-                <br />
-                <p />
                 <Select
                     mode="tags"
                     size={this.state.size}
                     placeholder="请选择想要查询的日期（多选）"
                     onChange={value=>this.handleday(value)}
-                    style={{ width: '90%' }}
+                    style={{ width: '45%','margin':'0cm 0cm 0cm 7cm' }}
                 >
                     {week}
                 </Select>
-                <br />
+                </Row>
                 <p />
-                <Button type='primary' onClick={()=>this.display()} >查询</Button>
+                <Row>
+                <Select
+                    mode="multiple"
+                    size={this.state.size}
+                    placeholder="请选择想要查询的科室（多选）"
+                    onChange={value=>this.handledepart(value)}
+                    style={{ width: '70%' }}
+                >
+                    {depart_detail}
+                </Select>
+                <Button type='primary' onClick={()=>this.display()} style={{'margin':'0cm 0cm 0cm 2.5cm' }}>查询</Button>
+                </Row>
                 <p />
                 {
                     this.state.isShow !== false&&<Result data={this.state.data1} day={this.state.day} depart={this.state.depart}></Result>

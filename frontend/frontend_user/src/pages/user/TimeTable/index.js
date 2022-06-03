@@ -17,7 +17,7 @@ class TimeTable extends React.Component{
             isShow:false,
             data:{"name":"1"},
             data1:{
-                "data_info":[]
+                "":[]
             }
         }
     }
@@ -84,8 +84,6 @@ class TimeTable extends React.Component{
     }
 
     handleChange(value){
-        //console.log(`Selected: ${value}`);
-        //console.log(typeof(value));
         this.setState(
             {
                 general:value

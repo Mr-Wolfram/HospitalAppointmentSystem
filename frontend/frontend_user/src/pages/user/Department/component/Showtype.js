@@ -5,6 +5,7 @@ import { Button } from 'antd';
 import { Table } from 'antd';
 import { Modal } from 'antd';
 import api from "./../../../../commons/components/querydeparment"
+import Item from 'antd/lib/list/Item';
 
 
 class Showtype extends React.Component{
@@ -62,7 +63,7 @@ class Showtype extends React.Component{
             }
         );
         api.getdoctorinfo(name,this.props.departmentinfo.name).then(r=>{
-            console.log(r.data.data);
+            //console.log(r.data.data);
             this.setState(
                 {
                     data:r.data.data
@@ -102,6 +103,62 @@ class Showtype extends React.Component{
                 </>
             )
         }
+    }
+
+    get_time_table(value){
+        //console.log(value);
+        let week = [];
+        let a;
+        for(let i in value){
+            week.push(i);
+        }
+        return (
+            <>
+                {
+                    week.map(Item=>{
+                        return this.get_detail(Item,value[Item]);
+                    })
+                }
+            </>
+        );
+    }
+
+    get_detail(week,people){
+        //console.log(week);
+        //console.log(people);
+        let time = [];
+        for(let i in people){
+            time.push(i);
+        }
+        return (
+            <>
+                {
+                    time.map(Item=>{
+                        return <Descriptions.Item label={week+Item}>{
+                            this.getbutton(people[Item])
+                        }</Descriptions.Item>
+                    })
+                }
+            </>
+        );
+    }
+
+    getpeople(value){
+        let position = [];
+        for(let i in value){
+            position.push(i);
+        }
+        return (
+            <>
+                {
+                    position.map(Item=>{
+                        return <Descriptions.Item label={Item}>{
+                            this.getbutton(value[Item])
+                        }</Descriptions.Item>
+                    })
+                }
+            </>
+        );
     }
 
     render(){
@@ -172,6 +229,7 @@ class Showtype extends React.Component{
             return (
                 <>
                 <Descriptions className='table' contentStyle={{'textAlign':'center'}} labelStyle={{'width':'10%','textAlign':'center'}} size='small' title={''} column={1} bordered>
+                    {/*
                     <Descriptions.Item label="主任医师">
                         {
                             this.getbutton(doctorinfo["主任医师"])
@@ -187,6 +245,8 @@ class Showtype extends React.Component{
                             this.getbutton(doctorinfo["主治医师"])
                         }
                     </Descriptions.Item>
+                    */}
+                    {this.getpeople(doctorinfo)}
                 </Descriptions>
                 <Modal width={700} key={person_info.doctor_list[0].name} title="医生个人信息" visible={this.state.isModalVisible} onOk={() =>this.handleOk()} onCancel={()=> this.handleCancel()}>
                     <Table key={person_info.doctor_list[0].name} columns={columns} dataSource={detailinfo}></Table>
@@ -198,9 +258,9 @@ class Showtype extends React.Component{
             return (
                 <>
                 <Descriptions contentStyle={{'textAlign':'center'}} labelStyle={{'width':'10%','textAlign':'center'}} className='table' size='small' title={''} column={2} bordered>
-                            {/*<Descriptions.Item label="周一上午">{this.getbutton(departmentinfo.schedule.星期一.上午)}</Descriptions.Item>*/}
+                            {/*<Descriptions.Item label="周一上午">{this.getbutton(departmentinfo.schedule.星期一.上午)}</Descriptions.Item>
                             <Descriptions.Item label="周一下午">{this.getbutton(departmentinfo.schedule.星期一.下午)}</Descriptions.Item>
-                            {/*<Descriptions.Item label="周二上午">{this.getbutton(departmentinfo.schedule.星期二.上午)}</Descriptions.Item>
+                            <Descriptions.Item label="周二上午">{this.getbutton(departmentinfo.schedule.星期二.上午)}</Descriptions.Item>
                             <Descriptions.Item label="周二下午">{this.getbutton(departmentinfo.schedule.星期二.下午)}</Descriptions.Item>
                             <Descriptions.Item label="周三上午">{this.getbutton(departmentinfo.schedule.星期三.上午)}</Descriptions.Item>
                             <Descriptions.Item label="周三下午">{this.getbutton(departmentinfo.schedule.星期三.下午)}</Descriptions.Item>
@@ -209,9 +269,10 @@ class Showtype extends React.Component{
                             <Descriptions.Item label="周五上午">{this.getbutton(departmentinfo.schedule.星期五.上午)}</Descriptions.Item>
                             <Descriptions.Item label="周五下午">{this.getbutton(departmentinfo.schedule.星期五.下午)}</Descriptions.Item>
                             <Descriptions.Item label="周六上午">{this.getbutton(departmentinfo.schedule.星期六.上午)}</Descriptions.Item>
-                            <Descriptions.Item label="周六下午">{this.getbutton(departmentinfo.schedule.星期六.下午)}</Descriptions.Item>*/}
+                            <Descriptions.Item label="周六下午">{this.getbutton(departmentinfo.schedule.星期六.下午)}</Descriptions.Item>*
                             <Descriptions.Item label="周日上午">{this.getbutton(departmentinfo.schedule.星期日.上午)}</Descriptions.Item>
-                            {/*<Descriptions.Item label="周日下午">{this.getbutton(departmentinfo.schedule.星期日.下午)}</Descriptions.Item>*/}
+                            <Descriptions.Item label="周日下午">{this.getbutton(departmentinfo.schedule.星期日.下午)}</Descriptions.Item>*/}
+                            {this.get_time_table(departmentinfo.schedule)}
                 </Descriptions>
                 <Modal width={700} key={person_info.doctor_list[0].name} title="医生个人信息" visible={this.state.isModalVisible} onOk={() =>this.handleOk()} onCancel={()=> this.handleCancel()}>
                     <Table key={person_info.doctor_list[0].name} columns={columns} dataSource={detailinfo}></Table>

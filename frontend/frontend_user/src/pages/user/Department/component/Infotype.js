@@ -80,9 +80,6 @@ class Infotype extends React.Component{
         );
     }
 
-    changeshow1(name){
-        console.log(name);
-    }
 
 
 
@@ -90,7 +87,7 @@ class Infotype extends React.Component{
         let people = this.props.data;
         let department_detailinfo = this.props.data1;
 
-        //console.log(this.props.data);
+        //console.log(this.props.isshow);
 
         //console.log(this.state.type);
 
@@ -103,13 +100,13 @@ class Infotype extends React.Component{
                 */}
                 <Row style={{'margin':'0cm 0cm 0cm 4cm'}}>
                 <Tabs className='down' defaultActiveKey="1" onChange={value=>this.changeshow(value)}>
-                    <TabPane tab="简介" key="简介">
+                    <TabPane tab="简介" key="简介" >
                      
                     </TabPane>
-                    <TabPane tab="人员" key="人员">
+                    <TabPane tab="人员" key="人员" disabled={this.props.isshow}>
                       
                     </TabPane>
-                    <TabPane tab="时间表" key="时间表">
+                    <TabPane tab="时间表" key="时间表" >
                       
                     </TabPane>
                 </Tabs>

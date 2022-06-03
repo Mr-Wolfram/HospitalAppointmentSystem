@@ -17,7 +17,7 @@ class Department extends React.Component {
             num1:1,
             name:'',
             d:require('./data/big_depart_json.json'),
-            data:{"name":"1"},
+            data:1,
             data1:{
                 "intro":"",
                 "doctor_list":["","",""],
@@ -38,7 +38,7 @@ class Department extends React.Component {
 
     componentDidMount(){       
         api.getdepartstruct().then(r=>{
-            //console.log(r.data.data);
+            console.log(r.data.data);
             this.setState(
                 {
                     name:'口腔矫形科',
@@ -184,7 +184,7 @@ class Department extends React.Component {
 
 
                 <p></p>
-                <Infotype name={this.state.name} data1={this.state.data1} data={a[Data[this.state.num1-1]]} depart={Data[this.state.num1-1]}></Infotype>
+                <Infotype isshow={(this.state.data === 1)?true:false} name={this.state.name} data1={this.state.data1} data={a[Data[this.state.num1-1]]} depart={Data[this.state.num1-1]}></Infotype>
             </div>
         )
 

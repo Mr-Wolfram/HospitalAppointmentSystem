@@ -5,6 +5,7 @@ import { Button } from 'antd';
 import { Table } from 'antd';
 import { Modal } from 'antd';
 import api from './../../../../commons/components/querydeparment'
+import Item from 'antd/lib/list/Item';
 
 class Time extends React.Component{
     constructor(props) {
@@ -82,6 +83,26 @@ class Time extends React.Component{
         }
     }
 
+    get_schdule(data){
+        //console.log(data);
+        let time = [];
+        for(let i in data){
+            time.push(i);
+        }
+        return (
+            <>
+                {
+                    time.map(Item=>{
+                        return <Descriptions.Item label={Item}>{
+                            this.getbutton(data[Item])
+                        }</Descriptions.Item>
+                    })
+                }
+            </>
+        );
+
+    }
+
     render(){
         //console.log(this.props.data);
         //console.log(this.props.depart);
@@ -126,8 +147,9 @@ class Time extends React.Component{
                     <Descriptions size='small' title={''} column={1} bordered={false}>
                         {
                             <>
-                                <Descriptions.Item label="上午">{this.getbutton(Data.上午)}</Descriptions.Item>
-                                {/*<Descriptions.Item label="下午">{this.getbutton(Data.下午)}</Descriptions.Item>*/}
+                                {/*<Descriptions.Item label="上午">{this.getbutton(Data.上午)}</Descriptions.Item>
+                                <Descriptions.Item label="下午">{this.getbutton(Data.下午)}</Descriptions.Item>*/}
+                                {this.get_schdule(Data)}
                             </>
                         }
                     </Descriptions>

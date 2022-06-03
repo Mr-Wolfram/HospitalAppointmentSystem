@@ -79,10 +79,11 @@ class Result extends React.Component{
             <>
                 {
                     type.map(Item=>{
+                        //console.log(Item);
                         return (
                             <>
                                 <p className='week'>{Item}</p>
-                                {<Schedule depart={this.props.depart} data={Data[type[this.getnum(Item)-1]]}></Schedule>}
+                                {<Schedule depart={this.props.depart} data={Data[Item]}></Schedule>}
                             </>
                         )
                     })

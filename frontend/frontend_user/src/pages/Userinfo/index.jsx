@@ -53,17 +53,18 @@ function Userinfo(){
       
         const handleChange = (info) => {
           if (info.file.status === 'uploading') {
-            setLoading(true);
-            return;
-          }
+          //   setLoading(true);
+          //   return;
+          // }
       
-          if (info.file.status === 'done') {
+          // if (info.file.status === 'done') {
             // Get this url from response in real world.
             getBase64(info.file.originFileObj, (url) => {
               setLoading(false);
               setImageUrl(url);
               setuserAvatar(url)
               console.log(url)
+              userinfo_api.set_avatar(cookie.load('user_id'),1)
             });
           }
 
@@ -81,7 +82,7 @@ function Userinfo(){
           className:"avatar-uploader",
           showUploadList:false,
         };
-        let a = "http://localhost:3000/api/user/info/avatar?user_id="+cookie.load('user_id')
+        let a = "http://localhost:3000/api/user/info/setavatar?user_id="+cookie.load('user_id')
       
         const uploadButton = (
           <div>
@@ -239,6 +240,7 @@ function Userinfo(){
           </Form.Item>
       </div>)
             userinfo_api.set_phone(user_id,changephone)
+            message.success('手机号换绑成功！')
             setIsModalVisible_phone(false);
         }
     };
@@ -283,6 +285,7 @@ function Userinfo(){
           </Form.Item>
       </div>)
             userinfo_api.set_email(user_id,changeemail)
+            message.success('邮箱换绑成功！')
             setIsModalVisible_email(false);
         }
     };
@@ -480,15 +483,15 @@ function Userinfo(){
         )
         else return (
             <div class = "repodiv">
-                <Descriptions  bordered={true} size='small' title={''}  column={1} labelStyle={{width:180,height:80}}>
+                <Descriptions  bordered={true} size='small' title={''}  column={2} labelStyle={{width:180,height:80}}>
                     <Descriptions.Item label={<div class="labeldiv"><p>头像</p><Button onClick={sethead}>更换</Button></div>}><Avatar size={64} icon={<UserOutlined /> } src={userAvatar}/></Descriptions.Item>
                     <Descriptions.Item label="用户名">{username}</Descriptions.Item>
                     <Descriptions.Item label={<div class="labeldiv"><p>手机号</p><Button onClick={phone_rebind}>换绑</Button></div>}>{phonenum}</Descriptions.Item>
                     <Descriptions.Item label={<div class="labeldiv"><p>邮箱</p><Button onClick={email_rebind}>换绑</Button></div>}>{email}</Descriptions.Item>
                     <Descriptions.Item label="年龄">{age}</Descriptions.Item>
                     <Descriptions.Item label="性别">{gender}</Descriptions.Item>
-                    <Descriptions.Item label="身高">{height}</Descriptions.Item>
-                    <Descriptions.Item label="体重">{weight}</Descriptions.Item>
+                    <Descriptions.Item label="身高（cm）">{height}</Descriptions.Item>
+                    <Descriptions.Item label="体重（kg）">{weight}</Descriptions.Item>
                     <Descriptions.Item label="既往病史">{hereditary}</Descriptions.Item>
                     <Descriptions.Item label="家族遗传病史">{pastill}</Descriptions.Item>
                     <Descriptions.Item label="收藏医生">
@@ -513,7 +516,7 @@ function Userinfo(){
 
     return (
         <div>
-            <Menu mode="horizontal" >
+            <Menu mode="horizontal" bordered >
                 <Menu.Item key="1" onClick={changestate1}>
                 用户基本信息
                 </Menu.Item>
@@ -557,13 +560,13 @@ function Userinfo(){
                       <Form.Item name="height"
                       label="身高">
                         <text style={{'margin-right':'20px'}}></text>
-                        <InputNumber min={1} max={250} onChange={changeheight} /><text style={{'margin-left':'10px'}}>厘米</text>
+                        <InputNumber min={1} max={250} onChange={changeheight} /><text style={{'margin-left':'10px'}}>cm</text>
                       </Form.Item>
                       
                       <Form.Item name="weight"
                       label="体重">
                         <text style={{'margin-right':'20px'}}></text>
-                        <InputNumber min={1} max={200} onChange={changeweight} /><text style={{'margin-left':'10px'}}>千克</text>
+                        <InputNumber min={1} max={200} onChange={changeweight} /><text style={{'margin-left':'10px'}}>kg</text>
                       </Form.Item>
 
                       <Form.Item

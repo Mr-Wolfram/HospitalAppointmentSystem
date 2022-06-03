@@ -29,7 +29,7 @@ export default {
         })
     },
     async set_avatar(user_id,pic_id) {
-        return await http.get('/api/user/info/setavatar', {
+        return await http.post('/api/user/info/setavatar', {
             user_id:user_id,
             pic_id:pic_id
         })

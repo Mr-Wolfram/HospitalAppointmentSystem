@@ -19,6 +19,8 @@ import Notice from "./../user/Notice"
 import Registration from "./../user/Registration"
 import IndexPage from "./../user/IndexPage"
 import Icon, {UserOutlined, BellOutlined} from "@ant-design/icons";
+import src from 'react-map-gl';
+
 
 // import {MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined} from "@ant-design/icons";
 
@@ -31,7 +33,7 @@ const items1 = ['1', '2', '3'].map((key) => ({
   }));
 export default class Index extends Component {
 
-    state = {currentPage:"", username:cookie.load('username'), ws:null,collapsed:false,
+    state = {currentPage:"", username:cookie.load('username'), ws:null,collapsed:false,avatarsrc:'',
     
     notice:[{title:"aa",content:"bb"},{title:"aa",content:"bb"}],
     callnotice:0}
@@ -50,6 +52,11 @@ export default class Index extends Component {
             }
         )
         console.log("notice:",that.state.notice)
+        userinfo_api.get_avatar(user_id).then(
+            function(response){
+                that.setState({avatarsrc:response.data.data.url})
+            }
+        )
     }
 
     Notice = () => {
@@ -109,7 +116,7 @@ export default class Index extends Component {
                     {/*</div>*/}
                     <div style={{position:'absolute',right:'10%',color:'white'}}>
                         <span style={{paddingRight: '10px'}}>
-                          <Avatar size="large" icon={<UserOutlined />} />
+                          <Avatar size="large" icon={<UserOutlined /> } src={this.state.avatarsrc}/>
                             &nbsp;{cookie.load('username')}
                         </span>
 

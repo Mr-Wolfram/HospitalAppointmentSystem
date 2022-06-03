@@ -1,10 +1,11 @@
 import http from '../request.js'
+import cookie from 'react-cookies'
 
 export default {
     async get_userinfo(user_id) {
         return await http.get('/api/user/info', {
             user_id:user_id,
-        })
+        },cookie.load("token"))
     },
     async set_userinfo(user_id,gender,age,hereditary,pastill,height,weight) {
         return await http.post('/api/user/set_info', {
@@ -18,14 +19,14 @@ export default {
         })
     },
     async get_notice(user_id) {
-        return await http.post('/api/user/notice/query', {
+        return await http.get('/api/user/notice/query', {
             user_id:user_id,
         })
     },
     async get_avatar(user_id) {
         return await http.get('/api/user/getavatar', {
             user_id:user_id,
-        })
+        },cookie.load("token"))
     },
     async collect_doctor_list(user_id) {
         return await http.get('/api/user/doctor/collectlist', {

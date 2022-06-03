@@ -34,14 +34,14 @@ class Registration extends React.Component {
     // cookie.save('username', 'lyczju')
     this.setState({userId: cookie.load('user_id')})
     let date = moment().format('d')
-    api.post_doctor_info(date)
+    api.get_doctor_info(date)
     .then(r => {
-      console.log("post doctor info");
+      console.log("get doctor info");
       this.setState(
         {
           doctorData: r.data.data.doctorData,
           treeData: r.data.data.treeData,
-          doctorId: r.data.data.doctorData[0].doctorId,
+          doctorId: r.data.data.doctorData.length != 0 ? r.data.data.doctorData[0].doctorId : "            ",
         }
       )
       //反正是一样的值,直接用刚才穿过来的值,因为还没更新state呢,就还是用r.data.data.doctorData
@@ -70,7 +70,12 @@ class Registration extends React.Component {
   };
 
   showSearchModal = () => {
-    this.setState({ timeTableVisible: true });
+    if(this.state.doctorId === "            ") {
+      message.error("请选择医生！");
+    }
+    else {
+      this.setState({ timeTableVisible: true });
+    }
   };
 
   chooseOnChange = value => {

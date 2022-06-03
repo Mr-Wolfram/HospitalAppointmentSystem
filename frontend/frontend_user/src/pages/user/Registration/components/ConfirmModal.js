@@ -4,6 +4,7 @@ import api from "./../../../../commons/index"
 import cookie from 'react-cookies'
 import moment from 'moment'
 import PayModal from './PayModal'
+import img2 from '../images/2.png'
 
 function ConfirmModal(props) {
 
@@ -19,9 +20,10 @@ function ConfirmModal(props) {
     api.post_registration_form(cookie.load("user_id"), props.doctorId, props.time)
     .then(r => {
       console.log("post registration form");
-      if(r.data.data.submitSuccess === true) {
-        setQRcodeUrl(r.data.data.QRcodeUrl)
-        setOrderId(r.data.data.orderId)
+      if(r.data.submit === "submit_success") {
+        // setQRcodeUrl(r.data.data.QRcodeUrl)
+        setQRcodeUrl(img2)
+        setOrderId(r.data.order_id)
         setPayVisible(true)
       }
       else {

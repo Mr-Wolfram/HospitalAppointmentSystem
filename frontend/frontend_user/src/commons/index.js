@@ -12,35 +12,35 @@ export default {
       })
     },
     // add  here
-    async post_doctor_info(date) {
-      return await http.post('/api/user/registration/info', {
+    async get_doctor_info(date) {
+      return await http.get('/api/user/registration/info', {
         date: date
       })
     },
 
-    async post_doctor_select(doctorId) {
-      return await http.post('/api/user/registration/select', {
+    async get_doctor_select(doctorId) {
+      return await http.get('/api/user/registration/select', {
         doctorId: doctorId
       })
     },
 
-    async post_registration_form(userId, doctorId, time) {
+    async post_registration_form(user_id, doctor_id, time) {
       return await http.post('/api/user/registration/form', {
-        userId: userId,
-        doctorId: doctorId,
+        user_id: user_id,
+        doctor_id: doctor_id,
         time: time,
       })
     },
 
-    async post_registration_pay(orderId) {
-      return await http.post('/api/user/registration/pay', {
-        orderId: orderId,
+    async get_registration_pay(order_id) {
+      return await http.get('/api/user/registration/pay', {
+        order_id: order_id,
       })
     },
-    async order_revoke(orderId,userId) {
-        return await http.post('/api/user/order/revoke', {
-            order_id: orderId,
-            user_id:userId //注意是userId还是user_id
+    async order_revoke(order_id,user_id) {
+        return await http.post('/api/user/order/delete', {
+            order_id: order_id,
+            user_id:user_id //注意是userId还是user_id
         })
     },
     async order_create(orderId,userId,department,doctorId) {

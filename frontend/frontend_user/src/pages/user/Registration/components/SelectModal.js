@@ -12,10 +12,10 @@ function SelectModal(props) {
   const [time, setTime] = useState(0);
   useEffect(() => {
     setMyState(myState + 1)
-    api.post_doctor_select(props.doctorId)
+    api.get_doctor_select(props.doctorId)
       .then(r => {
-        console.log("post doctor select update", r)
-        setNumberOfQueue(r.data.data.numberOfQueue)
+        console.log("get doctor select update", r)
+        // setNumberOfQueue(r.data.data.numberOfQueue)
       })
   }, [props])
   //

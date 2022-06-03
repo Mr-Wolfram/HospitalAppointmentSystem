@@ -11,18 +11,18 @@ class News00002 extends React.Component{
   render()  {return ( <div>
   <Typography className='text-type'>
     <Row>
-      <Col span={15} offset={2}>
+      <Col span={15} offset={5}>
       <Title>第二党支部召开2020年度党员领导干部民主生活会</Title>
       </Col>
     </Row>
     <Row>
-    <Col span={15} offset={2}>
+    <Col span={15} offset={5}>
       <Divider className='divider-type' />
     </Col>
-   
+
     </Row>
     <Row>
-      <Col  span={13} offset={2}>
+      <Col  span={13} offset={5}>
         <Paragraph>
             2020年12月9日晚间，我院第二党支部于A栋101会议室召开本年度党员领导干部民主生活会。
         </Paragraph>
@@ -37,7 +37,7 @@ class News00002 extends React.Component{
         </Paragraph>
       </Col>
     </Row>
-    
+
   </Typography>
  </div>
 );

@@ -2,7 +2,9 @@
     line-height: 10px;
 }
 .img-type{
-    width:1500;
+    width:35vw;
+    margin-left: 10vw;
+    margin-right: 10vw;
     border-radius: 20px;
 }
 .text-type{

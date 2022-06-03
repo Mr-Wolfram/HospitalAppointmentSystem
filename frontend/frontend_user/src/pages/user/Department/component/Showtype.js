@@ -23,9 +23,9 @@ class Showtype extends React.Component{
             }
         };
     }
-
+    /*
     componentDidMount(){
-        api.postdoctorinfo(this.state.person,this.props.departmentinfo.name).then(r=>{
+        api.getdoctorinfo(this.state.person,this.props.departmentinfo.name).then(r=>{
             this.setState(
                 {
                     data:r.data.data
@@ -33,6 +33,7 @@ class Showtype extends React.Component{
             );
         });
     }
+    */
 /*
     shouldComponentUpdate(nextProps,nextState){
         if(this.state.person != nextState.person){
@@ -43,7 +44,7 @@ class Showtype extends React.Component{
     }
 
     componentDidUpdate(){
-        api.postdoctorinfo(this.state.person).then(r=>{
+        api.getdoctorinfo(this.state.person).then(r=>{
             this.setState(
                 {
                     data:r.data.data
@@ -60,7 +61,8 @@ class Showtype extends React.Component{
                 depart:this.props.departmentinfo.name
             }
         );
-        api.postdoctorinfo(name,this.props.departmentinfo.name).then(r=>{
+        api.getdoctorinfo(name,this.props.departmentinfo.name).then(r=>{
+            console.log(r.data.data);
             this.setState(
                 {
                     data:r.data.data
@@ -108,8 +110,8 @@ class Showtype extends React.Component{
         const columns = [
             {
                 title: 'ID',
-                dataIndex: 'id',
-                key: 'id',
+                dataIndex: 'doctor_id',
+                key: 'doctor_id',
             },
             {
                 title: '姓名',
@@ -119,7 +121,7 @@ class Showtype extends React.Component{
             {
                 title: '科室',
                 dataIndex: 'department',
-                key: 'departmen',
+                key: 'department',
             },
             {
                 title: '年龄',
@@ -170,14 +172,14 @@ class Showtype extends React.Component{
             return (
                 <>
                 <Descriptions className='table' contentStyle={{'textAlign':'center'}} labelStyle={{'width':'10%','textAlign':'center'}} size='small' title={''} column={1} bordered>
-                    <Descriptions.Item label="主任">
+                    <Descriptions.Item label="主任医师">
                         {
-                            this.getbutton(doctorinfo["主任"])
+                            this.getbutton(doctorinfo["主任医师"])
                         }
                     </Descriptions.Item>
-                    <Descriptions.Item label="副主任">
+                    <Descriptions.Item label="副主任医师">
                         {
-                            this.getbutton(doctorinfo["副主任"])
+                            this.getbutton(doctorinfo["副主任医师"])
                         }
                     </Descriptions.Item>
                     <Descriptions.Item label="主治医师">
@@ -196,20 +198,20 @@ class Showtype extends React.Component{
             return (
                 <>
                 <Descriptions contentStyle={{'textAlign':'center'}} labelStyle={{'width':'10%','textAlign':'center'}} className='table' size='small' title={''} column={2} bordered>
-                            <Descriptions.Item label="周一上午">{this.getbutton(departmentinfo.schedule.周一.上午)}</Descriptions.Item>
-                            <Descriptions.Item label="周一下午">{this.getbutton(departmentinfo.schedule.周一.下午)}</Descriptions.Item>
-                            <Descriptions.Item label="周二上午">{this.getbutton(departmentinfo.schedule.周二.上午)}</Descriptions.Item>
-                            <Descriptions.Item label="周二下午">{this.getbutton(departmentinfo.schedule.周二.下午)}</Descriptions.Item>
-                            <Descriptions.Item label="周三上午">{this.getbutton(departmentinfo.schedule.周三.上午)}</Descriptions.Item>
-                            <Descriptions.Item label="周三下午">{this.getbutton(departmentinfo.schedule.周三.下午)}</Descriptions.Item>
-                            <Descriptions.Item label="周四上午">{this.getbutton(departmentinfo.schedule.周四.上午)}</Descriptions.Item>
-                            <Descriptions.Item label="周四下午">{this.getbutton(departmentinfo.schedule.周四.下午)}</Descriptions.Item>
-                            <Descriptions.Item label="周五上午">{this.getbutton(departmentinfo.schedule.周五.上午)}</Descriptions.Item>
-                            <Descriptions.Item label="周五下午">{this.getbutton(departmentinfo.schedule.周五.下午)}</Descriptions.Item>
-                            <Descriptions.Item label="周六上午">{this.getbutton(departmentinfo.schedule.周六.上午)}</Descriptions.Item>
-                            <Descriptions.Item label="周六下午">{this.getbutton(departmentinfo.schedule.周六.下午)}</Descriptions.Item>
-                            <Descriptions.Item label="周日上午">{this.getbutton(departmentinfo.schedule.周日.上午)}</Descriptions.Item>
-                            <Descriptions.Item label="周日下午">{this.getbutton(departmentinfo.schedule.周日.下午)}</Descriptions.Item>
+                            {/*<Descriptions.Item label="周一上午">{this.getbutton(departmentinfo.schedule.星期一.上午)}</Descriptions.Item>*/}
+                            <Descriptions.Item label="周一下午">{this.getbutton(departmentinfo.schedule.星期一.下午)}</Descriptions.Item>
+                            {/*<Descriptions.Item label="周二上午">{this.getbutton(departmentinfo.schedule.星期二.上午)}</Descriptions.Item>
+                            <Descriptions.Item label="周二下午">{this.getbutton(departmentinfo.schedule.星期二.下午)}</Descriptions.Item>
+                            <Descriptions.Item label="周三上午">{this.getbutton(departmentinfo.schedule.星期三.上午)}</Descriptions.Item>
+                            <Descriptions.Item label="周三下午">{this.getbutton(departmentinfo.schedule.星期三.下午)}</Descriptions.Item>
+                            <Descriptions.Item label="周四上午">{this.getbutton(departmentinfo.schedule.星期四.上午)}</Descriptions.Item>
+                            <Descriptions.Item label="周四下午">{this.getbutton(departmentinfo.schedule.星期四.下午)}</Descriptions.Item>
+                            <Descriptions.Item label="周五上午">{this.getbutton(departmentinfo.schedule.星期五.上午)}</Descriptions.Item>
+                            <Descriptions.Item label="周五下午">{this.getbutton(departmentinfo.schedule.星期五.下午)}</Descriptions.Item>
+                            <Descriptions.Item label="周六上午">{this.getbutton(departmentinfo.schedule.星期六.上午)}</Descriptions.Item>
+                            <Descriptions.Item label="周六下午">{this.getbutton(departmentinfo.schedule.星期六.下午)}</Descriptions.Item>*/}
+                            <Descriptions.Item label="周日上午">{this.getbutton(departmentinfo.schedule.星期日.上午)}</Descriptions.Item>
+                            {/*<Descriptions.Item label="周日下午">{this.getbutton(departmentinfo.schedule.星期日.下午)}</Descriptions.Item>*/}
                 </Descriptions>
                 <Modal width={700} key={person_info.doctor_list[0].name} title="医生个人信息" visible={this.state.isModalVisible} onOk={() =>this.handleOk()} onCancel={()=> this.handleCancel()}>
                     <Table key={person_info.doctor_list[0].name} columns={columns} dataSource={detailinfo}></Table>

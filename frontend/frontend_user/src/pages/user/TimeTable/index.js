@@ -10,9 +10,10 @@ class TimeTable extends React.Component{
         super(props);
         this.state={
             size: "default",
-            general: "内科",
+            general: "",
+            d:require('./data/big_depart_json.json'),
             depart:[],
-            day:[""],
+            day:[],
             isShow:false,
             data:{"name":"1"},
             data1:{
@@ -38,6 +39,7 @@ class TimeTable extends React.Component{
             }
         );
         api.postqueryschdule(this.state.day,this.state.depart).then(r=>{
+            //console.log(r.data.data);
             this.setState(
                 {
                     data1:r.data.data
@@ -46,11 +48,27 @@ class TimeTable extends React.Component{
         });
     }
 
+    turn(str){
+        switch(str){
+            case "0":return 0;
+            case "1":return 1;
+            case "2":return 2;
+            case "3":return 3;
+            case "4":return 4;
+            case "5":return 5;
+            case "6":return 6;
+        }
+    }
+
     handleday(value){
-        //console.log(`Selected: ${value}`);
+        let temp = [];
+        for(let i=0;i<value.length;i++){
+            temp.push(this.turn(value[i]));
+        }
+        //console.log(temp);
         this.setState(
             {
-                day:value
+                day:temp
             }
         );
         //console.log(this.state.day);
@@ -66,7 +84,7 @@ class TimeTable extends React.Component{
     }
 
     handleChange(value){
-        console.log(`Selected: ${value}`);
+        //console.log(`Selected: ${value}`);
         //console.log(typeof(value));
         this.setState(
             {
@@ -79,15 +97,15 @@ class TimeTable extends React.Component{
         const { Option } = Select;
 
         const week = [];
-        week.push(<Option key="周一">周一</Option>);
-        week.push(<Option key="周二">周二</Option>);
-        week.push(<Option key="周三">周三</Option>);
-        week.push(<Option key="周四">周四</Option>);
-        week.push(<Option key="周五">周五</Option>);
-        week.push(<Option key="周六">周六</Option>);
-        week.push(<Option key="周日">周日</Option>);
+        week.push(<Option key={1}>星期一</Option>);
+        week.push(<Option key={2}>星期二</Option>);
+        week.push(<Option key={3}>星期三</Option>);
+        week.push(<Option key={4}>星期四</Option>);
+        week.push(<Option key={5}>星期五</Option>);
+        week.push(<Option key={6}>星期六</Option>);
+        week.push(<Option key={0}>星期日</Option>);
 
-        let Data=this.state.data;
+        let Data=this.state.d;
         let depart_general = [];
         for(let i in Data){
             depart_general.push(<Option key={i}>{i}</Option>);
@@ -95,7 +113,7 @@ class TimeTable extends React.Component{
 
         const depart_detail = [];
         for(let i in Data[this.state.general]){
-            depart_detail.push(<Option key={i}>{i}</Option>);
+            depart_detail.push(<Option key={Data[this.state.general][i]}>{Data[this.state.general][i]}</Option>);
         }
         
         return (
@@ -121,7 +139,7 @@ class TimeTable extends React.Component{
                 <Select
                     mode="tags"
                     size={this.state.size}
-                    placeholder="请选择想要查询的日期（多选）（测试的时候先选两个就好）"
+                    placeholder="请选择想要查询的日期（多选）"
                     onChange={value=>this.handleday(value)}
                     style={{ width: '90%' }}
                 >

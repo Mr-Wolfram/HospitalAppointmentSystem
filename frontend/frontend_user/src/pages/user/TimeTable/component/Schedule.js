@@ -12,7 +12,8 @@ class Schedule extends React.Component{
         for(let i in Data){
             depart.push(i);
         }
-        //console.log(depart);
+        //console.log(this.props.depart);
+        //console.log(this.props.data);
         return (
             <>
             {

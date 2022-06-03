@@ -90,7 +90,7 @@ class Infotype extends React.Component{
         let people = this.props.data;
         let department_detailinfo = this.props.data1;
 
-        //console.log(this.props.depart);
+        //console.log(this.props.data);
 
         //console.log(this.state.type);
 

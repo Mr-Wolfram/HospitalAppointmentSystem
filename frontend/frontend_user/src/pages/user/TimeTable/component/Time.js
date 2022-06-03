@@ -84,11 +84,12 @@ class Time extends React.Component{
 
     render(){
         //console.log(this.props.data);
+        //console.log(this.props.depart);
         const columns = [
             {
                 title: 'ID',
-                dataIndex: 'id',
-                key: 'id',
+                dataIndex: 'doctor_id',
+                key: 'doctor_id',
             },
             {
                 title: '姓名',
@@ -126,7 +127,7 @@ class Time extends React.Component{
                         {
                             <>
                                 <Descriptions.Item label="上午">{this.getbutton(Data.上午)}</Descriptions.Item>
-                                <Descriptions.Item label="下午">{this.getbutton(Data.下午)}</Descriptions.Item>
+                                {/*<Descriptions.Item label="下午">{this.getbutton(Data.下午)}</Descriptions.Item>*/}
                             </>
                         }
                     </Descriptions>

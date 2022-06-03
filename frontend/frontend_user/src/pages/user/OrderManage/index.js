@@ -50,7 +50,7 @@ function OrderManage () {
                         let nowTime=new Date();
                         let thatTime=new Date(i.time);
                         if(nowTime-thatTime>=15*60){
-                            console.log("nowTime-thatTime",nowTime,thatTime,nowTime-thatTime);
+                            // console.log("nowTime-thatTime",nowTime,thatTime,nowTime-thatTime);
                             i.status="TRADE_CLOSED";
                         }
                     }
@@ -200,7 +200,7 @@ function OrderManage () {
                                         setSelect_order_id("")
 
                                         // doctor_input_ref.current.input.value=''
-                                        console.log(doctor_input_ref.current)
+                                        // console.log(doctor_input_ref.current)
                                         getOrder(
                                             cookie.load("user_id"),"","","",
                                             "","",""

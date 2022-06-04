@@ -137,7 +137,7 @@ function Userinfo(){
     const[changeemail, setchangeemail] = useState("")
     const handleemail = e => {
       console.log("email:",e.target.value)
-        setchangeemail(e.target.value)
+      setchangeemail(e.target.value)
     }
 
     const[cnt,setcnt] = useState(0);
@@ -171,7 +171,9 @@ function Userinfo(){
     );
 
     const[modalcontent_email,setmodalcontent_email] = useState(
-      <div><Form.Item
+      <div><Form initialValues={{
+        remember: true,
+    }}><Form.Item
           name="email"
           rules={[
               {
@@ -181,14 +183,15 @@ function Userinfo(){
               },
               {
                 pattern:/^1[3456789]\d{9}$/,
-                message:'请输入正确的邮箱格式'
+                message:'请输入正确的邮箱格式',
+                trigger: 'blur'
             }
           ]}
           validateStatus={phoneStyle}
           hasFeedback
           help={phonehelp}
           ><Input placeholder="请输入新的邮箱" onChange={handleemail}/>
-      </Form.Item>
+      </Form.Item></Form>
   </div>
   );
 
@@ -207,6 +210,11 @@ function Userinfo(){
 
     const [isModalVisible_phone, setIsModalVisible_phone] = useState(false);
     const [modalstate, setmodalstate] = useState(0);
+    const [idcode,setidcode] = useState('')
+
+    const handleidcode = e => {
+      setidcode(e.target.value)
+    }
 
     const phone_rebind = () => {
         setIsModalVisible_phone(true);
@@ -215,24 +223,23 @@ function Userinfo(){
     const handleOk = () => {
       const user_id = cookie.load('user_id')
         if(modalstate == 0){
-            setmodalcontent(<div><Input style={{ width: 200, textAlign: 'center' }} placeholder="请输入验证码" /></div>);
+          const reg = /^1[3456789]\d{9}$/
+          if (!reg.test(changephone)) {
+              message.warning('请输入正确的手机号格式')
+          }else{
+            setmodalcontent(
+              <div><Input style={{ width: 200, textAlign: 'center' }} placeholder="请输入验证码" onChange={handleidcode} />
+              <Button onClick={()=>{message.success("验证码为123456",4)}}>获取验证码</Button></div>
+            );
             setmodalstate(1);
+          }
         }
         else if(modalstate == 1){
+          if(idcode == '123456') {
+            setidcode('0')
             setmodalstate(0);
             setmodalcontent(<div><Form.Item
               name="phone"
-              rules={[
-                  {
-                      required: true,
-                      message: '请输入手机号',
-                      trigger: 'blur'
-                  },
-                  {
-                    pattern:/^1[3456789]\d{9}$/,
-                    message:'请输入正确的手机格式'
-                }
-              ]}
               validateStatus={phoneStyle}
               hasFeedback
               help={phonehelp}
@@ -242,7 +249,10 @@ function Userinfo(){
             userinfo_api.set_phone(user_id,changephone)
             message.success('手机号换绑成功！')
             setIsModalVisible_phone(false);
+        }else{
+          message.warning('验证码错误！',2)
         }
+      }
     };
 
     const handleCancel = () => {
@@ -252,32 +262,35 @@ function Userinfo(){
     /*emmail */
     const [isModalVisible_email, setIsModalVisible_email] = useState(false);
     const [modalstate_email, setmodalstate_email] = useState(0);
+    
 
     const email_rebind = () => {
         setIsModalVisible_email(true);
     };
 
+    
+
     const handleOk_email = () => {
       const user_id = cookie.load('user_id')
         if(modalstate_email == 0){
-            setmodalcontent_email(<div><Input style={{ width: 200, textAlign: 'center' }} placeholder="请输入验证码" /></div>);
-            setmodalstate_email(1);
+          if(modalstate == 0){
+            const reg = /^[A-Za-z0-9-._]+@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,6})$/
+            if (!reg.test(changeemail)) {
+                message.warning('请输入正确的邮箱格式')
+            }else{
+              setmodalcontent_email(
+                <div><Input style={{ width: 200, textAlign: 'center' }} placeholder="请输入验证码" onChange={handleidcode} />
+                <Button onClick={()=>{message.success("验证码为123456",4)}}>获取验证码</Button></div>
+              );
+              setmodalstate_email(1);
+            }}
         }
         else if(modalstate_email == 1){
+            if(idcode == '123456') {
+              setidcode('0')
             setmodalstate_email(0);
             setmodalcontent_email(<div><Form.Item
               name="email"
-              rules={[
-                  {
-                      required: true,
-                      message: '请输入邮箱',
-                      trigger: 'blur'
-                  },
-                  {
-                    pattern:/^1[3456789]\d{9}$/,
-                    message:'请输入正确的邮箱格式'
-                }
-              ]}
               validateStatus={phoneStyle}
               hasFeedback
               help={phonehelp}
@@ -287,7 +300,10 @@ function Userinfo(){
             userinfo_api.set_email(user_id,changeemail)
             message.success('邮箱换绑成功！')
             setIsModalVisible_email(false);
+        }else{
+          message.warning('验证码错误！',2)
         }
+      }
     };
 
     const handleCancel_email = () => {

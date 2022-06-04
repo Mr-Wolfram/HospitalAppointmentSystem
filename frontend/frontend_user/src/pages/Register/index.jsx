@@ -145,10 +145,11 @@ class Register extends Component {
         login_api.register(username,password,phone)
             .then(function (response) {
                 const data = response.data
-                const result = data.data.status
+                const result = data.status
 
                 if (result === 'success'){
                     //注册成功返回登陆界面
+                    message.success('注册成功！',2)
                     cookie.save('registerSuccess', true, { path: '/' })
                     window.location.href = '/login'
                 }

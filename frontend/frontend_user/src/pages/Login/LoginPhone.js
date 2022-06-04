@@ -80,10 +80,10 @@ class LoginPhone extends Component {
         login_api.checkphone(this.state.phone)
             .then(function (response) {
                 const data = response.data
-                const result = data.status
-                if (result != 'success'){
-                    message.warning('手机号未绑定', 2);
-                    console.log("手机号未绑定")
+                const result = data.data.isExist
+                if (result == false){
+                    message.warning('该手机号未绑定', 2);
+                    console.log("该手机号未绑定")
                 }
                 else{
                     // axios.post('/api/user/login/idcode', {

@@ -73,13 +73,13 @@ class Login extends Component {
         // axios.post('/api/user/check/name', {
         //     username: this.state.username
         // })
-        login_api.checkname(this.state.name)
+        login_api.checkname(this.state.username)
             .then(function (response) {
                 const data = response.data
-                const result = data.status
-                if (result != 'success'){
-                    message.warning('用户不存在', 2);
-                    console.log("用户不存在")
+                const result = data.data.isExist
+                if (result == false){
+                    message.warning('该用户不存在', 2);
+                    console.log("该用户不存在")
                 }
                 else{
                     // axios.post('/api/user/login/pwd', {

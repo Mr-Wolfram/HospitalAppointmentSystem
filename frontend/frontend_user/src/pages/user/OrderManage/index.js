@@ -8,10 +8,10 @@ import cookie from "react-cookies";
 const Search = Input.Search;
 const InputGroup = Input.Group;
 const Option = Select.Option;
-const department_list=["放疗科","呼吸内科","消化内科","神经内科","心血管内科",
+const department_list=["口腔矫形科","放疗科","呼吸内科","消化内科","神经内科","心血管内科",
     "普通外科","神经外科","心胸外科","泌尿外科","儿科综合","小儿内科","小儿外科",
     "新生儿科","中医全科","中医内科","中医外科","针灸按摩科","中医骨伤科","肝病科",
-    "艾滋病科","寄生虫科","放疗科","肿瘤综合科","骨肿瘤科","耳鼻喉科","眼科","口腔科","骨科"
+    "艾滋病科","寄生虫科","放疗科","肿瘤综合科","骨肿瘤科","耳鼻喉科","眼科","骨科"
 ]
 const checkbox_options = [
     {
@@ -72,7 +72,27 @@ function OrderManage () {
     async function getOrder(user_id,order_id,doctor_name,status,department,start_date,end_date) {
         await order_api.get_query_order(user_id,order_id,doctor_name,status,department,start_date,end_date).then(r=>{
                 console.log("order query by select",r.data);
-                setOrderList(r.data.data)
+            let retData=r.data.data.map(i=>{
+                if(i.status==="WAIT_BUYER_PAY"){
+                    let nowTime=new Date();
+                    let thatTime=new Date(i.time);
+                    if(nowTime-thatTime>=15*60){
+                        // console.log("nowTime-thatTime",nowTime,thatTime,nowTime-thatTime);
+                        i.status="TRADE_CLOSED";
+                    }
+                }
+                if(i.status==='TRADE_SUCCESS')i.status="支付成功";
+                if(i.status==='TRADE_FINISHED')i.status="就诊完成";
+                if(i.status==='WAIT_BUYER_PAY')i.status="等待支付";
+                if(i.status==='TRADE_CLOSED')i.status="订单关闭";
+                i.time=new Date(i.time);
+                i.time=i.time.toLocaleString()
+                // i.time=i.time.getFullYear() + '-' + (i.time.getMonth() + 1) + '-' + i.time.getDate()+' '+i.time.getHours() + ':' + i.time.getMinutes() + ':' + i.time.getSeconds()
+
+                return i;
+            })
+
+            setOrderList(retData)
             }
         )
     }
@@ -153,15 +173,16 @@ function OrderManage () {
 
                                 <DatePicker
                                     placeholder={"start"}
-                                    value={select_start_time}
-                                    onChange={(r)=>{
-                                        setSelect_start_time(r);
+                                    // value={select_start_time}
+                                    onChange={(r,dataString)=>{
+                                        console.log("date",dataString)
+                                        setSelect_start_time(dataString);
                                     }} />
                                 <DatePicker
                                     placeholder={"end"}
-                                    value={select_end_time}
-                                    onChange={(r)=>{
-                                        setSelect_end_time(r);
+                                    // value={select_end_time}
+                                    onChange={(r,dataString)=>{
+                                        setSelect_end_time(dataString);
                                     }} />
                             </InputGroup>
                         </Col>

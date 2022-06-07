@@ -8,8 +8,8 @@ export default {
             doctor_name: doctor_name,
             status:status,
             department:department,
-            start_date:start_date,
-            end_date:end_date
+            start_time:start_date,
+            end_time:end_date
         })
     },
     async post_order_comment(order_id,content) {

@@ -19,10 +19,11 @@ const LeftMenu = (props) => {
                 mode="inline"
                 // mode="horizontal"
                 defaultSelectedKeys={['1']}
-                defaultOpenKeys={['sub2']}
+                defaultOpenKeys={['sub2','sub3']}
                 style={{ height: '100%', borderRight: 0 }}
                 theme={'dark'}
 
+                // inlineCollapsed={false}
             >
                 <Menu.Item key="1" icon={<HomeOutlined />} onClick={e => changePage("首页")}><Link to={{pathname:'/index'}}>首页</Link></Menu.Item>
 

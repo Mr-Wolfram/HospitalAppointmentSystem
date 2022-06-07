@@ -94,9 +94,10 @@ class LoginPhone extends Component {
                         .then(function (response) {
                             const data = response.data
                             const result = data.status
-                            const username = data.data.username
+                            
                             console.log("data=",data);
                             if (result === 'success'){
+                                const username = data.data.username
                                 cookie.save('phone', that.state.phone, { path: '/' });
                                 cookie.save('username', username, { path: '/' });
                                 cookie.save('loginSuccess', true, { path: '/' });

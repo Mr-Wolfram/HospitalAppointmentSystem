@@ -151,8 +151,8 @@ class Login extends Component {
                                     },
                                     {
                                         min: 6,
-                                        max: 18,
-                                        message: '用户名长度应为6-18个字符',
+                                        max: 12,
+                                        message: '用户名长度应为6-12个字符',
                                         trigger: 'blur'
                                     }
                                 ]}

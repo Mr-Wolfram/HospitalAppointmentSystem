@@ -65,6 +65,7 @@ function Userinfo(){
               setuserAvatar(url)
               console.log(url)
               userinfo_api.set_avatar(cookie.load('user_id'),1)
+              message.success('头像设置成功！')
             });
           }
 
@@ -434,10 +435,10 @@ function Userinfo(){
           <>
             {
                 doctors.map(Item=>{
-                    return (<div>
+                    return (
                           <Button style={{margin:'20px'}} onClick={()=>setdoc(Item)}>{Item.doctor_name}</Button>
                           
-                        </div>)
+                        )
                 })
             }
           </>
@@ -499,7 +500,8 @@ function Userinfo(){
         )
         else return (
             <div class = "repodiv">
-                <Descriptions  bordered={true} size='small' title={''}  column={2} labelStyle={{width:180,height:80}}>
+                <Descriptions contentStyle={{backgroundColor:'#FCFCFC',borderColor:'#9D9D9D',border:'1px solid'}} 
+                labelStyle={{width:180,height:80,backgroundColor:'#DEDEDE',borderColor:'#9D9D9D',border:'1px solid'}} bordered={true} size='small' title={''}  column={2} >
                     <Descriptions.Item label={<div class="labeldiv"><p>头像</p><Button onClick={sethead}>更换</Button></div>}><Avatar size={64} icon={<UserOutlined /> } src={userAvatar}/></Descriptions.Item>
                     <Descriptions.Item label="用户名">{username}</Descriptions.Item>
                     <Descriptions.Item label={<div class="labeldiv"><p>手机号</p><Button onClick={phone_rebind}>换绑</Button></div>}>{phonenum}</Descriptions.Item>

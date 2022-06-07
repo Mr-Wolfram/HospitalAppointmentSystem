@@ -65,7 +65,7 @@ export default class Index extends Component {
             <div className='notice'>
             {
                 this.state.notice.map((Item,index)=>{
-                    return (<div style={{padding:10,backgroundColor:'white',borderColor:'#737474',border:'2px solid'}}>
+                    return (<div className='EachNotice'>
                         <h6>{Item.title}</h6>
                         <p>{Item.content}</p>
                         <p>{Item.announcer}{" "}{Item.date}</p>

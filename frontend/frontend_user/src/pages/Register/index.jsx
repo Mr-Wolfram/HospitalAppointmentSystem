@@ -227,13 +227,13 @@ class Register extends Component {
                                         message: '请输入您的密码',
                                     },
                                     {
-                                        min: 6,
-                                        max: 24,
+                                        min: 8,
+                                        max: 16,
                                         message: '密码长度应为8-16个字符',
                                         trigger: 'blur'
                                     },
                                     {
-                                        pattern:/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/,
+                                        pattern:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{0,100}$/,
                                         message: '密码应包含数字和字母'
                                     }
                                 ]}

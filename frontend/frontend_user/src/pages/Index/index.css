@@ -59,3 +59,12 @@
     overflow: auto;
     height:500px
 }
+
+.EachNotice{
+    padding:10px;
+    background-color:white;
+    border-color:#737474;
+    border-left:1px solid;
+    border-right:2px solid;
+    border-top:2px solid;
+}

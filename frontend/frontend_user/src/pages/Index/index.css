@@ -53,3 +53,9 @@
   .site-layout-background {
     background: #fff;
   }
+
+
+.notice{
+    overflow: auto;
+    height:500px
+}

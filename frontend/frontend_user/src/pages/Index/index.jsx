@@ -1,5 +1,5 @@
 import React, {Component, useState} from 'react';
-import {Typography, Breadcrumb, Button, Layout, Menu, message, Avatar, Dropdown, Space} from 'antd'
+import {Typography, Breadcrumb, Button, Layout, Menu, message, Avatar, Dropdown, Space, AutoComplete} from 'antd'
 
 import Footer from "../../components/Footer";
 import LeftMenu from "../../components/LeftMenu";
@@ -62,10 +62,10 @@ export default class Index extends Component {
     Notice = () => {
         const user_id = cookie.load('user_id');
         return (
-            <>
+            <div className='notice'>
             {
-                this.state.notice.map(Item=>{
-                    return (<div style={{padding:10,backgroundColor:'white'}}>
+                this.state.notice.map((Item,index)=>{
+                    return (<div style={{padding:10,backgroundColor:'white',borderColor:'#737474',border:'2px solid'}}>
                         <h6>{Item.title}</h6>
                         <p>{Item.content}</p>
                         <p>{Item.announcer}{" "}{Item.date}</p>
@@ -73,7 +73,7 @@ export default class Index extends Component {
                     )
                 })
             }
-            </>
+            </div>
         )
     }
 
@@ -129,7 +129,7 @@ export default class Index extends Component {
                             <img src={logo} alt={logo} width={18} />医疗诊断系统</div>
                     </div>
                     <div style={{position:"absolute",width:130,top:10,right:200,height:20,}} >
-                    <Dropdown overlay={this.Notice}   >
+                    <Dropdown overlay={this.Notice} >
                         <a onClick={(e) => e.preventDefault()}>
                         <Space>
                             <BellOutlined style={{color:"white",fontSize:25}}/>

@@ -15,7 +15,20 @@ function SelectModal(props) {
     api.get_doctor_select(props.doctorId)
       .then(r => {
         console.log("get doctor select update", r)
-        // setNumberOfQueue(r.data.data.numberOfQueue)
+        let quotas = [0, 0, 0, 0, 0, 0, 0, 0]
+        let i = 0, morning = r.data.data.numberOfQueue[0], afternoon = r.data.data.numberOfQueue[1]
+        let morning_part = Math.floor(morning / 4), afternoon_part = Math.floor(afternoon / 4)
+        for(i = 0; i < 4; i++) {
+          quotas[i] += morning_part
+          morning -= morning_part
+        }
+        for(i = 4; i < 8; i++) {
+          quotas[i] += afternoon_part
+          afternoon -= afternoon_part
+        }
+        quotas[0] += morning
+        quotas[4] += afternoon
+        setNumberOfQueue(quotas)
       })
   }, [props])
   //

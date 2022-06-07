@@ -72,7 +72,7 @@ class Registration extends React.Component {
   };
 
   showSearchModal = () => {
-    if(this.state.doctorId === "            ") {
+    if(this.state.doctorId === "            " || !this.state.doctorMap.has(this.state.doctorId)) {
       message.error("请选择医生！");
     }
     else {

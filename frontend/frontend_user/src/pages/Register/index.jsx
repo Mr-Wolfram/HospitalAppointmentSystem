@@ -38,10 +38,10 @@ class Register extends Component {
     //实时发送ajax请求验证用户名是否可用
     handleUsername = e => {
         const username = e.target.value
-        const reg = /[0-9A-Za-z]{6,12}$/
+        const reg = /[\u4e00-\u9fa50-9A-Za-z]{6,12}$/
         //判断格式
         if (username.length < 6 || !reg.test(username)) {
-            this.setState({nameStyle:'warning', nameHelp:'用户名应为6-12个英文字符或数字'})
+            this.setState({nameStyle:'warning', nameHelp:'用户名应为6-12个中文，英文字符或数字'})
             return
         }
         //设置加载中样式
@@ -127,7 +127,7 @@ class Register extends Component {
     handleSubmit = () => {
         let that = this
         const {username, password, phone} = that.state
-        const reg1 = /[0-9A-Za-z]{6,12}$/
+        const reg1 = /[\u4e00-\u9fa50-9A-Za-z]{6,12}/
         const reg2 = /^1[3456789]\d{9}$/
         const reg3 = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/
         //判断提交数据格式的合法性

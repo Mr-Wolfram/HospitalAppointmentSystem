@@ -162,8 +162,9 @@ class Showtype extends React.Component{
     }
 
     render(){
-        //console.log(this.props.showtype)
         //console.log(this.props.departmentinfo);
+        //console.log(this.props.personinfo);
+        //console.log(this.props.name);
         const columns = [
             {
                 title: 'ID',
@@ -212,10 +213,10 @@ class Showtype extends React.Component{
                 <>
                 <Descriptions className='table' contentStyle={{'textAlign':'center'}} labelStyle={{'width':'10%','textAlign':'center'}} size='middle' title={''} column={1} bordered={true}>
                     <Descriptions.Item label="科室名称">{this.props.name}</Descriptions.Item>
-                    <Descriptions.Item label="简介">{departmentinfo.intro}</Descriptions.Item>
+                    <Descriptions.Item label="简介">{((departmentinfo === undefined)?"":departmentinfo.intro)}</Descriptions.Item>
                     <Descriptions.Item label="医生">
                         {
-                            this.getbutton(departmentinfo.doctor_list)
+                            ((departmentinfo === undefined)?"":this.getbutton(departmentinfo.doctor_list))
                         }
                     </Descriptions.Item>
                 </Descriptions>

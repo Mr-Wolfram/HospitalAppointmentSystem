@@ -18,9 +18,10 @@ export default {
       })
     },
 
-    async get_doctor_select(doctorId) {
+    async get_doctor_select(doctorId, date) {
       return await http.get('/api/user/registration/select', {
-        doctorId: doctorId
+        doctorId: doctorId,
+        date: date
       })
     },
 

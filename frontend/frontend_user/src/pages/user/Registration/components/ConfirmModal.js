@@ -54,7 +54,7 @@ function ConfirmModal(props) {
           医生科室: {props.doctorMap.get(props.doctorId) ? props.doctorMap.get(props.doctorId).department : ""}<br/>
           主治症状: {props.doctorMap.get(props.doctorId) ? props.doctorMap.get(props.doctorId).major : ""}<br/>
           预约日期: {moment().format('YYYY-MM-DD')}<br/>
-          预约时间: {props.time}:00-{props.time + 1}:00<br/>
+          预约时间: {props.timeInterval[props.time]}<br/>
         </span>
       </Modal>
 
@@ -65,6 +65,7 @@ function ConfirmModal(props) {
         QRcodeUrl={QRcodeUrl}
         orderId={orderId}
         time={props.time}
+        timeInterval={props.timeInterval}
         changePayInvisible={() => {
           setPayVisible(false)
         }}

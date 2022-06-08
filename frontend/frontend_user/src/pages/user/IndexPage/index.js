@@ -147,7 +147,7 @@ class IndexPage extends Component {
             {timestamp:"2022-04-03 23:01",description:"订单缴费成功"}
         ],
         userInfoTotal:{},
-        user_avatar_src:"https://joeschmoe.io/api/v1/random",
+        user_avatar_src:"",
         user_name:"User001"
 
     }

@@ -28,35 +28,38 @@ function Userinfo(){
         reader.addEventListener('load', () => callback(reader.result));
         reader.readAsDataURL(img);
       };
-      
+
       const beforeUpload = (file) => {
         const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-      
+
         if (!isJpgOrPng) {
           message.error('You can only upload JPG/PNG file!');
         }
-      
+
         const isLt2M = file.size / 1024 / 1024 < 2;
-      
+
         if (!isLt2M) {
           message.error('Image must smaller than 2MB!');
         }
-      
+
         return isJpgOrPng && isLt2M;
       };
 
-      const [userAvatar, setuserAvatar] = useState("https://joeschmoe.io/api/v1/random");
+      const [userAvatar, setuserAvatar] = useState(
+          ""
+          // "https://joeschmoe.io/api/v1/random"
+      );
 
       const Setimg = () => {
         const [loading, setLoading] = useState(false);
         const [imageUrl, setImageUrl] = useState();
-      
+
         const handleChange = (info) => {
           if (info.file.status === 'uploading') {
           //   setLoading(true);
           //   return;
           // }
-      
+
           // if (info.file.status === 'done') {
             // Get this url from response in real world.
             getBase64(info.file.originFileObj, (url) => {
@@ -69,7 +72,7 @@ function Userinfo(){
             });
           }
 
-          
+
         };
 
         function changeurl(file){
@@ -84,7 +87,7 @@ function Userinfo(){
           showUploadList:false,
         };
         let a = "http://localhost:3000/api/user/info/setavatar?user_id="+cookie.load('user_id')
-      
+
         const uploadButton = (
           <div>
             {loading ? <LoadingOutlined /> : <PlusOutlined />}
@@ -126,7 +129,7 @@ function Userinfo(){
         );
       };
 
-    /***以上为上传图片***/ 
+    /***以上为上传图片***/
 
     const[phoneStyle, setphoneStyle] = useState('');
     const[phonehelp, setphonehelp] = useState('')
@@ -144,7 +147,7 @@ function Userinfo(){
     const[cnt,setcnt] = useState(0);
     const[phonenum,setphonenum] = useState(0);
     const[username,setusername] = useState(0);
-    
+
     const[email,setemail] = useState(0);
     const[show_doc_info,setshow_doc_info] = useState(0);
     const[show_doc_name,setshow_doc_name] = useState(0);
@@ -263,13 +266,13 @@ function Userinfo(){
     /*emmail */
     const [isModalVisible_email, setIsModalVisible_email] = useState(false);
     const [modalstate_email, setmodalstate_email] = useState(0);
-    
+
 
     const email_rebind = () => {
         setIsModalVisible_email(true);
     };
 
-    
+
 
     const handleOk_email = () => {
       const user_id = cookie.load('user_id')
@@ -373,7 +376,7 @@ function Userinfo(){
 
     //性别
     const [gender, setgender] = useState('');
-  
+
     const changegender = (e) => {
       console.log("性别", e.target.value);
       setgender(e.target.value);
@@ -428,7 +431,7 @@ function Userinfo(){
       setIsModalVisible_healthinfo(true);
     }
     const handleOk_healthinfo = () => {
-      if (generalchange == 0 || bloodoxygenchange == 0 || sleepchange == 0 || heartratechange == 0)  
+      if (generalchange == 0 || bloodoxygenchange == 0 || sleepchange == 0 || heartratechange == 0)
       message.warning('请填写所有信息！')
       else {
         message.success('健康信息上报成功！')
@@ -493,7 +496,7 @@ function Userinfo(){
                 doctors.map(Item=>{
                     return (
                           <Button style={{margin:'20px'}} onClick={()=>setdoc(Item)}>{Item.doctor_name}</Button>
-                          
+
                         )
                 })
             }
@@ -501,11 +504,11 @@ function Userinfo(){
         )
     }
 
-    /*********/ 
+    /*********/
     const[getcont,setgetcont] = useState(false)
 
     function Getcontent(){
-        
+
         //useEffect(()=>{
         if(getcont == false){
             setgetcont(true)
@@ -561,7 +564,7 @@ function Userinfo(){
             <div class = "repodiv">
                 <Button type="primary" className='alter-info-button' onClick={altinfo_visable}>完善个人信息</Button>
                 <Button type="primary" className='alter-info-button' onClick={healthinfo_visable}>填报健康信息</Button>
-                <Descriptions contentStyle={{backgroundColor:'#FCFCFC',borderColor:'#9D9D9D',border:'1px solid'}} 
+                <Descriptions contentStyle={{backgroundColor:'#FCFCFC',borderColor:'#9D9D9D',border:'1px solid'}}
                 labelStyle={{width:180,height:80,backgroundColor:'#DEDEDE',borderColor:'#9D9D9D',border:'1px solid'}} bordered={true} size='small' title={''}  column={2} >
                     <Descriptions.Item label={<div class="labeldiv"><p>头像</p><Button onClick={sethead}>更换</Button></div>}><Avatar size={64} icon={<UserOutlined /> } src={userAvatar}/></Descriptions.Item>
                     <Descriptions.Item label="用户名">{username}</Descriptions.Item>
@@ -607,11 +610,11 @@ function Userinfo(){
                 健康报告
                 </Menu.Item> */}
             </Menu>
-            
+
             <Modal title="完善信息" visible={isModalVisible_altinfo} onOk={handleOk_altinfo} onCancel={handleCancel_altinfo} okText="确认" cancelText="取消"
             footer={[<Button onClick={handleCancel_altinfo}>取消</Button>,<Button type='primary' onClick={handleOk_altinfo}>提交</Button>]} >
                 <div>
-                
+
                 <Form form={form}
                       initialValues={{
                           remember: true,
@@ -639,13 +642,13 @@ function Userinfo(){
                         <text style={{'margin-right':'20px'}}></text>
                         <InputNumber min={1} max={100} onChange={changeage} />
                       </Form.Item>
-                      
+
                       <Form.Item name="height"
                       label="身高">
                         <text style={{'margin-right':'20px'}}></text>
                         <InputNumber min={1} max={250} onChange={changeheight} /><text style={{'margin-left':'10px'}}>cm</text>
                       </Form.Item>
-                      
+
                       <Form.Item name="weight"
                       label="体重">
                         <text style={{'margin-right':'20px'}}></text>
@@ -674,7 +677,7 @@ function Userinfo(){
             <Modal title="填报健康信息" visible={isModalVisible_healthinfo} onOk={handleOk_healthinfo} onCancel={handleCancel_healthinfo} okText="确认" cancelText="取消"
             footer={[<Button onClick={handleCancel_healthinfo}>取消</Button>,<Button type='primary' onClick={handleOk_healthinfo}>提交</Button>]} >
                 <div>
-                
+
                 <Form form={form}
                       initialValues={{
                           remember: true,
@@ -692,14 +695,14 @@ function Userinfo(){
                         <InputNumber min={1} max={100} step="0.01" precision={2} onChange={changebloodoxygen} />
                         <text style={{'margin-left':'10px'}}>%</text>
                       </Form.Item>
-                      
+
                       <Form.Item name="sleep"
                       label="睡眠" rules={[{required: true,},]}>
                         <text style={{'margin-right':'20px'}}></text>
                         <InputNumber min={1} max={24} step="0.01" precision={2} onChange={changesleep} />
                         <text style={{'margin-left':'10px'}}>小时/天</text>
                       </Form.Item>
-                      
+
                       <Form.Item name="heartrate"
                       label="心率" rules={[{required: true,},]}>
                         <text style={{'margin-right':'20px'}}></text>

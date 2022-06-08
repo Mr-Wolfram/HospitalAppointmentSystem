@@ -119,6 +119,17 @@ class IndexPage extends Component {
                 })
             }
         )
+        user_info_api.get_healthinfo(user_id).then(
+            ret=>{
+                console.log("ret",ret)
+                if(ret.data.status==='success'){
+                    this.setState({
+                        healthInfo:ret.data.data
+                    })
+                }
+
+            }
+        )
     }
 
     state = {
@@ -153,7 +164,7 @@ class IndexPage extends Component {
         // .then( ret =>{
         //     this.setState({
         //         healthInfo:ret.data.data
-               
+
         //     })
         //     console.log("info",ret.data.data)
         // })
@@ -227,30 +238,37 @@ class IndexPage extends Component {
                                 <Col span={3}>
                                 <Row>
                                     <a href='/index/userinfo'>
-                                        <Avatar size={128} icon={<UserOutlined />} src={this.state.user_avatar_src} className='avatar-type'/>
+                                        <Avatar size={140} icon={<UserOutlined />} src={this.state.user_avatar_src} className='avatar-type'/>
                                     </a>
                                 </Row>
-                                <Row className='welcome-info'>
-                                    <p >Welcome, {this.state.user_name}!</p>
-                                </Row>
+
                                 </Col>
-                                <Col span={7} offset={0}>
-                                    <Timeline >
-                                        <Timeline.Item>
-                                        {this.state.userAction[0].timestamp} {this.state.userAction[0].description}
-                                        </Timeline.Item>
-                                        <Timeline.Item>
-                                        {this.state.userAction[1].timestamp} {this.state.userAction[1].description}
-                                        </Timeline.Item>
-                                        <Timeline.Item>
-                                        {this.state.userAction[2].timestamp} {this.state.userAction[2].description}
-                                        </Timeline.Item>
-                                        <Timeline.Item>
-                                        {this.state.userAction[3].timestamp} {this.state.userAction[3].description}
-                                        </Timeline.Item>
-                                    </Timeline>
-                                    
-                                   
+                                <Col span={6} offset={1}>
+                                    {/*<Row className='welcome-info'>*/}
+                                    <Row>
+                                        <h2>Welcome</h2>
+                                        <p></p>
+
+                                    </Row>
+                                    <Row>
+                                        <h1> {this.state.user_name}!</h1>
+                                    </Row>
+                                    {/*<Timeline >*/}
+                                    {/*    <Timeline.Item>*/}
+                                    {/*    {this.state.userAction[0].timestamp} {this.state.userAction[0].description}*/}
+                                    {/*    </Timeline.Item>*/}
+                                    {/*    <Timeline.Item>*/}
+                                    {/*    {this.state.userAction[1].timestamp} {this.state.userAction[1].description}*/}
+                                    {/*    </Timeline.Item>*/}
+                                    {/*    <Timeline.Item>*/}
+                                    {/*    {this.state.userAction[2].timestamp} {this.state.userAction[2].description}*/}
+                                    {/*    </Timeline.Item>*/}
+                                    {/*    <Timeline.Item>*/}
+                                    {/*    {this.state.userAction[3].timestamp} {this.state.userAction[3].description}*/}
+                                    {/*    </Timeline.Item>*/}
+                                    {/*</Timeline>*/}
+
+
                                 </Col>
                                 <Col span={6}>
                                     <Card>
@@ -288,7 +306,7 @@ class IndexPage extends Component {
                                         </Popover>
                                     </Row>
                                     <Row>
-                                        <Button type="primary"  onClick={this.updateAction} >更新</Button>
+                                        <Button type="primary"  ><a href='/index/userinfo'>更新</a></Button>
                                     </Row>
 
                                     {/*<Popover content={content} title="Title">*/}
@@ -302,6 +320,7 @@ class IndexPage extends Component {
 
 
                 </div>
+                <p> </p>
                 <ProList
                     //     toolBarRender={() => {
                     //     return [
@@ -342,6 +361,7 @@ class IndexPage extends Component {
             </div>
         );
     }
+
 }
 
 export default IndexPage;

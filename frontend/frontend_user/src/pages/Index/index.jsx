@@ -34,7 +34,7 @@ const items1 = ['1', '2', '3'].map((key) => ({
 export default class Index extends Component {
 
     state = {currentPage:"", username:cookie.load('username'), ws:null,collapsed:false,avatarsrc:'',
-    
+
     notice:[{title:"aa",content:"bb"},{title:"aa",content:"bb"}],
     callnotice:0}
 
@@ -128,8 +128,8 @@ export default class Index extends Component {
                     </div>
                     <div className="logo" >
 
-                        <div style={{position:"absolute",width:130,top:0,left:40,height:10,fontSize:17}}>
-                            <img src={logo} alt={logo} width={18} />医疗诊断系统</div>
+                        <div style={{position:"absolute",width:200,top:0,left:40,height:10,fontSize:17}}>
+                            <img src={logo} alt={logo} width={18} />&nbsp;&nbsp;&nbsp;老和山智能医疗平台</div>
                     </div>
                     <div style={{position:"absolute",width:130,top:10,right:200,height:20,}} >
                     <Dropdown overlay={this.Notice} >

@@ -19,7 +19,7 @@ const { Header, Content } = Layout;
 class NewsHead extends React.Component{
     render(){
         return(<div><Header className="header" >
-                    
+
         {/*<div className="left-content">*/}
         {/*    {React.createElement(this.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {*/}
         {/*        className: 'trigger',*/}
@@ -28,29 +28,29 @@ class NewsHead extends React.Component{
         {/*    /!*<Bread route={props} />*!/*/}
         {/*</div>*/}
         <div style={{position:'absolute',right:'10%',color:'white'}}>
-            
+
 
 
 
         </div>
         <div className="logo" >
 
-            <div style={{position:"absolute",width:150,top:0,left:280,height:10,fontSize:17}}>
-                <img src={logo} alt={logo} width={28} />  医疗诊断系统</div>
+            <div style={{position:"absolute",width:210,top:0,left:280,height:10,fontSize:17}}>
+                <img src={logo} alt={logo} width={28} />&nbsp;&nbsp;&nbsp;老和山智能医疗平台</div>
         </div>
         <div style={{position:"absolute",width:130,top:10,right:200,height:20,}} >
-       
+
         </div>
-       
+
     </Header>
-    
- 
+
+
 <div class="nav">
 <div class="w1200">
 <div class="nav_class">
 <ul class="nav_menu">
       <li class="nav_menu-item active"><a class="t" href=''>首页</a></li>
-   
+
 <li class="nav_menu-item"><a class="t" href='' target="_self">院情总览</a>
 
     <ul class="nav_submenu">
@@ -251,8 +251,8 @@ class NewsHead extends React.Component{
 
     </li>
 
- 
-</ul> 
+
+</ul>
 <div class="clear"></div>
 </div>
 

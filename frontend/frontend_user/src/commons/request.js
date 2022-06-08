@@ -16,7 +16,6 @@ http.post = function(api, data) {
         'Authorization': cookie.load("token")===undefined?tokenDefault:cookie.load("token")
     };
     return new Promise((resolve, reject) => {
-        console.log("token cookie:",cookie.load("token"));
         axios.post(api, {
             params: data,
             paramsSerializer: params => qs.stringify(params)
@@ -36,7 +35,6 @@ http.get = function(api, data) {
             // 'Authorization': 'Bearer ' + tokenDefault
             'Authorization': cookie.load("token")===undefined?tokenDefault:cookie.load("token")
         };
-        console.log("token cookie:",JSON.stringify(cookie.load("token")));
         axios.get(api, {
             params: data,
             paramsSerializer: params => qs.stringify(params)

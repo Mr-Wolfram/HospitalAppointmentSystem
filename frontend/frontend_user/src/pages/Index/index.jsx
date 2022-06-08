@@ -61,7 +61,10 @@ export default class Index extends Component {
 
     Notice = () => {
         const user_id = cookie.load('user_id');
-        return (
+        if (this.state.notice.length == 0) {
+            return (<div className='notice'><div style={{backgroundColor:'white', padding:'10px', border:'1px solid'}}>暂无系统通知</div></div>)
+        }
+        else return (
             <div className='notice'>
             {
                 this.state.notice.map((Item,index)=>{

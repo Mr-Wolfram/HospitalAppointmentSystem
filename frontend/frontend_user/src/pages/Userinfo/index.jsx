@@ -355,6 +355,7 @@ function Userinfo(){
         if (gender_changed == 0)  message.warning('请选择性别！')
         else if (age_changed == 0) message.warning('请输入年龄！')
         else {
+          message.success('个人信息修改成功！')
           userinfo_api.set_userinfo(user_id,gender_changed,age_changed,hereditary_changed,pastill_changed,height_changed,weight_changed).then(
               r=>{
                   console.log(r.data)
@@ -412,6 +413,61 @@ function Userinfo(){
       sethereditary_changed(e.target.value);
     };
 
+    /*以下为健康信息部分 */
+    const[general,setgeneral] = useState(0)
+    const[bloodoxygen,setbloodoxygen] = useState(0)
+    const[sleep,setsleep] = useState(0)
+    const[heartrate,setheartrate] = useState(0)
+    const[generalchange,setgeneralchange] = useState(0)
+    const[bloodoxygenchange,setbloodoxygenchange] = useState(0)
+    const[sleepchange,setsleepchange] = useState(0)
+    const[heartratechange,setheartratechange] = useState(0)
+    const [isModalVisible_healthinfo, setIsModalVisible_healthinfo] = useState(false);
+
+    const healthinfo_visable=()=>{
+      setIsModalVisible_healthinfo(true);
+    }
+    const handleOk_healthinfo = () => {
+      if (generalchange == 0 || bloodoxygenchange == 0 || sleepchange == 0 || heartratechange == 0)  
+      message.warning('请填写所有信息！')
+      else {
+        message.success('健康信息上报成功！')
+        userinfo_api.set_healthinfo(user_id,generalchange,bloodoxygenchange,sleepchange,heartratechange).then(
+            r=>{
+                console.log(r.data)
+            }
+        )
+        setIsModalVisible_healthinfo(false);
+      }
+    }
+    const handleCancel_healthinfo = () => {
+        setIsModalVisible_healthinfo(false);
+    }
+
+    const changegeneral = (value) => {
+      console.log("综合",value)
+      setgeneralchange(value);
+    };
+    const changebloodoxygen = (value) => {
+      console.log("血氧",value)
+      setbloodoxygenchange(value);
+    };
+    const changesleep = (value) => {
+      console.log("睡眠",value)
+      setsleepchange(value);
+    };
+    const changeheartrate = (value) => {
+      console.log("心率",value)
+      setheartratechange(value);
+    };
+
+    function sethealth(genr,bloxy,sle,hearate){
+      setgeneral(genr)
+      setbloodoxygen(bloxy)
+      setsleep(sle)
+      setheartrate(hearate)
+    }
+
 
     /*以下为医生部分 */
     const [isModalVisible_doc, setIsModalVisible_doc] = useState(false);
@@ -450,7 +506,6 @@ function Userinfo(){
 
     function Getcontent(){
         
-        console.log("token",cookie.load('token'))
         //useEffect(()=>{
         if(getcont == false){
             setgetcont(true)
@@ -474,9 +529,13 @@ function Userinfo(){
             userinfo_api.get_avatar(user_id).then(
               r=>{setuserAvatar(r.data.data.url)}
             )
-        //})
+            userinfo_api.get_healthinfo(user_id).then(
+              r=>{
+                sethealth(r.data.data.general, r.data.data.bloodoxygen,
+                  r.data.data.sleep, r.data.data.heartrate)
+              }
+            )
         }
-        //if(doctors.length!=0) console.log(doctors[0].doctor_name)
 
         if(cnt == 1) return (
             <div class = "repodiv">
@@ -500,6 +559,8 @@ function Userinfo(){
         )
         else return (
             <div class = "repodiv">
+                <Button type="primary" className='alter-info-button' onClick={altinfo_visable}>完善个人信息</Button>
+                <Button type="primary" className='alter-info-button' onClick={healthinfo_visable}>填报健康信息</Button>
                 <Descriptions contentStyle={{backgroundColor:'#FCFCFC',borderColor:'#9D9D9D',border:'1px solid'}} 
                 labelStyle={{width:180,height:80,backgroundColor:'#DEDEDE',borderColor:'#9D9D9D',border:'1px solid'}} bordered={true} size='small' title={''}  column={2} >
                     <Descriptions.Item label={<div class="labeldiv"><p>头像</p><Button onClick={sethead}>更换</Button></div>}><Avatar size={64} icon={<UserOutlined /> } src={userAvatar}/></Descriptions.Item>
@@ -512,9 +573,13 @@ function Userinfo(){
                     <Descriptions.Item label="体重（kg）">{weight}</Descriptions.Item>
                     <Descriptions.Item label="既往病史">{hereditary}</Descriptions.Item>
                     <Descriptions.Item label="家族遗传病史">{pastill}</Descriptions.Item>
-                    <Descriptions.Item label="收藏医生">
+                    <Descriptions.Item label="收藏医生" span={2}>
                       {docinfo()}
                     </Descriptions.Item>
+                    <Descriptions.Item label="综合健康指数">{general}</Descriptions.Item>
+                    <Descriptions.Item label="血氧指数">{bloodoxygen}</Descriptions.Item>
+                    <Descriptions.Item label="睡眠情况">{sleep}</Descriptions.Item>
+                    <Descriptions.Item label="心率">{heartrate}</Descriptions.Item>
                 </Descriptions>
                 <Modal title="手机换绑" visible={isModalVisible_phone} onOk={handleOk} onCancel={handleCancel} okText="验证" cancelText="取消" >
                     {modalcontent}
@@ -538,11 +603,11 @@ function Userinfo(){
                 <Menu.Item key="1" onClick={changestate1}>
                 用户基本信息
                 </Menu.Item>
-                <Menu.Item key="2" onClick={changestate2}>
+                {/* <Menu.Item key="2" onClick={changestate2}>
                 健康报告
-                </Menu.Item>
+                </Menu.Item> */}
             </Menu>
-            <Button type="primary" className='alter-info-button' onClick={altinfo_visable}>完善个人信息</Button>
+            
             <Modal title="完善信息" visible={isModalVisible_altinfo} onOk={handleOk_altinfo} onCancel={handleCancel_altinfo} okText="确认" cancelText="取消"
             footer={[<Button onClick={handleCancel_altinfo}>取消</Button>,<Button type='primary' onClick={handleOk_altinfo}>提交</Button>]} >
                 <div>
@@ -605,6 +670,47 @@ function Userinfo(){
                     </Form>
                 </div>
             </Modal>
+
+            <Modal title="填报健康信息" visible={isModalVisible_healthinfo} onOk={handleOk_healthinfo} onCancel={handleCancel_healthinfo} okText="确认" cancelText="取消"
+            footer={[<Button onClick={handleCancel_healthinfo}>取消</Button>,<Button type='primary' onClick={handleOk_healthinfo}>提交</Button>]} >
+                <div>
+                
+                <Form form={form}
+                      initialValues={{
+                          remember: true,
+                      }}
+                  >
+                      <Form.Item name="general"
+                      label="综合" rules={[{required: true,},]}>
+                        <text style={{'margin-right':'20px'}}></text>
+                        <InputNumber min={1} max={100} step="0.01" precision={2} onChange={changegeneral} />
+                      </Form.Item>
+
+                      <Form.Item name="bloodoxygen"
+                      label="血氧" rules={[{required: true,},]}>
+                        <text style={{'margin-right':'20px'}}></text>
+                        <InputNumber min={1} max={100} step="0.01" precision={2} onChange={changebloodoxygen} />
+                        <text style={{'margin-left':'10px'}}>%</text>
+                      </Form.Item>
+                      
+                      <Form.Item name="sleep"
+                      label="睡眠" rules={[{required: true,},]}>
+                        <text style={{'margin-right':'20px'}}></text>
+                        <InputNumber min={1} max={24} step="0.01" precision={2} onChange={changesleep} />
+                        <text style={{'margin-left':'10px'}}>小时/天</text>
+                      </Form.Item>
+                      
+                      <Form.Item name="heartrate"
+                      label="心率" rules={[{required: true,},]}>
+                        <text style={{'margin-right':'20px'}}></text>
+                        <InputNumber min={1} max={200} step="0.01" precision={2} onChange={changeheartrate} />
+                        <text style={{'margin-left':'10px'}}>次/分钟</text>
+                      </Form.Item>
+
+                    </Form>
+                </div>
+            </Modal>
+
             <div class="content">
                 <div>{Getcontent()}</div>
             </div>

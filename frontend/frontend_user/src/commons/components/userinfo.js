@@ -63,4 +63,18 @@ export default {
             email:email
         })
     },
+    async set_healthinfo(user_id,general,bloodoxygen,sleep,heartrate) {
+        return await http.post('/api/user/health/sethealthinfo', {
+            user_id:user_id,
+            general:general,
+            bloodoxygen:bloodoxygen,
+            sleep:sleep,
+            heartrate:heartrate
+        })
+    },
+    async get_healthinfo(user_id) {
+        return await http.get('/api/user/health/gethealthinfo', {
+            user_id:user_id
+        })
+    },
 }

@@ -31,6 +31,7 @@ class Department extends React.Component {
                     "周日":{},
                 }
             },
+            span:0,
             count:1
         };
     }
@@ -53,7 +54,9 @@ class Department extends React.Component {
                 {
                     data1:r.data.data,
                     count:2,
-                    name:"口腔内科"
+                    name:"口腔内科",
+                    data2:this.state.data1,
+                    span:1,
                 }
             );
         });
@@ -62,6 +65,11 @@ class Department extends React.Component {
     
  
     changeshow(name){
+        this.setState(
+            {
+                span:0
+            }
+        );
         let depart_struct=this.state.d;
         let depart_general_name = [];
         for(let i in depart_struct){
@@ -78,7 +86,7 @@ class Department extends React.Component {
             {
                 num:l,
                 num1:1,
-                name:depart_struct[depart_general_name[l-1]][0]
+                name:depart_struct[depart_general_name[l-1]][0],
             }
         );
         //console.log(depart_struct[depart_general_name[l-1]]);
@@ -95,12 +103,18 @@ class Department extends React.Component {
                 {
                     data1:r.data.data,
                     count:2,
+                    span:1
                 }
             );
         });
     }
 
     changeshow1(name){
+        this.setState(
+            {
+                span:0
+            }
+        );
         let depart_general_name = [];
         let depart_struct=this.state.d;
         for(let i in depart_struct){
@@ -125,6 +139,7 @@ class Department extends React.Component {
                 {
                     data1:r.data.data,
                     count:2,
+                    span:1
                 }
             );
         });
@@ -188,7 +203,7 @@ class Department extends React.Component {
 
 
                 <p></p>
-                <Infotype isshow={(this.state.data === 1)?true:false} name={this.state.name} data1={this.state.data1} data={a[Data[this.state.num1-1]]} depart={Data[this.state.num1-1]}></Infotype>
+                <Infotype isspan={this.state.span} isshow={(this.state.data === 1)?true:false} name={this.state.name} data1={this.state.data1} data={a[Data[this.state.num1-1]]} depart={Data[this.state.num1-1]}></Infotype>
             </div>
         )
 

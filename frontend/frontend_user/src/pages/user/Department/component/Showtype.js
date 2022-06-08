@@ -3,7 +3,7 @@ import './../index.css';
 import { Descriptions } from 'antd';
 import { Button } from 'antd';
 import { Table } from 'antd';
-import { Modal } from 'antd';
+import { Modal,Spin } from 'antd';
 import api from "./../../../../commons/components/querydeparment"
 import Item from 'antd/lib/list/Item';
 
@@ -213,10 +213,14 @@ class Showtype extends React.Component{
                 <>
                 <Descriptions className='table' contentStyle={{'textAlign':'center'}} labelStyle={{'width':'10%','textAlign':'center'}} size='middle' title={''} column={1} bordered={true}>
                     <Descriptions.Item label="科室名称">{this.props.name}</Descriptions.Item>
-                    <Descriptions.Item label="简介">{((departmentinfo === undefined)?"":departmentinfo.intro)}</Descriptions.Item>
+                    <Descriptions.Item label="简介">
+                        {
+                            (this.props.isspan)?((departmentinfo === undefined)?"":departmentinfo.intro):<Spin />
+                        }
+                    </Descriptions.Item>
                     <Descriptions.Item label="医生">
                         {
-                            ((departmentinfo === undefined)?"":this.getbutton(departmentinfo.doctor_list))
+                            (this.props.isspan)?((departmentinfo === undefined)?"":this.getbutton(departmentinfo.doctor_list)):<Spin />
                         }
                     </Descriptions.Item>
                 </Descriptions>
@@ -256,8 +260,10 @@ class Showtype extends React.Component{
             )
         }else if(this.props.showtype === '时间表'){
             //return <p>时间表</p>
+            
             return (
-                <>
+                (this.props.isspan)?
+                (<>
                 <Descriptions contentStyle={{'textAlign':'center'}} labelStyle={{'width':'10%','textAlign':'center'}} className='table' size='small' title={''} column={2} bordered>
                             {/*<Descriptions.Item label="周一上午">{this.getbutton(departmentinfo.schedule.星期一.上午)}</Descriptions.Item>
                             <Descriptions.Item label="周一下午">{this.getbutton(departmentinfo.schedule.星期一.下午)}</Descriptions.Item>
@@ -278,7 +284,7 @@ class Showtype extends React.Component{
                 <Modal width={700} key={person_info.doctor_list[0].name} title="医生个人信息" visible={this.state.isModalVisible} onOk={() =>this.handleOk()} onCancel={()=> this.handleCancel()}>
                     <Table key={(person_info.number === 0)?0:person_info.doctor_list[0].name} columns={columns} dataSource={detailinfo}></Table>
                 </Modal>
-                </>
+                </>):''
             )
         }else{
             //return <p>请选择</p>

@@ -19,6 +19,7 @@ import user_action_api from "./../../../commons/components/indexPage"
 import user_info_api from "./../../../commons/components/userinfo"
 import './index.css'
 import cookie from 'react-cookies'
+import { Skeleton } from 'antd';
 
 import {Route, Switch} from "react-router-dom";
 // import News1 from './component/News1'
@@ -123,10 +124,10 @@ class IndexPage extends Component {
     state = {
         dataSource: [],
         healthInfo:[
-            {total:"12.2",change_rate:10},
-            {pulse_oximeter:"95.3%",change_rate:5},
-            {sleep_quality:"10.2",change_rate:10},
-            {heart_rate:"100.1",change_rate:-5}
+            {total:"00.00",change_rate:0},
+            {pulse_oximeter:"00.00",change_rate:0},
+            {sleep_quality:"00.00",change_rate:0},
+            {heart_rate:"00.00",change_rate:0}
         ],
         userAction:[
             {timestamp:"2022-03-04 08:09",description:"修改绑定邮箱"},
@@ -141,19 +142,21 @@ class IndexPage extends Component {
     }
 
     updateAction = () =>{
-        user_action_api.post_useraction("123")
-        .then( ret =>{
-            console.log("debug",ret.data.data)
-            console.log("action",this.state.userAction)
-            this.setState({userAction:ret.data.data
-            })
-        })
-        user_action_api.post_userhealthinfo("123")
-        .then( ret =>{
-            this.setState({
-                healthInfo:ret.data.data
-            })
-        })
+        // user_action_api.post_useraction("123")
+        // .then( ret =>{
+        //     console.log("debug",ret.data.data)
+        //     console.log("action",this.state.userAction)
+        //     this.setState({userAction:ret.data.data
+        //     })
+        // })
+        // user_action_api.post_userhealthinfo("123")
+        // .then( ret =>{
+        //     this.setState({
+        //         healthInfo:ret.data.data
+               
+        //     })
+        //     console.log("info",ret.data.data)
+        // })
     }
     openNewWindow = (src) =>{
         console.log("src",src)
@@ -246,6 +249,8 @@ class IndexPage extends Component {
                                         {this.state.userAction[3].timestamp} {this.state.userAction[3].description}
                                         </Timeline.Item>
                                     </Timeline>
+                                    
+                                   
                                 </Col>
                                 <Col span={6}>
                                     <Card>
@@ -283,7 +288,7 @@ class IndexPage extends Component {
                                         </Popover>
                                     </Row>
                                     <Row>
-                                        <Button type="primary" onClick={this.updateAction} >更新</Button>
+                                        <Button type="primary"  onClick={this.updateAction} >更新</Button>
                                     </Row>
 
                                     {/*<Popover content={content} title="Title">*/}

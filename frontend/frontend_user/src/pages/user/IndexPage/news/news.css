@@ -12,7 +12,125 @@
     border-width: 5px;
 
 }
+
+.author-type{
+    text-align: center; font-size:14px; color:#999999;
+    margin-left: 30%;
+    
+}
 .border-type{
     border-width: 5px;
     border-color: black;
 }
+.logo {
+    float: left;
+    width: 120px;
+    height: 30px;
+    margin: 16px 24px 16px 0px;
+    padding: 0;
+    /*background: rgba(255, 255, 255, 0.3);*/
+    fill: white;
+    font-size: 28px;
+    color: white;
+  }
+
+
+.myHeader{
+    width: auto;
+    /*height: auto;*/
+    min-width: 150px;
+    height: 6vh;
+    /* background-color: rgba(214, 214, 214, 0.5); */
+    text-align: center;
+    /* line-height: 100px; */
+    position: absolute;
+    left: 2%;
+    top:1vh;
+    /* right: 0.5%;
+    left: 0.5%; */
+    overflow: hidden;
+}
+.menu-type{
+    background-color: 247,247,247;
+
+}
+
+
+
+
+
+
+
+nav_class ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  
+  }
+  .nav{  background-color:247,247,247; border-bottom:#e7e7e7 solid 1px; }
+  
+  .nav_class{
+    width: 1200px; 
+    background-color:#f7f7f7;
+    color: #fff;
+    margin:0px auto;
+  }
+  .nav_class a {
+    display: block;
+    padding: 0px;
+    line-height: inherit;
+    cursor: pointer;
+    color:#333; 
+  }
+  .nav_class a:hover{
+   color:#fff; 
+  }
+  .nav_menu {
+    line-height: 45px;
+    font-weight: 700;
+  }
+  .nav_menu-item {
+    display: inline-block;
+    position: relative;
+    text-align:center;
+    font-size:16px;
+    font-weight:normal;
+    line-height:50px;
+    width:103px;
+  /*  padding:0 40px;*/
+  }
+  .nav_menu-item:hover {
+    background-color: #0473f3;
+    color:#FFFFFF;
+  }
+  .nav_menu-item:hover a{  color:#FFFFFF;}
+  .nav_menu-item:hover .nav_submenu {
+    display: block;
+  }
+  .nav_submenu {
+    font-weight: 300;
+    text-transform: none;
+    display: none;
+    position: absolute;
+    font-size:14px;
+    background-color: 55,146,255;
+    background-color:rgba(55,146,255,0.9);
+    text-align:center;
+    width:146px;
+     padding:0px 0;
+  /*  border:#f4f4f4 solid 1px;*/
+    z-index:99999999999;
+    margin-left:0px;
+    margin-top:0px;
+    
+     }
+  .nav_submenu a{  color:#333; font-size:14px;}
+  .nav_submenu-item{ height:35px; line-height:35px;}
+  .nav_submenu-item a{ color:#555;}
+  .nav_submenu-item:hover {
+      background-color: #003f88;
+  }
+  .active{ background-color: #0473f3; }
+  .active a{ color:#fff;}
+  .w1200{ width:1200px; margin:0 auto;  }

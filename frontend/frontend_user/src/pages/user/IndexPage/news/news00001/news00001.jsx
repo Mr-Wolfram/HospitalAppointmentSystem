@@ -1,34 +1,58 @@
 import React from 'react';
 import { Typography, Divider} from 'antd';
 import { render } from 'react-dom';
-import { Statistic, Card,Row, Col } from 'antd';
+import { Statistic, Card,Row, Col, Avatar,Layout } from 'antd';
 import { Image } from 'antd';
 import '../news.css'
 import img1 from './img/1.jpeg'
 import img2 from './img/2.jpeg'
 import img3 from './img/3.jpeg'
+import head_img from '../img/head_img.jpg'
+import cookie from "react-cookies";
+import Icon, {UserOutlined, BellOutlined} from "@ant-design/icons";
+import logo from "../../../../../images/logo.png"
+import { Menu} from 'antd';
+import NewsHead from '../newsHead'
+const { SubMenu } = Menu;
+
 const { Title, Paragraph, Text, Link } = Typography;
 
+const { Header, Content } = Layout;
 
 class News00001 extends React.Component{
-  render()  {return (
-      <div
-          // style={}
-      >
+  state = {
+    current: 'mail',
+  };
+
+  handleClick = e => {
+    console.log('click ', e);
+    this.setState({
+      current: e.key,
+    });
+  };
+
+  render()  {return ( <div>
+    <NewsHead/>                
+    <Divider/>
   <Typography className='text-type'>
     <Row>
-      <Col span={15} offset={5}>
+      <Col span={15} offset={2}>
       <Title >奋战30天采样160万人次！248位浙一援沪核酸采样医疗一队队员，欢迎回家！</Title>
       </Col>
     </Row>
-    <Row>
-    <Col span={15} offset={5}>
-      <Divider className='divider-type' />
-    </Col>
-
+    <Row className='author-type'>
+      <Col >
+      <p >部门：宣传部&nbsp;&nbsp;&nbsp;&nbsp; 日期：2022-06-07 &nbsp;&nbsp;&nbsp;&nbsp; 点击次数：300 &nbsp;&nbsp;&nbsp;&nbsp;</p>
+      </Col>
     </Row>
     <Row>
-      <Col  span={13} offset={5}>
+    <Col span={15} offset={2}>
+      <Divider className='divider-type' />
+    </Col>
+   
+    </Row>
+    <Row>
+      <Col  span={13} offset={2}>
       <Paragraph>
     “英雄凯旋，欢迎回家！”、“援沪天使，你们最美丽！”……
     </Paragraph>
@@ -42,7 +66,7 @@ class News00001 extends React.Component{
       src={img1}
       className='img-type'
     />
-
+    
     <Paragraph>
     4月28日下午1时许，几辆搭载着浙江大学医学院附属第一医院援沪核酸采样医疗一队248名队员的“浙A”牌大巴车缓缓驶入庆春院区南大门。
     30天前，他们星夜兼程、从“浙”里出发，开启援沪抗疫之路。如今，他们圆满完成任务，平安回家。
@@ -68,7 +92,7 @@ class News00001 extends React.Component{
     </Paragraph>
       </Col>
     </Row>
-
+    
   </Typography>
  </div>
 );

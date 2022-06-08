@@ -274,6 +274,7 @@ class IndexPage extends Component {
                                 <Col span={6}>
                                     <Card>
                                         <Statistic
+                                            style={{display:'inline-block'}}
                                             title="健康指数"
                                             value={this.state.healthInfo_1.value == this.state.healthInfo_1.rate?
                                             0:
@@ -281,9 +282,12 @@ class IndexPage extends Component {
                                             (this.state.healthInfo_1.rate/(this.state.healthInfo_1.value-this.state.healthInfo_1.rate)*100):
                                             (this.state.healthInfo_1.rate/(this.state.healthInfo_1.value-this.state.healthInfo_1.rate)*-100)}
                                             precision={2}
-                                            valueStyle={this.state.healthInfo_1.rate>=0?{ color: '#cf1322' }:{ color: '#3f8600' }}
+                                            valueStyle={
+                                                this.state.healthInfo_1.rate>=0?
+                                                    { color: '#cf1322',fontSize:30 }
+                                                    :{ color: '#3f8600',fontSize:30 }}
                                             prefix={this.state.healthInfo_1.rate>=0?<ArrowUpOutlined />:<ArrowDownOutlined />}
-                                            suffix="%" 
+                                            suffix="%"
                                         />
                                     </Card>
                                 </Col>
@@ -297,7 +301,8 @@ class IndexPage extends Component {
                                             (this.state.healthInfo_3.rate/(this.state.healthInfo_3.value-this.state.healthInfo_3.rate)*100):
                                             (this.state.healthInfo_3.rate/(this.state.healthInfo_3.value-this.state.healthInfo_3.rate)*-100)}
                                             precision={2}
-                                            valueStyle={this.state.healthInfo_3.rate>=0?{ color: '#cf1322' }:{ color: '#3f8600' }}
+                                            valueStyle={this.state.healthInfo_3.rate>=0?{ color: '#cf1322',fontSize:30 }:
+                                                { color: '#3f8600',fontSize:30 }}
                                             prefix={this.state.healthInfo_3.rate>=0?<ArrowUpOutlined />:<ArrowDownOutlined />}
                                             suffix="%"
                                         />

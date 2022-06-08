@@ -124,7 +124,10 @@ class IndexPage extends Component {
                 console.log("ret",ret)
                 if(ret.data.status==='success'){
                     this.setState({
-                        healthInfo:ret.data.data
+                        healthInfo_1:ret.data.data.health.total,
+                        healthInfo_2:ret.data.data.health.pulse_oximeter,
+                        healthInfo_3:ret.data.data.health.sleep_quality,
+                        healthInfo_4:ret.data.data.health.heart_rate,
                     })
                 }
 
@@ -134,12 +137,10 @@ class IndexPage extends Component {
 
     state = {
         dataSource: [],
-        healthInfo:[
-            {total:"00.00",change_rate:0},
-            {pulse_oximeter:"00.00",change_rate:0},
-            {sleep_quality:"00.00",change_rate:0},
-            {heart_rate:"00.00",change_rate:0}
-        ],
+        healthInfo_1:{value:0,rate:0},
+        healthInfo_2:{value:0,rate:0},
+        healthInfo_3:{value:0,rate:0},
+        healthInfo_4:{value:0,rate:0},
         userAction:[
             {timestamp:"2022-03-04 08:09",description:"修改绑定邮箱"},
             {timestamp:"2022-04-01 16:03",description:"挂号：外科 李明医生"},
@@ -274,11 +275,15 @@ class IndexPage extends Component {
                                     <Card>
                                         <Statistic
                                             title="健康指数"
-                                            value={this.state.healthInfo[0].total}
+                                            value={this.state.healthInfo_1.value == this.state.healthInfo_1.rate?
+                                            0:
+                                            this.state.healthInfo_1.rate>=0?
+                                            (this.state.healthInfo_1.rate/(this.state.healthInfo_1.value-this.state.healthInfo_1.rate)*100):
+                                            (this.state.healthInfo_1.rate/(this.state.healthInfo_1.value-this.state.healthInfo_1.rate)*-100)}
                                             precision={2}
-                                            valueStyle={{ color: '#3f8600' }}
-                                            prefix={<ArrowUpOutlined />}
-                                            suffix="%"
+                                            valueStyle={this.state.healthInfo_1.rate>=0?{ color: '#cf1322' }:{ color: '#3f8600' }}
+                                            prefix={this.state.healthInfo_1.rate>=0?<ArrowUpOutlined />:<ArrowDownOutlined />}
+                                            suffix="%" 
                                         />
                                     </Card>
                                 </Col>
@@ -286,10 +291,14 @@ class IndexPage extends Component {
                                     <Card>
                                         <Statistic
                                             title="睡眠警告"
-                                            value={this.state.healthInfo[2].sleep_quality}
+                                            value={this.state.healthInfo_3.value == this.state.healthInfo_3.rate?
+                                            0:
+                                            this.state.healthInfo_3.rate>=0?
+                                            (this.state.healthInfo_3.rate/(this.state.healthInfo_3.value-this.state.healthInfo_3.rate)*100):
+                                            (this.state.healthInfo_3.rate/(this.state.healthInfo_3.value-this.state.healthInfo_3.rate)*-100)}
                                             precision={2}
-                                            valueStyle={{ color: '#cf1322' }}
-                                            prefix={<ArrowDownOutlined />}
+                                            valueStyle={this.state.healthInfo_3.rate>=0?{ color: '#cf1322' }:{ color: '#3f8600' }}
+                                            prefix={this.state.healthInfo_3.rate>=0?<ArrowUpOutlined />:<ArrowDownOutlined />}
                                             suffix="%"
                                         />
                                     </Card>
@@ -297,10 +306,10 @@ class IndexPage extends Component {
                                 <Col span={2}>
                                     <Row>
                                         <Popover content={(<div>
-                                            <p>综合 {this.state.healthInfo[0].total}</p>
-                                            <p>血氧 {this.state.healthInfo[1].pulse_oximeter}</p>
-                                            <p>睡眠 {this.state.healthInfo[2].sleep_quality}</p>
-                                            <p>心率 {this.state.healthInfo[3].heart_rate}</p>
+                                            <p>综合 {this.state.healthInfo_1.value}</p>
+                                            <p>血氧 {this.state.healthInfo_2.value}</p>
+                                            <p>睡眠 {this.state.healthInfo_3.value}</p>
+                                            <p>心率 {this.state.healthInfo_4.value}</p>
                                             </div>)} title="所有指标">
                                             <Button type="primary" style={{marginBottom:30}}>其他</Button>
                                         </Popover>

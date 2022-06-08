@@ -534,8 +534,8 @@ function Userinfo(){
             )
             userinfo_api.get_healthinfo(user_id).then(
               r=>{
-                sethealth(r.data.data.general, r.data.data.bloodoxygen,
-                  r.data.data.sleep, r.data.data.heartrate)
+                sethealth(r.data.data.health.total.value, r.data.data.health.pulse_oximeter.value,
+                  r.data.data.health.sleep_quality.value, r.data.data.health.heart_rate.value)
               }
             )
         }

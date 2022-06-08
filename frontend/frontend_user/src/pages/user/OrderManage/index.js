@@ -3,16 +3,17 @@ import api from "./../../../commons/index"
 import {Input,Radio, Form, Col, Row, Button, Select, DatePicker, AutoComplete, Cascader, Checkbox} from 'antd';
 import TableCard from './component/TableCard';
 import order_api from "./../../../commons/components/orderManage"
+import depart_api from "./../../../commons/components/querydeparment"
 import cookie from "react-cookies";
 // 'mongodb://userServer:userServer@yzhblind.top:27017';
 const Search = Input.Search;
 const InputGroup = Input.Group;
 const Option = Select.Option;
-const department_list=["口腔矫形科","放疗科","呼吸内科","消化内科","神经内科","心血管内科",
-    "普通外科","神经外科","心胸外科","泌尿外科","儿科综合","小儿内科","小儿外科",
-    "新生儿科","中医全科","中医内科","中医外科","针灸按摩科","中医骨伤科","肝病科",
-    "艾滋病科","寄生虫科","放疗科","肿瘤综合科","骨肿瘤科","耳鼻喉科","眼科","骨科"
-]
+// const department_list=["口腔矫形科","放疗科","呼吸内科","消化内科","神经内科","心血管内科",
+//     "普通外科","神经外科","心胸外科","泌尿外科","儿科综合","小儿内科","小儿外科",
+//     "新生儿科","中医全科","中医内科","中医外科","针灸按摩科","中医骨伤科","肝病科",
+//     "艾滋病科","寄生虫科","放疗科","肿瘤综合科","骨肿瘤科","耳鼻喉科","眼科","骨科"
+// ]
 const checkbox_options = [
     {
         label: '支付成功',
@@ -39,8 +40,91 @@ function OrderManage () {
     const [select_status,setSelect_status]=useState("")
     const [select_start_time,setSelect_start_time]=useState("")
     const [select_end_time,setSelect_end_time]=useState("")
+    const [departList,setDepartList]=useState(
+        [
+
+            "临床药理中心",
+            "病理科",
+            "输血科",
+            "急诊医学科",
+            "PET中心/核医学科",
+            "放射科",
+            "药剂科",
+            "脑重症医学科",
+            "烧伤与创面修复科",
+            "泌尿外科",
+            "甲状腺外科",
+            "精神科",
+            "儿科",
+            "妇科",
+            "体检中心",
+            "肝胆胰外科",
+            "检验科",
+            "肿瘤研究所",
+            "营养科",
+            "综合牙科",
+            "胃肠外科",
+            "综合ICU",
+            "产科",
+            "血管外科",
+            "大肠外科",
+            "内分泌科",
+            "心脏大血管外科",
+            "男科",
+            "麻醉手术部",
+            "整形科",
+            "神经外科",
+            "口腔内科",
+            "肿瘤内科",
+            "耳鼻咽喉科",
+            "风湿免疫科",
+            "肾脏内科",
+            "骨科",
+            "超声医学科",
+            "心血管内科",
+            "呼吸内科",
+            "生殖医学科",
+            "口腔外科",
+            "乳腺外科",
+            "疼痛科",
+            "消化内科",
+            "外科重症医学科",
+            "中医康复科",
+            "重症医学科",
+            "皮肤科",
+            "胸外科",
+            "老年病科",
+            "过敏（变态反应）科",
+            "放疗科",
+            "医学遗传科",
+            "神经内科",
+            "感染性疾病科",
+            "血液内科",
+            "全科医学科"
+
+    ]
+    );
     const doctor_input_ref=useRef();
     useEffect(()=>{
+
+        depart_api.getdepartstruct().then(
+            r=>{
+                if(r.data.status==='success'){
+                    console.log(r.data.data);
+                    let arr=[]
+                    const res=Object.keys((r.data.data)).map((el)=>{
+                        return {
+                            value:el,
+                            label:r.data.data[el]
+                        }
+                    })
+                    for(let i in res){
+                        arr.push(res[i].value);
+                    }
+                    console.log("arr",arr)
+                }
+            }
+        )
         order_api.get_query_order(
             cookie.load("user_id"),"","","","","",""
         ).then(r=>{
@@ -118,7 +202,7 @@ function OrderManage () {
                                     filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
                             >
 
-                                {department_list.map(r=>{
+                                {departList.map(r=>{
                                     return <Option key={r} value={r}>{r}</Option>
                                 })}
                             </Select>

@@ -98,7 +98,7 @@ class Infotype extends React.Component{
                     <Segmented className='seg' size="middle" options={['简介','人员','时间表']} onChange={value=>this.changeshow(value)}/>
                 </Row>
                 */}
-                <Row style={{'margin':'0cm 0cm 0cm 4cm'}}>
+                <Row style={{'margin':'0cm 0cm 0cm 2cm'}}>
                 <Tabs className='down' defaultActiveKey="1" onChange={value=>this.changeshow(value)}>
                     <TabPane tab="简介" key="简介" >
                      

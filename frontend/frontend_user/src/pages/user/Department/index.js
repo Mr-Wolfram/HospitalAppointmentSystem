@@ -30,7 +30,8 @@ class Department extends React.Component {
                     "周六":{},
                     "周日":{},
                 }
-            }
+            },
+            count:1
         };
     }
 
@@ -41,17 +42,18 @@ class Department extends React.Component {
             console.log(r.data.data);
             this.setState(
                 {
-                    name:'口腔矫形科',
+                    name:'口腔内科',
                     data:r.data.data,
                 }
             );
         });
         
-        api.getdepartinfo("口腔矫形科").then(r=>{
+        api.getdepartinfo("口腔内科").then(r=>{
             this.setState(
                 {
                     data1:r.data.data,
-                    name:"口腔矫形科"
+                    count:2,
+                    name:"口腔内科"
                 }
             );
         });
@@ -92,6 +94,7 @@ class Department extends React.Component {
             this.setState(
                 {
                     data1:r.data.data,
+                    count:2,
                 }
             );
         });
@@ -120,7 +123,8 @@ class Department extends React.Component {
         api.getdepartinfo(name).then(r=>{
             this.setState(
                 {
-                    data1:r.data.data
+                    data1:r.data.data,
+                    count:2,
                 }
             );
         });
@@ -158,10 +162,10 @@ class Department extends React.Component {
                     <Segmented className='seg' size="middle" key={depart_general_name[0]} options={depart_general_name} defaultValue={depart_general_name[0]} onChange={value=>this.changeshow(value)}/>
                 </Row>
                 */}
-                <Row style={{'margin':'0cm 0cm 0cm 4cm'}}>
+                <Row style={{'margin':'0cm 0cm 0cm 2cm'}}>
                     <Tabs defaultActiveKey={depart_general_name[0]} onChange={value=>this.changeshow(value)}>{
                         depart_general_name.map(Item=>{
-                            return <TabPane tab={<div className='top'>{Item}</div>} key={Item}></TabPane>
+                            return <TabPane tab={<div className='top'>{Item}</div>} key={Item} disabled={(this.state.count === 1)?true:false}></TabPane>
                         })
                     }
                     </Tabs>
@@ -173,10 +177,10 @@ class Department extends React.Component {
                     <Segmented className='seg' size="middle" key={depart_name[0]} options={depart_name} defaultValue={depart_name[0]} onChange={value=>this.changeshow1(value)}/>
                 </Row>
                 */}
-                <Row style={{'margin':'0cm 0cm 0cm 4cm'}}>
+                <Row style={{'margin':'0cm 0cm 0cm 2cm'}}>
                     <Tabs defaultActiveKey={Data[0]} activeKey={Data[this.state.num1-1]} onChange={value=>this.changeshow1(value)}>{
                         Data.map(Item=>{
-                            return <TabPane tab={<div className='mid'>{Item}</div>} key={Item}></TabPane>
+                            return <TabPane tab={<div className='mid'>{Item}</div>} key={Item} disabled={(this.state.count === 1)?true:false}></TabPane>
                         })
                     }
                     </Tabs>

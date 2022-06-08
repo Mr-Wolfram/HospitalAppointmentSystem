@@ -276,7 +276,7 @@ class Showtype extends React.Component{
                             {this.get_time_table(departmentinfo.schedule)}
                 </Descriptions>
                 <Modal width={700} key={person_info.doctor_list[0].name} title="医生个人信息" visible={this.state.isModalVisible} onOk={() =>this.handleOk()} onCancel={()=> this.handleCancel()}>
-                    <Table key={person_info.doctor_list[0].name} columns={columns} dataSource={detailinfo}></Table>
+                    <Table key={(person_info.number === 0)?0:person_info.doctor_list[0].name} columns={columns} dataSource={detailinfo}></Table>
                 </Modal>
                 </>
             )

@@ -247,12 +247,12 @@ class IndexPage extends Component {
                                 <Col span={6} offset={1}>
                                     {/*<Row className='welcome-info'>*/}
                                     <Row>
-                                        <h2>Welcome</h2>
+                                        <h2>Welcome!</h2>
                                         <p></p>
 
                                     </Row>
                                     <Row>
-                                        <h1> {this.state.user_name}!</h1>
+                                        <h1> {this.state.user_name}</h1>
                                     </Row>
                                     {/*<Timeline >*/}
                                     {/*    <Timeline.Item>*/}

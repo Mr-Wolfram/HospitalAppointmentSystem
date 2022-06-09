@@ -57,7 +57,8 @@ class Registration extends React.Component {
             {name: r.data.data.doctorData[i].name,
               department: r.data.data.doctorData[i].department,
               major: r.data.data.doctorData[i].major,
-              info: r.data.data.doctorData[i].info
+              info: r.data.data.doctorData[i].info,
+              photo:r.data.data.doctorData[i].photo
             })
       }
       //循环完之后一下子赋值改state的map
@@ -113,7 +114,7 @@ class Registration extends React.Component {
               <Spin size='large' style={{marginLeft: '500px', marginTop: '200px'}} /> :
               this.state.doctorData.map((item, index) => {
                 return (
-                  <Radio.Button value={item.doctorId} style={{width: '300px', height: '300px'}}><span><img src={img1} alt='img1' style={{width: '100px', height: '100px', marginLeft: '90px', marginTop: '10px'}} /><br/>姓名: {item.name}<br/>科室: {item.department}<br/>主治症状: {item.major}<br/>个人简介: {item.info.length > 51 ? item.info.slice(0, 51) : item.info}</span></Radio.Button>
+                  <Radio.Button value={item.doctorId} style={{width: '300px', height: '300px'}}><span><img src={item.photo?item.photo:img1} alt='img1' style={{width: '100px', height: '100px', marginLeft: '90px', marginTop: '10px'}} /><br/>姓名: {item.name}<br/>科室: {item.department}<br/>主治症状: {item.major}<br/>个人简介: {item.info.length > 51 ? item.info.slice(0, 51) : item.info}</span></Radio.Button>
                 )
               })}
             </Space>

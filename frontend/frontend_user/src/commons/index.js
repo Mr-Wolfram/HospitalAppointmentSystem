@@ -33,9 +33,11 @@ export default {
       })
     },
 
-    async get_registration_pay(order_id) {
+    async get_registration_pay(order_id, doctor_id, quota) {
       return await http.get('/api/user/registration/pay', {
         order_id: order_id,
+        doctor_id, doctor_id,
+        quota: quota
       })
     },
     async order_revoke(order_id,user_id) {

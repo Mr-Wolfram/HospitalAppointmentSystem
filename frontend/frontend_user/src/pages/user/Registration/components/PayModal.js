@@ -13,7 +13,7 @@ function PayModal(props) {
   }, [props])
 
   function handlePayModalOK() {
-    api.get_registration_pay(props.orderId)
+    api.get_registration_pay(props.orderId, props.doctorId, props.time)
     .then(r => {
       if(r.data.pay === "pay_success") {
         let desc = '预约医生: ' + String(props.doctorMap.get(props.doctorId) ? props.doctorMap.get(props.doctorId).name : "") + '\n' +

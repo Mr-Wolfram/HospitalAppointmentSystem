@@ -130,14 +130,14 @@ function OrderManage () {
         ).then(r=>{
                 console.log("order query",r.data);
                 let retData=r.data.data.map(i=>{
-                    if(i.status==="WAIT_BUYER_PAY"){
-                        let nowTime=new Date();
-                        let thatTime=new Date(i.time);
-                        if(nowTime-thatTime>=15*60){
-                            // console.log("nowTime-thatTime",nowTime,thatTime,nowTime-thatTime);
-                            i.status="TRADE_CLOSED";
-                        }
-                    }
+                    // if(i.status==="WAIT_BUYER_PAY"){
+                    //     let nowTime=new Date();
+                    //     let thatTime=new Date(i.time);
+                    //     if(nowTime-thatTime>=15*6000){
+                    //         // console.log("nowTime-thatTime",nowTime,thatTime,nowTime-thatTime);
+                    //         i.status="TRADE_CLOSED";
+                    //     }
+                    // }
                     if(i.status==='TRADE_SUCCESS')i.status="支付成功";
                     if(i.status==='TRADE_FINISHED')i.status="就诊完成";
                     if(i.status==='WAIT_BUYER_PAY')i.status="等待支付";
@@ -157,14 +157,14 @@ function OrderManage () {
         await order_api.get_query_order(user_id,order_id,doctor_name,status,department,start_date,end_date).then(r=>{
                 console.log("order query by select",r.data);
             let retData=r.data.data.map(i=>{
-                if(i.status==="WAIT_BUYER_PAY"){
-                    let nowTime=new Date();
-                    let thatTime=new Date(i.time);
-                    if(nowTime-thatTime>=15*60){
-                        // console.log("nowTime-thatTime",nowTime,thatTime,nowTime-thatTime);
-                        i.status="TRADE_CLOSED";
-                    }
-                }
+                // if(i.status==="WAIT_BUYER_PAY"){
+                //     let nowTime=new Date();
+                //     let thatTime=new Date(i.time);
+                //     if(nowTime-thatTime>=15*6000){
+                //         console.log("nowTime-thatTime",nowTime,thatTime,nowTime-thatTime);
+                //         i.status="TRADE_CLOSED";
+                //     }
+                // }
                 if(i.status==='TRADE_SUCCESS')i.status="支付成功";
                 if(i.status==='TRADE_FINISHED')i.status="就诊完成";
                 if(i.status==='WAIT_BUYER_PAY')i.status="等待支付";

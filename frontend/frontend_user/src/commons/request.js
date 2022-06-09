@@ -12,7 +12,7 @@ let tokenDefault="";
 http.post = function(api, data) {
     axios.defaults.headers.common = {
         // 'Authorization': 'Bearer ' + tokenDefault
-        // 'Authorization': cookie.load("token")===undefined?tokenDefault:cookie.load("token")
+        'Authorization': cookie.load("token")===undefined?tokenDefault:cookie.load("token")
     };
     return new Promise((resolve, reject) => {
         axios.post(api, {
@@ -32,7 +32,7 @@ http.get = function(api, data) {
     return new Promise((resolve, reject) => {
         axios.defaults.headers.common = {
             // 'Authorization': 'Bearer ' + tokenDefault
-            // 'Authorization': cookie.load("token")===undefined?tokenDefault:cookie.load("token")
+            'Authorization': cookie.load("token")===undefined?tokenDefault:cookie.load("token")
         };
         axios.get(api, {
             params: data,
